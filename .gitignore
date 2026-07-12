@@ -1,0 +1,5 @@
+dist/
+dev-server.log
+node_modules/
+.DS_Store
+Thumbs.db

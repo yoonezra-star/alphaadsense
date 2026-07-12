@@ -1,0 +1,11 @@
+{
+  "name": "alphaadsense",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "powershell -ExecutionPolicy Bypass -File scripts/make-assets.ps1",
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/dev.mjs"
+  }
+}
