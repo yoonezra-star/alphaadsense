@@ -59,7 +59,12 @@ const articles = [
   ["resources", "content-calendar-30-days", "30일 콘텐츠 발행 계획표", "승인 준비 사이트를 한 달 동안 무리 없이 채우는 글 발행 순서입니다.", ["1주차에는 소개, 정책, 핵심 가이드처럼 뼈대를 만듭니다.", "2주차에는 카테고리별 대표 글을 고르게 채웁니다.", "3주차에는 거절 사유와 체크리스트형 글을 보강합니다.", "4주차에는 내부 링크, 색인, 업데이트를 점검합니다."]],
   ["resources", "rejection-message-map", "거절 메시지별 대응표", "애드센스 심사 메시지를 받았을 때 어떤 영역부터 고칠지 정리한 자료입니다.", ["가치가 낮은 콘텐츠는 글의 깊이와 중복성을 먼저 봅니다.", "탐색 문제는 메뉴, 링크, 모바일 화면을 확인합니다.", "접근 불가는 DNS, HTTPS, 리다이렉트, 보안 설정을 점검합니다.", "정책 문제는 해당 글을 수정하거나 신청 전 제외합니다."]],
   ["resources", "glossary-for-beginners", "애드센스 초보 용어 정리", "RPM, CPC, CTR, 무효 트래픽, 사이트맵 같은 기본 용어를 쉽게 정리했습니다.", ["RPM은 전체 수익 효율을 보는 지표입니다.", "CTR은 광고 클릭률이지만 인위적으로 높이려 해서는 안 됩니다.", "무효 트래픽은 계정 제한으로 이어질 수 있어 가장 조심해야 합니다.", "사이트맵은 검색엔진이 페이지를 찾는 데 도움을 주는 파일입니다."]],
-  ["resources", "cloudflare-gabia-domain-guide", "가비아 도메인을 Cloudflare Pages에 연결하는 순서", "alphaadsense.com처럼 가비아에 있는 도메인을 Cloudflare Pages에 연결하는 기본 흐름입니다.", ["Cloudflare에 도메인을 추가하고 안내되는 네임서버를 확인합니다.", "가비아 도메인 관리에서 네임서버를 Cloudflare 값으로 바꿉니다.", "Cloudflare Pages에서 GitHub 저장소를 연결하고 커스텀 도메인을 추가합니다.", "HTTPS가 활성화된 뒤 Search Console과 AdSense 신청을 진행합니다."]]
+  ["resources", "cloudflare-gabia-domain-guide", "가비아 도메인을 Cloudflare Pages에 연결하는 순서", "alphaadsense.com처럼 가비아에 있는 도메인을 Cloudflare Pages에 연결하는 기본 흐름입니다.", ["Cloudflare에 도메인을 추가하고 안내되는 네임서버를 확인합니다.", "가비아 도메인 관리에서 네임서버를 Cloudflare 값으로 바꿉니다.", "Cloudflare Pages에서 GitHub 저장소를 연결하고 커스텀 도메인을 추가합니다.", "HTTPS가 활성화된 뒤 Search Console과 AdSense 신청을 진행합니다."]],
+  ["approval", "site-structure-audit-example", "애드센스 승인 전 사이트 구조 점검 실제 예시", "신청 전 사이트를 홈, 메뉴, 카테고리, 정책 페이지, 모바일 화면 순서로 점검하는 사례형 가이드입니다.", ["홈 첫 화면에서 사이트의 주제와 대상 독자가 바로 보이는지 확인합니다.", "상단 메뉴와 하단 정책 링크가 같은 기준으로 연결되는지 봅니다.", "빈 카테고리, 임시 페이지, 깨진 링크가 심사 경로에 남아 있지 않아야 합니다.", "모바일 화면에서 메뉴, 버튼, 본문, 표가 겹치지 않는지 실제 기기로 확인합니다."]],
+  ["rejection", "low-value-rejection-rewrite-example", "가치가 낮은 콘텐츠 거절 후 수정 예시", "낮은 가치 콘텐츠 거절을 받았다는 가정에서 글 통합, 본문 보강, 내부 링크 정리를 어떻게 진행하는지 정리했습니다.", ["비슷한 제목의 짧은 글을 하나의 종합 가이드로 병합합니다.", "각 글에 문제 상황, 판단 기준, 수정 예시, 신청 전 체크 항목을 추가합니다.", "검색 결과 요약처럼 보이는 일반론 문장을 줄이고 운영자의 판단을 넣습니다.", "재신청 전에는 수정한 글과 제외한 글의 목록을 따로 기록합니다."]],
+  ["policy", "privacy-cookie-page-example", "개인정보처리방침과 쿠키 정책 작성 예시", "애드센스 적용 예정 사이트가 개인정보처리방침과 쿠키 정책을 어떻게 분리해 작성할 수 있는지 보여 주는 사례입니다.", ["개인정보처리방침에는 문의 응답에 필요한 수집 항목과 연락처를 적습니다.", "쿠키 정책에는 광고 쿠키, 맞춤 광고, 제3자 공급업체 가능성을 설명합니다.", "정책 페이지는 하단 링크에서 항상 접근 가능해야 합니다.", "애드센스 적용 후 실제 사용하는 광고와 분석 도구에 맞춰 문구를 다시 검토합니다."]],
+  ["resources", "cloudflare-search-console-example", "Cloudflare Pages 배포 후 Search Console 등록 예시", "Cloudflare Pages로 배포한 정적 사이트를 Search Console에 등록하고 sitemap을 제출하는 흐름을 예시로 정리했습니다.", ["커스텀 도메인의 HTTPS가 정상화된 뒤 Search Console 속성을 추가합니다.", "도메인 속성과 URL 접두어 속성 중 운영 방식에 맞는 방법을 선택합니다.", "sitemap.xml 제출 후 주요 페이지가 발견되는지 확인합니다.", "색인이 늦는 글은 내부 링크와 본문 첫 문단을 보강한 뒤 URL 검사를 요청합니다."]],
+  ["resources", "seven-day-pre-apply-log-example", "애드센스 신청 전 7일 점검 기록 예시", "신청 직전 일주일 동안 어떤 항목을 매일 확인하고 기록하면 좋은지 정리한 승인 준비 로그입니다.", ["1~2일차에는 필수 페이지와 메뉴 구조를 점검합니다.", "3~4일차에는 대표 글의 깊이와 중복 문장을 보강합니다.", "5일차에는 모바일 화면과 깨진 링크를 확인합니다.", "6~7일차에는 Search Console 색인 상태와 정책 위험 표현을 최종 점검합니다."]]
 ];
 
 const officialLinks = [
@@ -120,6 +125,31 @@ const deepDives = {
     title: "연결 후 확인 순서",
     html: `<p>가비아에서 네임서버를 Cloudflare로 바꾼 뒤에는 DNS 전파, Pages 커스텀 도메인, HTTPS 인증서, Search Console 등록을 순서대로 확인해야 합니다. DNS가 잡혔더라도 Pages의 Custom domains 상태가 Active가 되기 전에는 애드센스 신청을 미루는 것이 안전합니다.</p>
     <table><thead><tr><th>단계</th><th>확인할 주소</th><th>정상 상태</th></tr></thead><tbody><tr><td>DNS</td><td>NS 조회</td><td>danica, lynn Cloudflare 네임서버 표시</td></tr><tr><td>Pages</td><td>Custom domains</td><td>alphaadsense.com과 www가 Active</td></tr><tr><td>HTTPS</td><td>https://alphaadsense.com</td><td>홈페이지 200 응답</td></tr><tr><td>색인</td><td>Search Console</td><td>sitemap 제출 및 주요 URL 발견</td></tr></tbody></table>`
+  },
+  "site-structure-audit-example": {
+    title: "점검 사례",
+    html: `<p>예를 들어 승인 전 사이트를 점검할 때 홈, 카테고리, 글 상세, 정책 페이지를 각각 따로 보지 말고 하나의 사용자 흐름으로 확인합니다. 방문자가 홈에 들어와 승인 가이드를 읽고, 관련 체크리스트를 확인한 뒤, 하단에서 운영자 정보와 정책 페이지를 볼 수 있으면 탐색 품질이 안정적입니다.</p>
+    <table><thead><tr><th>점검 위치</th><th>확인한 문제</th><th>수정 예시</th></tr></thead><tbody><tr><td>홈</td><td>최신 글만 보여 주어 사이트 목적이 약함</td><td>대표 카테고리와 승인 전 핵심 원칙을 첫 화면에 배치</td></tr><tr><td>카테고리</td><td>글 목록만 있고 읽는 순서가 없음</td><td>추천 읽기 순서와 대표 글 설명 추가</td></tr><tr><td>글 상세</td><td>관련 글 이동 경로가 부족함</td><td>같은 카테고리 글 3개를 하단에 연결</td></tr><tr><td>하단</td><td>정책 페이지 접근성이 약함</td><td>개인정보, 쿠키, 문의, 운영 원칙 링크 노출</td></tr></tbody></table>`
+  },
+  "low-value-rejection-rewrite-example": {
+    title: "수정 전후 사례",
+    html: `<p>낮은 가치 콘텐츠 거절을 받았다고 가정하면 가장 먼저 해야 할 일은 글 수를 늘리는 것이 아니라 기존 글의 역할을 다시 나누는 것입니다. 같은 말을 반복하는 글은 병합하고, 대표 글에는 실제 판단 기준과 수정 예시를 넣어야 합니다.</p>
+    <table><thead><tr><th>수정 전 상태</th><th>문제</th><th>수정 후 상태</th></tr></thead><tbody><tr><td>승인 방법 글 6개가 비슷한 문장으로 반복됨</td><td>중복 콘텐츠처럼 보일 수 있음</td><td>전체 로드맵 1개와 세부 점검 글 3개로 정리</td></tr><tr><td>각 글이 800자 안팎의 일반론</td><td>독자가 실행할 정보가 부족함</td><td>표, 체크리스트, 수정 전후 예시를 추가</td></tr><tr><td>정책 페이지 링크가 글에서 보이지 않음</td><td>신뢰와 탐색성이 약함</td><td>하단 공통 링크와 관련 글 링크를 보강</td></tr></tbody></table>`
+  },
+  "privacy-cookie-page-example": {
+    title: "정책 페이지 분리 사례",
+    html: `<p>개인정보처리방침과 쿠키 정책을 하나의 페이지에 모두 넣을 수도 있지만, 애드센스 승인 준비 사이트라면 분리해 두는 편이 더 명확합니다. 개인정보처리방침은 사용자가 직접 제공하는 정보와 문의 처리를 다루고, 쿠키 정책은 광고와 맞춤 광고 선택권을 중심으로 설명합니다.</p>
+    <table><thead><tr><th>페이지</th><th>담을 내용</th><th>승인 관점의 의미</th></tr></thead><tbody><tr><td>개인정보처리방침</td><td>문의 이메일, 문의 내용, 보관 목적, 요청 방법</td><td>운영자와 사용자 권리 안내</td></tr><tr><td>쿠키 정책</td><td>광고 쿠키, 제3자 공급업체, 맞춤 광고 선택 해제</td><td>광고 기술 사용 가능성 고지</td></tr><tr><td>면책 고지</td><td>승인 보장 없음, 정책 변경 가능성, 정보 제공 목적</td><td>과장 표현과 오해 방지</td></tr></tbody></table>`
+  },
+  "cloudflare-search-console-example": {
+    title: "등록 흐름 예시",
+    html: `<p>Cloudflare Pages 배포 직후에는 기본 pages.dev 주소가 먼저 열리고, 커스텀 도메인은 DNS와 SSL 검증 시간이 필요할 수 있습니다. Search Console 등록은 커스텀 도메인의 HTTPS가 안정적으로 열린 뒤 진행하는 것이 좋습니다.</p>
+    <table><thead><tr><th>순서</th><th>할 일</th><th>완료 기준</th></tr></thead><tbody><tr><td>1</td><td>Cloudflare Pages 배포 확인</td><td>pages.dev 주소가 200 응답</td></tr><tr><td>2</td><td>커스텀 도메인 연결</td><td>alphaadsense.com과 www가 Active</td></tr><tr><td>3</td><td>Search Console 등록</td><td>도메인 속성 또는 URL 접두어 속성 확인</td></tr><tr><td>4</td><td>sitemap 제출</td><td>제출 성공 후 주요 URL 발견</td></tr></tbody></table>`
+  },
+  "seven-day-pre-apply-log-example": {
+    title: "7일 기록 예시",
+    html: `<p>신청 직전 7일은 새 글을 무리하게 늘리는 기간이 아니라 사이트 전체를 안정화하는 기간으로 보는 것이 좋습니다. 하루마다 확인한 항목과 수정한 내용을 남기면 재심사가 필요할 때도 같은 실수를 줄일 수 있습니다.</p>
+    <table><thead><tr><th>날짜</th><th>점검 주제</th><th>기록 예시</th></tr></thead><tbody><tr><td>1일차</td><td>필수 페이지</td><td>소개, 문의, 개인정보, 쿠키, 이용약관, 면책 고지 접근 확인</td></tr><tr><td>2일차</td><td>메뉴와 카테고리</td><td>빈 카테고리 없음, 추천 읽기 순서 추가</td></tr><tr><td>3~4일차</td><td>대표 글 보강</td><td>표와 체크리스트 추가, 중복 문장 삭제</td></tr><tr><td>5일차</td><td>모바일 화면</td><td>메뉴, 표, 버튼 겹침 없음 확인</td></tr><tr><td>6~7일차</td><td>색인과 정책</td><td>sitemap 제출, 주요 글 색인, 클릭 유도 표현 없음 확인</td></tr></tbody></table>`
   }
 };
 
