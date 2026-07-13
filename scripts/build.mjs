@@ -23,6 +23,7 @@ const nav = [
   ["공식 자료", "/official-resources/"],
   ["FAQ", "/faq/"],
   ["검색", "/search/"],
+  ["도구", "/tools/"],
   ["체크리스트", "/checklist/"],
   ["소개", "/about/"],
   ["문의", "/contact/"]
@@ -505,6 +506,8 @@ const body = `<section class="home-hero">
     <a href="/faq/">초보자 FAQ</a>
     <a href="/search/">사이트 검색</a>
     <a href="/sitemap/">전체 글 목록</a>
+    <a href="/tools/approval-score/">승인 점수 진단</a>
+    <a href="/tools/rejection-diagnosis/">거절 사유 진단</a>
   </div>
 </section>
 <section class="band">
@@ -605,6 +608,10 @@ const searchableStaticPages = [
   ["/approval-hub/", "애드센스 승인 준비 허브", "승인 준비 흐름을 단계별 대표 가이드로 모은 허브입니다.", "허브"],
   ["/official-resources/", "공식 자료 활용 안내", "애드센스와 검색, 배포 관련 공식 자료를 확인하는 기준입니다.", "자료"],
   ["/faq/", "애드센스 초보자 FAQ", "승인 준비 과정에서 자주 묻는 질문과 답변입니다.", "FAQ"],
+  ["/tools/", "애드센스 승인 점검 도구", "승인 준비 상태를 직접 점검할 수 있는 도구 모음입니다.", "도구"],
+  ["/tools/approval-score/", "애드센스 승인 준비 점수 진단", "필수 페이지, 콘텐츠, 정책, 색인, 모바일 상태를 기준으로 준비 점수를 계산합니다.", "도구"],
+  ["/tools/rejection-diagnosis/", "애드센스 거절 사유 진단", "거절 메시지 유형별로 먼저 확인할 항목과 수정 방향을 정리합니다.", "도구"],
+  ["/tools/content-planner/", "30일 글쓰기 계획 도구", "승인 준비 사이트를 한 달 동안 안정적으로 채우는 주차별 계획입니다.", "도구"],
   ["/checklist/", "애드센스 신청 전 체크리스트", "신청 직전 필수 페이지, 콘텐츠, 기술 상태를 확인하는 점검표입니다.", "체크리스트"],
   ["/privacy/", "개인정보처리방침", "개인정보 처리와 광고 쿠키 관련 고지입니다.", "정책"],
   ["/cookie-policy/", "쿠키 정책", "광고 쿠키와 맞춤 광고 선택권에 대한 안내입니다.", "정책"],
@@ -695,6 +702,118 @@ write("updates/index.html", staticPage("업데이트 기록", "사이트 구조,
 <h2>다음 점검 예정</h2>
 <ul><li>커스텀 도메인의 HTTPS 상태 확인</li><li>Search Console sitemap 제출 후 주요 URL 발견 여부 확인</li><li>대표 글의 모바일 화면과 표 가독성 재확인</li><li>거절 사례와 재신청 기록형 글 추가 여부 검토</li></ul>`));
 
+write("tools/index.html", staticPage("애드센스 승인 점검 도구", "승인 준비 상태를 직접 점검할 수 있는 진단 도구와 계획표를 모았습니다.", "/tools/", `
+<p>도구 페이지는 승인 보장을 위한 계산기가 아니라, 신청 전 빠뜨리기 쉬운 항목을 스스로 확인하기 위한 보조 자료입니다. 결과는 참고용으로만 사용하고, 최종 판단은 Google AdSense 정책과 실제 심사 결과를 기준으로 봐야 합니다.</p>
+<div class="hub-list">
+  <a href="/tools/approval-score/"><strong>승인 준비 점수 진단</strong><span>필수 페이지, 콘텐츠, 정책, 색인, 모바일 상태를 체크해 준비 점수를 계산합니다.</span></a>
+  <a href="/tools/rejection-diagnosis/"><strong>거절 사유 진단</strong><span>거절 메시지 유형을 선택하면 우선 점검할 영역과 관련 가이드를 보여 줍니다.</span></a>
+  <a href="/tools/content-planner/"><strong>30일 글쓰기 계획 도구</strong><span>현재 사이트 상태에 맞춰 일주일 단위 발행 계획을 확인합니다.</span></a>
+  <a href="/checklist/"><strong>최종 체크리스트</strong><span>신청 직전 필수 페이지와 기술 상태를 다시 확인합니다.</span></a>
+</div>
+<h2>사용 순서</h2>
+<ol><li>시작 가이드로 사이트의 기본 구조를 확인합니다.</li><li>승인 준비 점수 진단으로 누락된 항목을 찾습니다.</li><li>점수가 낮은 영역은 승인 준비 허브의 관련 글로 이동해 보강합니다.</li><li>거절 경험이 있다면 거절 사유 진단을 사용해 재신청 전 수정 순서를 정합니다.</li></ol>`));
+
+write("tools/approval-score/index.html", staticPage("애드센스 승인 준비 점수 진단", "필수 페이지, 콘텐츠 품질, 정책 안정성, 색인 상태, 모바일 화면을 기준으로 승인 준비 상태를 점검합니다.", "/tools/approval-score/", `
+<p>아래 항목을 현재 사이트 기준으로 체크하면 준비 점수가 계산됩니다. 점수가 높다고 승인이 보장되는 것은 아니지만, 낮게 나온 영역은 신청 전 먼저 보강하는 것이 안전합니다.</p>
+<form class="tool-panel" id="score-tool">
+  <fieldset><legend>필수 페이지와 신뢰</legend><label><input type="checkbox" data-points="10"> 소개, 문의, 개인정보처리방침, 쿠키 정책이 공개되어 있다.</label><label><input type="checkbox" data-points="8"> 하단에서 정책 페이지와 문의 페이지에 항상 접근할 수 있다.</label><label><input type="checkbox" data-points="7"> 사이트 주제와 운영 목적이 홈에서 분명하게 보인다.</label></fieldset>
+  <fieldset><legend>콘텐츠와 탐색</legend><label><input type="checkbox" data-points="12"> 카테고리마다 대표 글이 있고 빈 카테고리가 없다.</label><label><input type="checkbox" data-points="12"> 주요 글에 예시, 표, 체크리스트, 관련 링크가 들어 있다.</label><label><input type="checkbox" data-points="8"> 중복되거나 일반론만 반복하는 짧은 글을 정리했다.</label></fieldset>
+  <fieldset><legend>기술과 색인</legend><label><input type="checkbox" data-points="10"> HTTPS와 www/루트 도메인이 정상 접속된다.</label><label><input type="checkbox" data-points="8"> sitemap.xml과 robots.txt가 정상 배포된다.</label><label><input type="checkbox" data-points="8"> Search Console에서 주요 URL이 발견된다.</label></fieldset>
+  <fieldset><legend>모바일과 정책</legend><label><input type="checkbox" data-points="8"> 모바일에서 메뉴, 표, 이미지가 겹치지 않는다.</label><label><input type="checkbox" data-points="5"> 클릭 유도, 수익 보장, 승인 보장 표현이 없다.</label><label><input type="checkbox" data-points="4"> 공식 자료 기준으로 정책 위험 문구를 다시 확인했다.</label></fieldset>
+</form>
+<div class="score-output" id="score-output"><strong>0점</strong><span>체크 항목을 선택하면 진단 결과가 표시됩니다.</span></div>
+<h2>점수 해석</h2>
+<table><thead><tr><th>점수</th><th>해석</th><th>추천 행동</th></tr></thead><tbody><tr><td>85점 이상</td><td>신청 전 기본 준비가 비교적 안정적입니다.</td><td>HTTPS, 색인, 모바일 화면을 마지막으로 확인합니다.</td></tr><tr><td>70~84점</td><td>신청은 가능하지만 약한 영역이 남아 있습니다.</td><td>낮은 점수 영역의 대표 글과 정책 페이지를 보강합니다.</td></tr><tr><td>69점 이하</td><td>신청 전 보강이 더 필요합니다.</td><td>시작 가이드와 승인 준비 허브부터 다시 점검합니다.</td></tr></tbody></table>
+<script>
+(function () {
+  const form = document.getElementById("score-tool");
+  const output = document.getElementById("score-output");
+  function render() {
+    const checked = Array.from(form.querySelectorAll("input:checked"));
+    const score = checked.reduce((sum, item) => sum + Number(item.dataset.points), 0);
+    let message = "신청 전 기본 구조와 콘텐츠를 더 보강하세요.";
+    if (score >= 85) message = "신청 전 최종 점검 단계로 볼 수 있습니다.";
+    else if (score >= 70) message = "큰 틀은 갖췄지만 약한 영역을 더 보강하세요.";
+    output.innerHTML = "<strong>" + score + "점</strong><span>" + message + "</span>";
+  }
+  form.addEventListener("change", render);
+  render();
+}());
+</script>`));
+
+write("tools/rejection-diagnosis/index.html", staticPage("애드센스 거절 사유 진단", "거절 메시지 유형별로 먼저 확인할 항목과 수정 방향을 정리하는 진단 도구입니다.", "/tools/rejection-diagnosis/", `
+<p>거절 메시지는 같은 문구라도 사이트마다 원인이 다를 수 있습니다. 아래에서 가장 가까운 유형을 선택하고, 우선 점검 항목을 따라가며 수정 기록을 남기세요.</p>
+<div class="tool-panel">
+  <label for="reject-type"><strong>거절 유형 선택</strong></label>
+  <select id="reject-type">
+    <option value="low">가치가 낮은 콘텐츠</option>
+    <option value="nav">탐색 문제 또는 사이트 구조 문제</option>
+    <option value="access">사이트 접근 불가 또는 다운</option>
+    <option value="policy">정책 위반 가능성</option>
+    <option value="unknown">메시지가 모호하거나 여러 문제가 의심됨</option>
+  </select>
+</div>
+<div class="diagnosis-result" id="diagnosis-result"></div>
+<h2>재신청 전 공통 원칙</h2>
+<ul><li>수정한 글과 제외한 글의 목록을 따로 기록합니다.</li><li>대표 글을 먼저 보강하고, 비슷한 짧은 글은 병합하거나 역할을 나눕니다.</li><li>HTTPS, sitemap, 모바일 화면, 내부 링크를 다시 확인합니다.</li><li>수정 직후 바로 신청하기보다 주요 페이지가 안정적으로 열리는지 확인합니다.</li></ul>
+<h2>수정 기록에 남길 내용</h2>
+<p>거절 후에는 어떤 페이지를 고쳤는지보다 왜 고쳤는지가 더 중요합니다. 예를 들어 낮은 가치 콘텐츠가 의심되면 대표 글에 추가한 표, 예시, 판단 기준을 기록하고, 탐색 문제가 의심되면 메뉴와 하단 링크를 어떻게 바꿨는지 남깁니다. 이 기록은 재신청 버튼을 누르기 전에 같은 문제를 반복하지 않도록 돕는 내부 점검표 역할을 합니다.</p>
+<h2>관련해서 함께 볼 페이지</h2>
+<ul><li><a href="/approval-hub/">애드센스 승인 준비 허브</a></li><li><a href="/tools/approval-score/">승인 준비 점수 진단</a></li><li><a href="/guides/seven-day-pre-apply-log-example/">신청 전 7일 점검 기록 예시</a></li></ul>
+<script>
+(function () {
+  const data = {
+    low: { title: "가치가 낮은 콘텐츠", points: ["대표 글의 깊이와 중복성을 먼저 봅니다.", "문제 상황, 판단 기준, 수정 예시, 체크리스트를 추가합니다.", "검색 결과 요약처럼 보이는 일반론을 줄입니다."], links: [["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["승인 친화적 글 구성", "/guides/approval-friendly-article-format/"]] },
+    nav: { title: "탐색 문제", points: ["상단 메뉴와 하단 링크가 같은 기준으로 연결되는지 봅니다.", "빈 카테고리와 깨진 링크를 제거합니다.", "카테고리 페이지에 읽는 순서를 추가합니다."], links: [["사이트 구조 점검", "/guides/site-structure-audit-example/"], ["탐색 문제 해결", "/guides/navigation-issue-fix/"]] },
+    access: { title: "접근 불가", points: ["루트 도메인과 www 주소가 모두 열리는지 확인합니다.", "HTTPS 인증서와 Cloudflare Pages 커스텀 도메인 상태를 봅니다.", "봇 접근을 막는 보안 규칙을 최소화합니다."], links: [["사이트 접근 문제 해결", "/guides/site-down-unavailable/"], ["Cloudflare 등록 예시", "/guides/cloudflare-search-console-example/"]] },
+    policy: { title: "정책 위험", points: ["금지 콘텐츠, 클릭 유도, 승인 보장 표현을 제거합니다.", "개인정보처리방침과 쿠키 정책의 광고 관련 문구를 확인합니다.", "수익 보장과 과장된 표현을 면책 고지 기준으로 낮춥니다."], links: [["금지 콘텐츠 점검", "/guides/prohibited-content-check/"], ["정책 페이지 예시", "/guides/privacy-cookie-page-example/"]] },
+    unknown: { title: "복합 문제", points: ["홈, 카테고리, 대표 글, 정책 페이지를 같은 흐름으로 점검합니다.", "Search Console에서 발견된 주요 URL과 실제 공개 URL을 비교합니다.", "수정 기록을 남기고 일주일 점검표로 안정화합니다."], links: [["승인 준비 허브", "/approval-hub/"], ["7일 점검 기록", "/guides/seven-day-pre-apply-log-example/"]] }
+  };
+  const select = document.getElementById("reject-type");
+  const result = document.getElementById("diagnosis-result");
+  function render() {
+    const item = data[select.value];
+    result.innerHTML = "<h2>" + item.title + "</h2><ul>" + item.points.map((point) => "<li>" + point + "</li>").join("") + "</ul><div class=\\"topic-pills\\">" + item.links.map((link) => "<a href=\\"" + link[1] + "\\">" + link[0] + "</a>").join("") + "</div>";
+  }
+  select.addEventListener("change", render);
+  render();
+}());
+</script>`));
+
+write("tools/content-planner/index.html", staticPage("30일 글쓰기 계획 도구", "승인 준비 사이트를 한 달 동안 안정적으로 채우기 위한 주차별 글쓰기 계획을 제안합니다.", "/tools/content-planner/", `
+<p>승인 준비용 사이트는 하루에 많은 글을 몰아서 올리는 것보다, 카테고리별 대표 글과 정책 페이지를 균형 있게 갖추는 편이 좋습니다. 현재 상태를 선택하면 우선순위에 맞는 30일 계획을 볼 수 있습니다.</p>
+<div class="tool-panel">
+  <label for="site-stage"><strong>현재 상태</strong></label>
+  <select id="site-stage">
+    <option value="new">도메인과 기본 페이지만 만든 상태</option>
+    <option value="content">글은 있지만 깊이가 부족한 상태</option>
+    <option value="reject">거절 후 재신청을 준비하는 상태</option>
+  </select>
+</div>
+<div class="planner-output" id="planner-output"></div>
+<h2>발행 계획을 지킬 때 주의할 점</h2>
+<ul><li>같은 제목을 조금 바꾼 글을 여러 개 만들지 않습니다.</li><li>각 글은 하나의 독자 문제를 해결하도록 구성합니다.</li><li>발행 후에는 내부 링크와 카테고리 페이지의 읽는 순서를 함께 수정합니다.</li><li>정책이나 공식 기준을 다루는 글은 출처와 수정일을 확인합니다.</li></ul>
+<h2>계획을 조정하는 기준</h2>
+<p>30일 계획은 반드시 하루 단위로 지켜야 하는 일정표가 아니라, 승인 준비 사이트가 균형을 잃지 않도록 돕는 기준표입니다. 정책 페이지가 부족하면 글 발행보다 정책 정리를 먼저 하고, 대표 글의 깊이가 부족하면 새 글을 늘리기보다 기존 글을 보강합니다. 거절 후 재신청 단계라면 발행 속도보다 수정 기록과 안정화 기간을 우선해야 합니다.</p>
+<h2>계획과 함께 확인할 자료</h2>
+<ul><li><a href="/guides/content-calendar-30-days/">30일 콘텐츠 발행 계획표</a></li><li><a href="/tools/approval-score/">승인 준비 점수 진단</a></li><li><a href="/sitemap/">전체 글 목록</a></li></ul>
+<script>
+(function () {
+  const plans = {
+    new: ["1주차: 소개, 문의, 개인정보, 쿠키, 면책 고지, 시작 가이드를 완성합니다.", "2주차: 승인 준비, 글쓰기, 정책 체크 카테고리의 대표 글을 작성합니다.", "3주차: 거절 해결 사례와 체크리스트형 글을 추가합니다.", "4주차: 내부 링크, sitemap, 모바일 화면, 검색 페이지를 점검합니다."],
+    content: ["1주차: 짧고 반복되는 글을 병합하고 대표 글을 정합니다.", "2주차: 각 대표 글에 표, 예시, 수정 기록, 관련 글 링크를 추가합니다.", "3주차: 정책 페이지와 공식 자료 링크를 보강합니다.", "4주차: Search Console, 내부 링크, 카테고리 허브를 재점검합니다."],
+    reject: ["1주차: 거절 메시지를 분류하고 수정 대상 글 목록을 만듭니다.", "2주차: 낮은 가치 또는 탐색 문제에 해당하는 글과 메뉴를 먼저 고칩니다.", "3주차: 모바일, HTTPS, sitemap, 정책 문구를 다시 확인합니다.", "4주차: 7일 점검 기록을 남기고 안정화 후 재신청을 검토합니다."]
+  };
+  const select = document.getElementById("site-stage");
+  const output = document.getElementById("planner-output");
+  function render() {
+    output.innerHTML = "<ol class=\\"update-list\\">" + plans[select.value].map((item) => "<li><span>" + item + "</span></li>").join("") + "</ol>";
+  }
+  select.addEventListener("change", render);
+  render();
+}());
+</script>`));
+
 write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적과 콘텐츠 작성 원칙을 안내합니다.", "/about/", `
 <p>Alpha AdSense는 애드센스 승인을 준비하는 초보 사이트 운영자를 위해 만들어진 독립 정보 사이트입니다. 승인 보장을 약속하지 않고, 공식 정책을 기준으로 사이트 구조와 콘텐츠 품질을 점검하는 방법을 정리합니다.</p>
 <h2>운영 원칙</h2>
@@ -756,6 +875,10 @@ const urls = [
   "/search/",
   "/sitemap/",
   "/updates/",
+  "/tools/",
+  "/tools/approval-score/",
+  "/tools/rejection-diagnosis/",
+  "/tools/content-planner/",
   "/about/",
   "/contact/",
   "/privacy/",
@@ -853,6 +976,16 @@ p { margin: 0 0 16px; }
 .update-list { display: grid; gap: 12px; padding-left: 0; list-style: none; }
 .update-list li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; }
 .update-list span { display: block; color: var(--muted); margin-top: 4px; }
+.tool-panel { display: grid; gap: 16px; border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: var(--soft); margin: 18px 0 24px; }
+.tool-panel fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: white; }
+.tool-panel legend { font-weight: 800; padding: 0 6px; }
+.tool-panel label { display: grid; gap: 6px; margin: 8px 0; }
+.tool-panel label:has(input[type="checkbox"]) { grid-template-columns: auto 1fr; align-items: start; }
+.tool-panel input[type="checkbox"] { margin-top: 7px; }
+.tool-panel select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; background: white; }
+.score-output, .diagnosis-result, .planner-output { border: 1px solid var(--line); border-radius: 8px; padding: 18px; margin: 18px 0 28px; background: white; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
+.score-output strong { display: block; font-size: 34px; line-height: 1; margin-bottom: 8px; color: var(--blue); }
+.score-output span { color: var(--muted); }
 .hub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 20px 0 28px; }
 .hub-list a { border: 1px solid var(--line); border-radius: 8px; padding: 18px; text-decoration: none; background: white; }
 .hub-list span { display: block; color: var(--muted); margin-top: 6px; }
