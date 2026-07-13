@@ -1,4 +1,4 @@
-import { copyFileSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 
 const site = {
@@ -165,6 +165,74 @@ function slugPath(slug) {
   return `/guides/${slug}/`;
 }
 
+const articleImages = {
+  "adsense-approval-roadmap": {
+    src: "/assets/approval-workflow.png",
+    alt: "애드센스 승인 준비 흐름도",
+    caption: "도메인, 구조, 콘텐츠, 정책, 색인 확인까지 이어지는 승인 준비 흐름입니다."
+  },
+  "site-structure-before-apply": {
+    src: "/assets/site-structure-audit.png",
+    alt: "승인 전 사이트 구조 점검 흐름도",
+    caption: "홈, 카테고리, 글 상세, 정책 페이지가 하나의 탐색 흐름으로 연결되는지 점검합니다."
+  },
+  "site-structure-audit-example": {
+    src: "/assets/site-structure-audit.png",
+    alt: "사이트 구조 점검 예시 이미지",
+    caption: "심사자가 이동할 수 있는 핵심 경로를 시각적으로 확인하는 예시입니다."
+  },
+  "low-value-content-fix": {
+    src: "/assets/low-value-rewrite.png",
+    alt: "낮은 가치 콘텐츠 수정 전후 비교",
+    caption: "반복 글을 줄이고 판단 기준, 예시, 체크리스트를 보강하는 방향입니다."
+  },
+  "low-value-rejection-rewrite-example": {
+    src: "/assets/low-value-rewrite.png",
+    alt: "가치가 낮은 콘텐츠 거절 수정 예시",
+    caption: "거절 후에는 글 수보다 역할 분리와 실제 실행 정보 보강이 먼저입니다."
+  },
+  "approval-friendly-article-format": {
+    src: "/assets/article-format.png",
+    alt: "애드센스 승인에 적합한 글 구성 도식",
+    caption: "문제 정의, 판단 기준, 실행 순서, 체크리스트가 들어간 본문 구조입니다."
+  },
+  "privacy-policy-for-adsense": {
+    src: "/assets/policy-pages-map.png",
+    alt: "애드센스 정책 페이지 구성 지도",
+    caption: "개인정보, 쿠키, 면책 고지, 문의 페이지의 역할을 분리해 보여 줍니다."
+  },
+  "privacy-cookie-page-example": {
+    src: "/assets/policy-pages-map.png",
+    alt: "개인정보처리방침과 쿠키 정책 분리 예시",
+    caption: "정책 페이지는 하단에서 항상 접근 가능하고 각 페이지의 목적이 분명해야 합니다."
+  },
+  "cloudflare-gabia-domain-guide": {
+    src: "/assets/deployment-search-console.png",
+    alt: "가비아 Cloudflare Search Console 연결 흐름",
+    caption: "가비아 도메인에서 Cloudflare Pages 배포와 Search Console 제출까지의 흐름입니다."
+  },
+  "cloudflare-search-console-example": {
+    src: "/assets/deployment-search-console.png",
+    alt: "Cloudflare Pages 배포 후 Search Console 등록 흐름",
+    caption: "HTTPS가 안정화된 뒤 Search Console 등록과 사이트맵 제출을 진행합니다."
+  },
+  "rejection-message-map": {
+    src: "/assets/rejection-response-map.png",
+    alt: "애드센스 거절 메시지별 대응 지도",
+    caption: "거절 메시지를 콘텐츠, 탐색, 접근, 정책 문제로 나누어 대응합니다."
+  },
+  "seven-day-pre-apply-log-example": {
+    src: "/assets/seven-day-checklist.png",
+    alt: "애드센스 신청 전 7일 점검 캘린더",
+    caption: "신청 직전 일주일은 새 글 추가보다 사이트 안정화와 기록에 집중합니다."
+  },
+  "pre-apply-checklist": {
+    src: "/assets/seven-day-checklist.png",
+    alt: "애드센스 신청 전 최종 점검 이미지",
+    caption: "필수 페이지, 콘텐츠, 모바일 화면, 색인 상태를 신청 전 마지막으로 확인합니다."
+  }
+};
+
 function layout({ title, description, path = "/", content }) {
   const url = `${site.domain}${path === "/" ? "" : path}`;
   return `<!doctype html>
@@ -225,6 +293,11 @@ function articlePage(article) {
   const [cat, slug, title, description, points] = article;
   const related = articles.filter((item) => item[0] === cat && item[1] !== slug).slice(0, 3);
   const deepDive = deepDives[slug];
+  const visual = articleImages[slug];
+  const visualFigure = visual ? `<figure class="article-visual">
+      <img src="${visual.src}" alt="${esc(visual.alt)}" loading="lazy" width="1400" height="760">
+      <figcaption>${esc(visual.caption)}</figcaption>
+    </figure>` : "";
   const diagnostics = points.map((point, index) => {
     const labels = ["기본 구조", "콘텐츠 품질", "정책 안정성", "신청 전 확인"];
     const fixes = ["현재 페이지에서 바로 확인합니다.", "본문에 예시와 판단 기준을 보강합니다.", "공식 정책과 모순되는 표현을 삭제합니다.", "수정 후 모바일과 내부 링크를 다시 봅니다."];
@@ -240,6 +313,7 @@ function articlePage(article) {
     <p>${esc(description)}</p>
   </section>
   <article class="wrap article">
+    ${visualFigure}
     <p>이 글은 애드센스 승인을 준비하는 초보 운영자가 실제로 점검할 수 있도록 작성했습니다. 승인 여부는 사이트 전체 품질, 정책 준수, 사용자 경험, 콘텐츠의 독창성에 따라 달라질 수 있으므로 단일 항목만 고치기보다 구조와 글 품질을 함께 확인하는 것이 좋습니다.</p>
     <h2>핵심 점검 항목</h2>
     <ul>${points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
@@ -305,8 +379,7 @@ function write(path, html) {
 
 function copyPublic() {
   if (!existsSync("public")) return;
-  mkdirSync("dist/assets", { recursive: true });
-  if (existsSync("public/assets/approval-workflow.png")) copyFileSync("public/assets/approval-workflow.png", "dist/assets/approval-workflow.png");
+  cpSync("public", "dist", { recursive: true });
 }
 
 rmSync("dist", { recursive: true, force: true });
@@ -524,6 +597,9 @@ p { margin: 0 0 16px; }
 .article a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .article h2 { margin-top: 34px; }
 .article li { margin-bottom: 8px; }
+.article-visual { margin: 24px 0 30px; }
+.article-visual img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); background: var(--soft); }
+.article-visual figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 15px; }
 .article th, .article td { border: 1px solid var(--line); padding: 12px; vertical-align: top; text-align: left; }
 .article th { background: #f4f8fb; }
