@@ -22,6 +22,7 @@ const nav = [
   ["시작 가이드", "/start-guide/"],
   ["공식 자료", "/official-resources/"],
   ["FAQ", "/faq/"],
+  ["검색", "/search/"],
   ["체크리스트", "/checklist/"],
   ["소개", "/about/"],
   ["문의", "/contact/"]
@@ -329,7 +330,7 @@ function layout({ title, description, path = "/", content, schema = [] }) {
       <div>
         <strong>운영 정보</strong>
         <p>문의: <a href="mailto:${site.email}">${site.email}</a></p>
-        <p><a href="/privacy/">개인정보처리방침</a> · <a href="/cookie-policy/">쿠키 정책</a> · <a href="/terms/">이용약관</a> · <a href="/disclaimer/">면책 고지</a> · <a href="/editorial-policy/">운영 원칙</a> · <a href="/sources/">출처</a></p>
+        <p><a href="/privacy/">개인정보처리방침</a> · <a href="/cookie-policy/">쿠키 정책</a> · <a href="/terms/">이용약관</a> · <a href="/disclaimer/">면책 고지</a> · <a href="/editorial-policy/">운영 원칙</a> · <a href="/sources/">출처</a> · <a href="/sitemap/">사이트맵</a> · <a href="/updates/">업데이트</a></p>
       </div>
     </div>
   </footer>
@@ -502,6 +503,8 @@ const body = `<section class="home-hero">
     <a href="/guides/low-value-rejection-rewrite-example/">낮은 가치 수정</a>
     <a href="/official-resources/">공식 자료 확인</a>
     <a href="/faq/">초보자 FAQ</a>
+    <a href="/search/">사이트 검색</a>
+    <a href="/sitemap/">전체 글 목록</a>
   </div>
 </section>
 <section class="band">
@@ -596,6 +599,102 @@ write("faq/index.html", staticPage("애드센스 초보자 FAQ", "승인 준비 
 <h2>답변을 업데이트하는 기준</h2>
 <p>FAQ는 승인 과정에서 반복해서 나오는 질문을 기준으로 계속 다듬어야 합니다. 공식 정책이 바뀌거나 Search Console, Cloudflare, AdSense 화면 구성이 달라지면 답변을 고정하지 않고 다시 확인합니다. 특히 승인 보장, 수익 보장, 클릭 유도처럼 오해를 부를 수 있는 표현은 발견 즉시 수정하는 것을 원칙으로 합니다.</p>`));
 
+const searchableStaticPages = [
+  ["/", "홈", site.description, "시작"],
+  ["/start-guide/", "애드센스 사이트 시작 가이드", "처음 사이트를 만들 때 필요한 도메인, 구조, 필수 페이지, 첫 글 발행 순서입니다.", "시작"],
+  ["/approval-hub/", "애드센스 승인 준비 허브", "승인 준비 흐름을 단계별 대표 가이드로 모은 허브입니다.", "허브"],
+  ["/official-resources/", "공식 자료 활용 안내", "애드센스와 검색, 배포 관련 공식 자료를 확인하는 기준입니다.", "자료"],
+  ["/faq/", "애드센스 초보자 FAQ", "승인 준비 과정에서 자주 묻는 질문과 답변입니다.", "FAQ"],
+  ["/checklist/", "애드센스 신청 전 체크리스트", "신청 직전 필수 페이지, 콘텐츠, 기술 상태를 확인하는 점검표입니다.", "체크리스트"],
+  ["/privacy/", "개인정보처리방침", "개인정보 처리와 광고 쿠키 관련 고지입니다.", "정책"],
+  ["/cookie-policy/", "쿠키 정책", "광고 쿠키와 맞춤 광고 선택권에 대한 안내입니다.", "정책"],
+  ["/editorial-policy/", "운영 원칙", "콘텐츠 작성 기준과 정책 준수 원칙입니다.", "운영"],
+  ["/sources/", "출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "자료"]
+];
+
+const searchIndex = [
+  ...searchableStaticPages.map(([url, title, description, category]) => ({ url, title, description, category })),
+  ...Object.entries(categories).map(([key, category]) => ({ url: `/${key}/`, title: category.title, description: category.description, category: "카테고리" })),
+  ...articles.map(([cat, slug, title, description, points]) => ({
+    url: slugPath(slug),
+    title,
+    description: `${description} ${points.join(" ")}`,
+    category: categories[cat].title
+  }))
+];
+
+write("search-index.json", JSON.stringify(searchIndex, null, 2));
+
+write("search/index.html", staticPage("사이트 검색", "애드센스 승인 준비, 거절 해결, 정책 체크, 글쓰기 자료를 한 번에 찾을 수 있는 내부 검색입니다.", "/search/", `
+<form class="search-box" role="search">
+  <label for="site-search">검색어</label>
+  <div><input id="site-search" type="search" placeholder="예: 낮은 가치, 쿠키, Cloudflare, 색인" autocomplete="off"><button class="button primary" type="submit">검색</button></div>
+</form>
+<div class="topic-pills search-suggestions">
+  <button type="button" data-query="낮은 가치">낮은 가치</button>
+  <button type="button" data-query="정책">정책</button>
+  <button type="button" data-query="색인">색인</button>
+  <button type="button" data-query="Cloudflare">Cloudflare</button>
+  <button type="button" data-query="쿠키">쿠키</button>
+  <button type="button" data-query="거절">거절</button>
+</div>
+<div id="search-results" class="search-results" aria-live="polite"></div>
+<h2>검색 활용법</h2>
+<p>검색어는 하나의 문제 단위로 입력하는 것이 좋습니다. 예를 들어 승인 전 기술 점검이 궁금하면 Cloudflare, HTTPS, 색인을 검색하고, 콘텐츠 보강이 필요하면 낮은 가치, 중복, 글 구성을 검색합니다. 정책 페이지를 확인할 때는 쿠키, 개인정보, 면책 고지처럼 페이지 이름을 직접 입력하면 관련 자료를 빠르게 찾을 수 있습니다.</p>
+<h2>찾기 어려울 때 보는 경로</h2>
+<ul><li>처음 사이트를 만드는 단계라면 <a href="/start-guide/">시작 가이드</a>를 먼저 봅니다.</li><li>전체 승인 흐름을 보고 싶다면 <a href="/approval-hub/">승인 준비 허브</a>를 확인합니다.</li><li>공식 기준이 필요한 글은 <a href="/official-resources/">공식 자료 활용 안내</a>와 함께 읽습니다.</li><li>모든 페이지를 한 번에 보고 싶다면 <a href="/sitemap/">전체 글 목록</a>을 사용합니다.</li></ul>
+<script>
+(async function () {
+  const input = document.getElementById("site-search");
+  const results = document.getElementById("search-results");
+  const form = document.querySelector(".search-box");
+  const params = new URLSearchParams(location.search);
+  const response = await fetch("/search-index.json");
+  const items = await response.json();
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+    input.value = query;
+    const matches = q ? items.filter((item) => [item.title, item.description, item.category].join(" ").toLowerCase().includes(q)).slice(0, 24) : items.slice(0, 12);
+    results.innerHTML = "<p class=\\"result-count\\">" + matches.length + "개 결과</p>" + matches.map((item) => "<article class=\\"search-result\\"><p class=\\"eyebrow\\">" + item.category + "</p><h2><a href=\\"" + item.url + "\\">" + item.title + "</a></h2><p>" + item.description + "</p></article>").join("");
+    if (q) history.replaceState(null, "", "/search/?q=" + encodeURIComponent(query));
+  }
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    render(input.value);
+  });
+
+  document.querySelectorAll("[data-query]").forEach((button) => {
+    button.addEventListener("click", () => render(button.dataset.query));
+  });
+
+  render(params.get("q") || "");
+}());
+</script>`));
+
+write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 주요 허브, 정책 페이지, 카테고리, 가이드 글을 한눈에 볼 수 있는 사용자용 사이트맵입니다.", "/sitemap/", `
+<h2>주요 허브</h2>
+<ul class="site-map-list">${searchableStaticPages.slice(0, 6).map(([url, title, description]) => `<li><a href="${url}">${esc(title)}</a><span>${esc(description)}</span></li>`).join("")}</ul>
+<h2>카테고리</h2>
+<ul class="site-map-list">${Object.entries(categories).map(([key, category]) => `<li><a href="/${key}/">${esc(category.title)}</a><span>${esc(category.description)}</span></li>`).join("")}</ul>
+<h2>가이드 글</h2>
+<ul class="site-map-list">${articles.map(([cat, slug, title, description]) => `<li><a href="${slugPath(slug)}">${esc(title)}</a><span>${esc(categories[cat].title)} · ${esc(description)}</span></li>`).join("")}</ul>`));
+
+write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
+<h2>최근 업데이트</h2>
+<ol class="update-list">
+  <li><strong>2026-07-13</strong><span>내부 검색, 사용자용 사이트맵, 업데이트 기록 페이지를 추가했습니다.</span></li>
+  <li><strong>2026-07-13</strong><span>승인된 레퍼런스 구조를 참고해 시작 가이드, 공식 자료 안내, 승인 준비 허브, FAQ를 추가했습니다.</span></li>
+  <li><strong>2026-07-13</strong><span>가이드 글에 작성자, 업데이트 날짜, Article 및 Breadcrumb 구조화 데이터를 추가했습니다.</span></li>
+  <li><strong>2026-07-13</strong><span>핵심 글에 자체 제작 설명 이미지 8개를 추가했습니다.</span></li>
+  <li><strong>2026-07-13</strong><span>쿠키 정책, 운영 원칙, 면책 고지, 출처 페이지를 보강했습니다.</span></li>
+</ol>
+<h2>운영 기준</h2>
+<p>업데이트 기록은 승인 보장을 위한 장식이 아니라 실제 관리 기준을 남기기 위한 페이지입니다. 정책이나 플랫폼 화면이 바뀌면 관련 글의 본문, 이미지, 내부 링크를 함께 확인하고 필요한 경우 수정일을 갱신합니다.</p>
+<h2>다음 점검 예정</h2>
+<ul><li>커스텀 도메인의 HTTPS 상태 확인</li><li>Search Console sitemap 제출 후 주요 URL 발견 여부 확인</li><li>대표 글의 모바일 화면과 표 가독성 재확인</li><li>거절 사례와 재신청 기록형 글 추가 여부 검토</li></ul>`));
+
 write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적과 콘텐츠 작성 원칙을 안내합니다.", "/about/", `
 <p>Alpha AdSense는 애드센스 승인을 준비하는 초보 사이트 운영자를 위해 만들어진 독립 정보 사이트입니다. 승인 보장을 약속하지 않고, 공식 정책을 기준으로 사이트 구조와 콘텐츠 품질을 점검하는 방법을 정리합니다.</p>
 <h2>운영 원칙</h2>
@@ -654,6 +753,9 @@ const urls = [
   "/official-resources/",
   "/approval-hub/",
   "/faq/",
+  "/search/",
+  "/sitemap/",
+  "/updates/",
   "/about/",
   "/contact/",
   "/privacy/",
@@ -735,6 +837,22 @@ p { margin: 0 0 16px; }
 .quick-grid span, .card p { display: block; color: var(--muted); font-size: 15px; }
 .topic-pills { display: flex; flex-wrap: wrap; gap: 10px; }
 .topic-pills a { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font-weight: 700; color: var(--muted); }
+.topic-pills button { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font: inherit; font-weight: 700; color: var(--muted); cursor: pointer; }
+.search-box { display: grid; gap: 10px; margin: 8px 0 20px; }
+.search-box label { font-weight: 800; }
+.search-box div { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.search-box input { width: 100%; min-height: 46px; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: inherit; }
+.search-results { display: grid; gap: 12px; margin-top: 24px; }
+.result-count { color: var(--muted); font-weight: 800; }
+.search-result { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: white; }
+.search-result h2 { font-size: 20px; margin-bottom: 8px; }
+.site-map-list { display: grid; gap: 10px; padding-left: 0; list-style: none; }
+.site-map-list li { border-bottom: 1px solid var(--line); padding: 10px 0; }
+.site-map-list a { font-weight: 800; }
+.site-map-list span { display: block; color: var(--muted); margin-top: 4px; }
+.update-list { display: grid; gap: 12px; padding-left: 0; list-style: none; }
+.update-list li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; }
+.update-list span { display: block; color: var(--muted); margin-top: 4px; }
 .hub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 20px 0 28px; }
 .hub-list a { border: 1px solid var(--line); border-radius: 8px; padding: 18px; text-decoration: none; background: white; }
 .hub-list span { display: block; color: var(--muted); margin-top: 6px; }
@@ -783,6 +901,7 @@ p { margin: 0 0 16px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
   .nav { gap: 10px 12px; }
+  .search-box div { grid-template-columns: 1fr; }
   .article table { display: block; overflow-x: auto; white-space: normal; }
 }
 `);
