@@ -8,6 +8,9 @@ const site = {
   email: "replyleaders@naver.com"
 };
 
+const sitePublishedAt = "2026-07-13";
+const siteUpdatedAt = "2026-07-13";
+
 const nav = [
   ["홈", "/"],
   ["승인 가이드", "/approval/"],
@@ -165,6 +168,55 @@ function slugPath(slug) {
   return `/guides/${slug}/`;
 }
 
+function schemaScript(items) {
+  const graph = Array.isArray(items) ? items : [items];
+  const json = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replaceAll("<", "\\u003c");
+  return `<script type="application/ld+json">${json}</script>`;
+}
+
+function baseSchema(url, title, description) {
+  return [
+    {
+      "@type": "Organization",
+      "@id": `${site.domain}/#organization`,
+      "name": site.name,
+      "url": site.domain,
+      "email": site.email
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${site.domain}/#website`,
+      "name": site.name,
+      "url": site.domain,
+      "publisher": { "@id": `${site.domain}/#organization` },
+      "inLanguage": "ko-KR"
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${url}#webpage`,
+      "url": url,
+      "name": title,
+      "description": description,
+      "isPartOf": { "@id": `${site.domain}/#website` },
+      "inLanguage": "ko-KR",
+      "datePublished": sitePublishedAt,
+      "dateModified": siteUpdatedAt
+    }
+  ];
+}
+
+function breadcrumbSchema(items) {
+  return {
+    "@type": "BreadcrumbList",
+    "itemListElement": items.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": item.url
+    }))
+  };
+}
+
 const articleImages = {
   "adsense-approval-roadmap": {
     src: "/assets/approval-workflow.png",
@@ -233,8 +285,9 @@ const articleImages = {
   }
 };
 
-function layout({ title, description, path = "/", content }) {
+function layout({ title, description, path = "/", content, schema = [] }) {
   const url = `${site.domain}${path === "/" ? "" : path}`;
+  const schemas = [...baseSchema(url, title, description), ...schema];
   return `<!doctype html>
 <html lang="ko">
 <head>
@@ -248,6 +301,7 @@ function layout({ title, description, path = "/", content }) {
   <meta property="og:type" content="website">
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
+  ${schemaScript(schemas)}
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -298,6 +352,29 @@ function articlePage(article) {
       <img src="${visual.src}" alt="${esc(visual.alt)}" loading="lazy" width="1400" height="760">
       <figcaption>${esc(visual.caption)}</figcaption>
     </figure>` : "";
+  const path = slugPath(slug);
+  const url = `${site.domain}${path}`;
+  const imageUrl = visual ? `${site.domain}${visual.src}` : `${site.domain}/assets/approval-workflow.png`;
+  const articleSchema = [
+    breadcrumbSchema([
+      { name: site.name, url: site.domain },
+      { name: categories[cat].title, url: `${site.domain}/${cat}/` },
+      { name: title, url }
+    ]),
+    {
+      "@type": "Article",
+      "@id": `${url}#article`,
+      "headline": title,
+      "description": description,
+      "image": imageUrl,
+      "author": { "@id": `${site.domain}/#organization` },
+      "publisher": { "@id": `${site.domain}/#organization` },
+      "mainEntityOfPage": { "@id": `${url}#webpage` },
+      "datePublished": sitePublishedAt,
+      "dateModified": siteUpdatedAt,
+      "inLanguage": "ko-KR"
+    }
+  ];
   const diagnostics = points.map((point, index) => {
     const labels = ["기본 구조", "콘텐츠 품질", "정책 안정성", "신청 전 확인"];
     const fixes = ["현재 페이지에서 바로 확인합니다.", "본문에 예시와 판단 기준을 보강합니다.", "공식 정책과 모순되는 표현을 삭제합니다.", "수정 후 모바일과 내부 링크를 다시 봅니다."];
@@ -311,6 +388,7 @@ function articlePage(article) {
     <p class="eyebrow">${categories[cat].title}</p>
     <h1>${esc(title)}</h1>
     <p>${esc(description)}</p>
+    <p class="meta-line">작성자: ${site.name} 편집팀 · 업데이트: ${siteUpdatedAt}</p>
   </section>
   <article class="wrap article">
     ${visualFigure}
@@ -340,7 +418,7 @@ function articlePage(article) {
     <div class="grid three">${related.map(articleCard).join("")}</div>
   </section>`;
 
-  return layout({ title, description, path: slugPath(slug), content: body });
+  return layout({ title, description, path, content: body, schema: articleSchema });
 }
 
 function categoryPage(key) {
@@ -593,6 +671,7 @@ p { margin: 0 0 16px; }
 .card h3 a { text-decoration: none; }
 .page-hero, .article-head { padding: 56px 0 28px; }
 .page-hero p, .article-head p { color: var(--muted); max-width: 760px; font-size: 18px; }
+.article-head .meta-line { color: var(--muted); font-size: 14px; margin-top: 8px; }
 .article { max-width: 820px; padding-bottom: 34px; }
 .article a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .article h2 { margin-top: 34px; }
