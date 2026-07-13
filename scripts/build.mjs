@@ -70,6 +70,59 @@ const officialLinks = [
   ["How AdSense uses cookies", "https://support.google.com/adsense/answer/7549925?hl=ko"]
 ];
 
+const deepDives = {
+  "adsense-approval-roadmap": {
+    title: "30일 준비 예시",
+    html: `<p>처음 만든 사이트라면 신청 버튼을 먼저 누르기보다 한 달 정도의 준비 기간을 두는 편이 안정적입니다. 1주차에는 사이트 목적, 메뉴, 필수 페이지를 완성하고 2주차에는 카테고리별 대표 글을 채웁니다. 3주차에는 거절 사유별 대응 글과 체크리스트 글을 보강하고, 4주차에는 Search Console 색인, 모바일 화면, 내부 링크, 정책 문구를 점검합니다.</p>
+    <table><thead><tr><th>기간</th><th>목표</th><th>확인할 결과</th></tr></thead><tbody><tr><td>1주차</td><td>사이트 뼈대 구축</td><td>소개, 문의, 개인정보, 쿠키, 이용약관, 면책 고지 공개</td></tr><tr><td>2주차</td><td>대표 콘텐츠 작성</td><td>카테고리마다 핵심 글이 있고 빈 메뉴가 없음</td></tr><tr><td>3주차</td><td>거절 리스크 보강</td><td>낮은 가치, 탐색 문제, 접근 불가 대응 글 정리</td></tr><tr><td>4주차</td><td>신청 전 검수</td><td>sitemap 제출, 주요 글 색인, 모바일 화면 확인</td></tr></tbody></table>`
+  },
+  "site-structure-before-apply": {
+    title: "구조 품질을 보는 기준",
+    html: `<p>승인 심사에서 좋은 구조란 화려한 디자인이 아니라 방문자가 길을 잃지 않는 구조입니다. 홈에서 주제와 대표 카테고리가 보이고, 카테고리에서는 읽는 순서가 보이며, 글 상세에서는 관련 글과 정책 페이지로 자연스럽게 이동할 수 있어야 합니다.</p>
+    <table><thead><tr><th>영역</th><th>좋은 상태</th><th>위험한 상태</th></tr></thead><tbody><tr><td>상단 메뉴</td><td>주제별로 5~8개 안팎의 명확한 메뉴</td><td>빈 카테고리, 외부 링크, 임시 메뉴가 섞임</td></tr><tr><td>홈</td><td>사이트 목적, 대표 글, 최신 글이 함께 있음</td><td>글 목록만 있거나 사이트 목적이 불명확함</td></tr><tr><td>하단</td><td>문의와 정책 페이지가 반복 노출됨</td><td>운영자 정보와 연락 수단을 찾기 어려움</td></tr></tbody></table>`
+  },
+  "indexing-before-adsense": {
+    title: "색인 확인 시나리오",
+    html: `<p>Search Console에서 사이트맵을 제출한 뒤에는 단순히 제출 완료만 보지 말고, 실제 주요 글이 색인되는지 확인해야 합니다. 대표 글 10개 중 대부분이 발견되지 않는다면 애드센스 신청보다 내부 링크와 제목, 본문 첫 문단을 먼저 손보는 것이 좋습니다.</p>
+    <table><thead><tr><th>상태</th><th>판단</th><th>조치</th></tr></thead><tbody><tr><td>발견됨, 색인됨</td><td>신청 준비 신호</td><td>대표 글 중심으로 내부 링크 보강</td></tr><tr><td>발견됨, 현재 색인되지 않음</td><td>품질 또는 대기 문제 가능</td><td>본문 보강 후 URL 검사 요청</td></tr><tr><td>발견되지 않음</td><td>탐색 경로 부족 가능</td><td>홈, 카테고리, 관련 글에서 링크 추가</td></tr></tbody></table>`
+  },
+  "low-value-content-fix": {
+    title: "낮은 가치 콘텐츠 개선 예시",
+    html: `<p>낮은 가치 콘텐츠로 보이는 글은 보통 검색 결과를 다시 말하거나, 실제 판단 기준 없이 일반론만 반복합니다. 예를 들어 “애드센스 승인을 받으려면 좋은 글을 쓰세요”에서 끝나는 글은 약합니다. 반대로 거절 메시지, 점검 순서, 수정 전후 예시, 재신청 전 확인표가 있으면 독자가 실제로 문제를 해결할 수 있습니다.</p>
+    <table><thead><tr><th>수정 전</th><th>수정 후</th></tr></thead><tbody><tr><td>글을 많이 작성하면 승인에 좋습니다.</td><td>카테고리별 대표 글 3개 이상, 각 글에 문제 정의와 해결 순서를 넣습니다.</td></tr><tr><td>개인정보처리방침을 만드세요.</td><td>광고 쿠키, 맞춤 광고 선택 해제, 문의 이메일 항목을 포함했는지 확인합니다.</td></tr><tr><td>거절되면 다시 신청하세요.</td><td>거절 메시지별로 콘텐츠, 탐색, 접근성, 정책 문제를 나누어 수정합니다.</td></tr></tbody></table>`
+  },
+  "navigation-issue-fix": {
+    title: "탐색 문제 재현 테스트",
+    html: `<p>탐색 문제는 운영자가 보기에는 사소하지만 심사자에게는 사이트 품질 문제로 보일 수 있습니다. 직접 모바일 화면에서 홈에서 대표 글까지 2번 안에 이동되는지, 글 상세에서 정책 페이지와 관련 글로 갈 수 있는지 확인해 보세요.</p>
+    <table><thead><tr><th>테스트</th><th>통과 기준</th></tr></thead><tbody><tr><td>홈에서 카테고리 이동</td><td>스크롤 없이 주요 카테고리를 찾을 수 있음</td></tr><tr><td>카테고리에서 글 이동</td><td>각 글의 주제와 해결 문제가 카드에 보임</td></tr><tr><td>글에서 정책 페이지 이동</td><td>하단에서 개인정보, 쿠키, 문의 페이지 접근 가능</td></tr></tbody></table>`
+  },
+  "approval-friendly-article-format": {
+    title: "본문 템플릿 예시",
+    html: `<p>승인 준비용 정보 글은 문제를 넓게 소개한 뒤, 독자가 바로 실행할 수 있는 순서로 좁혀 가는 것이 좋습니다. 한 글 안에는 문제 정의, 판단 기준, 실행 순서, 예외 상황, 관련 정책, 체크리스트가 들어가면 안정적입니다.</p>
+    <table><thead><tr><th>문단</th><th>역할</th><th>예시</th></tr></thead><tbody><tr><td>도입</td><td>누구의 어떤 문제인지 정의</td><td>승인 전 색인이 안 잡히는 초보 운영자</td></tr><tr><td>기준</td><td>좋은 상태와 나쁜 상태 구분</td><td>색인됨, 발견됨, 제외됨 상태 비교</td></tr><tr><td>실행</td><td>수정 순서 제시</td><td>내부 링크 추가, 본문 보강, URL 검사 요청</td></tr><tr><td>점검</td><td>신청 전 확인 항목</td><td>모바일, 링크, 정책 페이지, 사이트맵 확인</td></tr></tbody></table>`
+  },
+  "topic-selection-for-adsense": {
+    title: "주제 선정 매트릭스",
+    html: `<p>승인용 사이트의 주제는 너무 넓어도 약하고, 너무 좁아도 글을 지속하기 어렵습니다. 애드센스, 글쓰기, 정책, 수익화처럼 서로 이어지는 주제를 묶으면 사이트의 전문성이 보이고 장기 운영도 쉽습니다.</p>
+    <table><thead><tr><th>기준</th><th>좋은 주제</th><th>주의할 주제</th></tr></thead><tbody><tr><td>정책 위험</td><td>사이트 운영, 글쓰기, 검색 최적화</td><td>도박, 성인, 불법, 과장 수익 보장</td></tr><tr><td>지속성</td><td>꾸준히 업데이트 가능한 기초 가이드</td><td>하루짜리 이슈성 뉴스만 있는 주제</td></tr><tr><td>전문성</td><td>경험과 체크리스트를 쌓을 수 있는 주제</td><td>서로 관계없는 잡다한 주제 혼합</td></tr></tbody></table>`
+  },
+  "privacy-policy-for-adsense": {
+    title: "개인정보 페이지 점검 항목",
+    html: `<p>개인정보처리방침은 단순히 페이지가 있다는 사실보다 광고 쿠키와 제3자 공급업체 고지가 포함되어 있는지가 중요합니다. 특히 Google AdSense 적용 예정 사이트라면 맞춤 광고 선택 해제 경로와 문의 이메일을 명확히 적어 두는 것이 좋습니다.</p>
+    <table><thead><tr><th>항목</th><th>포함 여부</th></tr></thead><tbody><tr><td>문의 시 수집 정보</td><td>이메일 주소와 문의 내용</td></tr><tr><td>광고 쿠키 고지</td><td>Google과 제3자 공급업체의 쿠키 사용 가능성</td></tr><tr><td>맞춤 광고 선택권</td><td>Google 광고 설정에서 선택 해제 가능</td></tr><tr><td>개인정보 문의</td><td>운영자 이메일 공개</td></tr></tbody></table>`
+  },
+  "prohibited-content-check": {
+    title: "신청 전 제외할 콘텐츠",
+    html: `<p>애드센스 신청 전에는 정책상 애매한 글을 굳이 함께 제출할 필요가 없습니다. 사이트 전체 품질을 보여 주는 단계에서는 가장 안전하고 완성도 높은 글을 중심으로 공개하고, 민감한 주제는 공식 정책을 더 확인한 뒤 다루는 편이 좋습니다.</p>
+    <table><thead><tr><th>위험 유형</th><th>대응</th></tr></thead><tbody><tr><td>클릭 유도</td><td>광고 클릭, 수익 보장, 우회 표현 삭제</td></tr><tr><td>민감 주제</td><td>의료, 금융, 법률 정보는 출처와 한계를 명확히 표시</td></tr><tr><td>금지 콘텐츠</td><td>성인, 불법, 혐오, 폭력, 사기성 주제는 제외</td></tr></tbody></table>`
+  },
+  "cloudflare-gabia-domain-guide": {
+    title: "연결 후 확인 순서",
+    html: `<p>가비아에서 네임서버를 Cloudflare로 바꾼 뒤에는 DNS 전파, Pages 커스텀 도메인, HTTPS 인증서, Search Console 등록을 순서대로 확인해야 합니다. DNS가 잡혔더라도 Pages의 Custom domains 상태가 Active가 되기 전에는 애드센스 신청을 미루는 것이 안전합니다.</p>
+    <table><thead><tr><th>단계</th><th>확인할 주소</th><th>정상 상태</th></tr></thead><tbody><tr><td>DNS</td><td>NS 조회</td><td>danica, lynn Cloudflare 네임서버 표시</td></tr><tr><td>Pages</td><td>Custom domains</td><td>alphaadsense.com과 www가 Active</td></tr><tr><td>HTTPS</td><td>https://alphaadsense.com</td><td>홈페이지 200 응답</td></tr><tr><td>색인</td><td>Search Console</td><td>sitemap 제출 및 주요 URL 발견</td></tr></tbody></table>`
+  }
+};
+
 function esc(value) {
   return String(value)
     .replaceAll("&", "&amp;")
@@ -141,6 +194,16 @@ function articleCard(article) {
 function articlePage(article) {
   const [cat, slug, title, description, points] = article;
   const related = articles.filter((item) => item[0] === cat && item[1] !== slug).slice(0, 3);
+  const deepDive = deepDives[slug];
+  const diagnostics = points.map((point, index) => {
+    const labels = ["기본 구조", "콘텐츠 품질", "정책 안정성", "신청 전 확인"];
+    const fixes = ["현재 페이지에서 바로 확인합니다.", "본문에 예시와 판단 기준을 보강합니다.", "공식 정책과 모순되는 표현을 삭제합니다.", "수정 후 모바일과 내부 링크를 다시 봅니다."];
+    return `<tr><td>${labels[index] || "추가 점검"}</td><td>${esc(point)}</td><td>${fixes[index] || "필요한 보강을 기록합니다."}</td></tr>`;
+  }).join("");
+  const evidenceRows = points.map((point, index) => {
+    const evidence = ["메뉴와 하단 링크를 캡처하거나 URL 목록으로 기록합니다.", "수정 전후 본문 길이와 추가한 예시를 메모합니다.", "삭제하거나 바꾼 위험 표현을 별도로 표시합니다.", "Search Console, 모바일 화면, 링크 검사를 완료 날짜와 함께 남깁니다."];
+    return `<tr><td>${index + 1}</td><td>${esc(point)}</td><td>${evidence[index] || "수정 내용과 확인 결과를 함께 기록합니다."}</td></tr>`;
+  }).join("");
   const body = `<section class="article-head wrap">
     <p class="eyebrow">${categories[cat].title}</p>
     <h1>${esc(title)}</h1>
@@ -152,10 +215,17 @@ function articlePage(article) {
     <ul>${points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
     <h2>실행 순서</h2>
     <p>먼저 현재 사이트에서 이 주제와 관련된 페이지를 모두 열어 봅니다. 제목, 첫 문단, 메뉴 연결, 하단 정책 링크, 모바일 화면을 순서대로 확인하면 문제를 빠르게 찾을 수 있습니다. 수정 후에는 사이트맵을 다시 생성하고 주요 페이지의 색인 상태를 확인하세요.</p>
+    <h2>자가 진단 표</h2>
+    <table><thead><tr><th>점검 영역</th><th>확인할 내용</th><th>보강 방법</th></tr></thead><tbody>${diagnostics}</tbody></table>
+    ${deepDive ? `<h2>${esc(deepDive.title)}</h2>${deepDive.html}` : ""}
+    <h2>수정 기록으로 남길 것</h2>
+    <p>승인 준비는 한 번에 끝나는 작업이 아니라 개선 내역을 쌓아 가는 과정입니다. 재신청을 해야 하는 상황이 오더라도 어떤 부분을 고쳤는지 기록해 두면 같은 문제를 반복하지 않을 수 있습니다. 아래 항목은 이 글의 주제에 맞춰 남겨 두면 좋은 증거입니다.</p>
+    <table><thead><tr><th>순서</th><th>기록할 내용</th><th>완료 증거</th></tr></thead><tbody>${evidenceRows}</tbody></table>
     <h2>주의할 점</h2>
     <p>승인 준비 과정에서 가장 흔한 실수는 글 수만 늘리고 실제 정보 밀도를 높이지 않는 것입니다. 독자가 바로 따라 할 수 있는 기준, 예시, 체크리스트, 공식 자료 링크를 넣으면 단순 요약 글보다 훨씬 신뢰도가 높아집니다.</p>
     <h2>공식 자료와 함께 보기</h2>
     <p>정책과 심사 기준은 바뀔 수 있으므로 최종 판단은 구글 애드센스 공식 도움말을 기준으로 확인해야 합니다. 특히 개인정보처리방침, 쿠키, 금지 콘텐츠, 사이트 탐색성은 신청 전 반드시 다시 검토하세요.</p>
+    <ul>${officialLinks.slice(0, 4).map(([label, href]) => `<li><a href="${href}" rel="nofollow noopener">${esc(label)}</a></li>`).join("")}</ul>
     <div class="note">
       <strong>운영자 메모</strong>
       <p>이 글은 승인 보장을 약속하지 않습니다. 대신 신청 전 품질을 높이기 위한 실무 점검 기준을 제공합니다.</p>
@@ -172,10 +242,15 @@ function articlePage(article) {
 function categoryPage(key) {
   const category = categories[key];
   const items = articles.filter((article) => article[0] === key);
+  const firstItems = items.slice(0, 4);
   const body = `<section class="page-hero wrap">
     <p class="eyebrow">주제별 가이드</p>
     <h1>${category.title}</h1>
     <p>${category.description}</p>
+  </section>
+  <section class="wrap section tight">
+    <h2>추천 읽기 순서</h2>
+    <ol class="read-order">${firstItems.map((item) => `<li><a href="${slugPath(item[1])}">${esc(item[2])}</a><span>${esc(item[3])}</span></li>`).join("")}</ol>
   </section>
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
@@ -401,6 +476,7 @@ p { margin: 0 0 16px; }
 .hero-media { margin: 0; }
 .hero-media img { width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .section { padding: 52px 0; }
+.section.tight { padding-top: 20px; }
 .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .quick-grid a, .card { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 22px; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
 .quick-grid span, .card p { display: block; color: var(--muted); font-size: 15px; }
@@ -418,6 +494,14 @@ p { margin: 0 0 16px; }
 .article a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .article h2 { margin-top: 34px; }
 .article li { margin-bottom: 8px; }
+.article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 15px; }
+.article th, .article td { border: 1px solid var(--line); padding: 12px; vertical-align: top; text-align: left; }
+.article th { background: #f4f8fb; }
+.read-order { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; counter-reset: order; }
+.read-order li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; counter-increment: order; }
+.read-order li::before { content: counter(order); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }
+.read-order a { font-weight: 800; }
+.read-order span { display: block; color: var(--muted); margin-top: 6px; font-size: 15px; }
 .note { border-left: 4px solid var(--amber); background: #fff8ed; padding: 16px 18px; margin: 28px 0; }
 .footer { background: #111827; color: #e5e7eb; padding: 34px 0; margin-top: 36px; }
 .footer a { color: white; text-decoration: underline; text-underline-offset: 3px; }
@@ -427,16 +511,17 @@ p { margin: 0 0 16px; }
   .header-inner { align-items: flex-start; flex-direction: column; }
   .nav { justify-content: flex-start; }
   .hero-grid, .split, .footer-grid { grid-template-columns: 1fr; }
-  .quick-grid, .grid.three { grid-template-columns: 1fr 1fr; }
+  .quick-grid, .grid.three, .read-order { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 36px; }
 }
 @media (max-width: 560px) {
   .wrap { width: min(100% - 24px, 1120px); }
-  .quick-grid, .grid.three { grid-template-columns: 1fr; }
+  .quick-grid, .grid.three, .read-order { grid-template-columns: 1fr; }
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
   .nav { gap: 10px 12px; }
+  .article table { display: block; overflow-x: auto; white-space: normal; }
 }
 `);
 
