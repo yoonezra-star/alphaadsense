@@ -17,21 +17,12 @@ const sitePublishedAt = "2026-07-13";
 const siteUpdatedAt = "2026-07-13";
 
 const nav = [
-  ["홈", "/"],
-  ["승인 가이드", "/approval/"],
-  ["거절 해결", "/rejection/"],
+  ["시작", "/start-guide/"],
+  ["승인", "/approval/"],
+  ["거절", "/rejection/"],
   ["글쓰기", "/writing/"],
-  ["수익화", "/monetization/"],
-  ["정책 체크", "/policy/"],
-  ["자료실", "/resources/"],
-  ["시작 가이드", "/start-guide/"],
-  ["공식 자료", "/official-resources/"],
-  ["FAQ", "/faq/"],
-  ["검색", "/search/"],
-  ["도구", "/tools/"],
-  ["체크리스트", "/checklist/"],
-  ["소개", "/about/"],
-  ["문의", "/contact/"]
+  ["정책", "/policy/"],
+  ["도구", "/tools/"]
 ];
 
 const categories = {
@@ -50,6 +41,33 @@ const categoryFocus = {
   monetization: ["운영", "승인 후 광고 배치와 수익 지표를 사용자 경험과 정책 기준 안에서 다룹니다.", "무효 트래픽과 과도한 광고 방지"],
   policy: ["신뢰", "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 독자가 확인할 수 있게 정리합니다.", "하단 필수 링크와 공식 기준 점검"],
   resources: ["실행", "체크리스트, 계획표, 용어 정리로 운영자가 바로 적용할 수 있는 자료를 제공합니다.", "신청 전 기록과 반복 점검"]
+};
+
+const categoryActions = {
+  approval: {
+    use: "처음 방문자는 로드맵, 구조 점검, 신청 전 체크리스트 순서로 읽으면 전체 준비 상태를 빠르게 파악할 수 있습니다.",
+    links: [["승인 준비 허브", "/approval-hub/"], ["승인 점수 진단", "/tools/approval-score/"], ["신청 전 체크리스트", "/checklist/"]]
+  },
+  rejection: {
+    use: "거절 메시지를 먼저 분류한 뒤, 낮은 가치 콘텐츠와 탐색 문제를 별도로 점검하면 같은 수정을 반복하지 않을 수 있습니다.",
+    links: [["거절 사유 진단", "/tools/rejection-diagnosis/"], ["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["7일 점검 기록", "/guides/seven-day-pre-apply-log-example/"]]
+  },
+  writing: {
+    use: "글쓰기 허브는 승인용 대표 글을 보강할 때 씁니다. 주제 선정, 본문 형식, 내부 링크, AI 문장감 줄이기 순서가 안정적입니다.",
+    links: [["승인 친화 글 구성", "/guides/approval-friendly-article-format/"], ["30일 계획 도구", "/tools/content-planner/"], ["내부 링크 가이드", "/guides/internal-linking-guide/"]]
+  },
+  monetization: {
+    use: "승인 전에는 과한 수익 약속을 피하고, 승인 후 광고 배치와 트래픽 품질을 안정적으로 운영하는 기준을 확인합니다.",
+    links: [["광고 배치 원칙", "/guides/ad-placement-principles/"], ["트래픽 품질", "/guides/traffic-quality/"], ["승인 후 첫 설정", "/guides/after-approval-first-settings/"]]
+  },
+  policy: {
+    use: "정책 허브는 개인정보, 쿠키, 금지 콘텐츠, 면책 문구를 신청 전에 한 번 더 확인하는 안전장치입니다.",
+    links: [["개인정보 정책 작성", "/guides/privacy-policy-for-adsense/"], ["쿠키 고지 기본", "/guides/cookie-notice-basics/"], ["금지 콘텐츠 점검", "/guides/prohibited-content-check/"]]
+  },
+  resources: {
+    use: "자료실은 공식 문서, 점검표, 콘텐츠 계획을 실제 운영 기록으로 바꾸는 곳입니다.",
+    links: [["공식 자료 안내", "/official-resources/"], ["신청 전 체크리스트", "/guides/pre-apply-checklist/"], ["전체 글 목록", "/sitemap/"]]
+  }
 };
 
 const articles = [
@@ -568,10 +586,25 @@ function categoryPage(key) {
   const items = articles.filter((article) => article[0] === key);
   const firstItems = items.slice(0, 4);
   const focus = categoryFocus[key];
+  const actions = categoryActions[key];
   const body = `<section class="page-hero wrap">
     <p class="eyebrow">주제별 가이드</p>
     <h1>${category.title}</h1>
     <p>${category.description}</p>
+  </section>
+  <section class="wrap section tight">
+    <div class="hub-overview">
+      <div>
+        <p class="eyebrow">허브 사용법</p>
+        <h2>이 페이지에서 먼저 판단할 것</h2>
+        <p>${esc(actions.use)}</p>
+      </div>
+      <dl>
+        <div><dt>가이드</dt><dd>${items.length}개</dd></div>
+        <div><dt>대표 경로</dt><dd>${firstItems.length}단계</dd></div>
+        <div><dt>점검 기준</dt><dd>3개</dd></div>
+      </dl>
+    </div>
   </section>
   <section class="wrap section tight">
     <h2>추천 읽기 순서</h2>
@@ -580,6 +613,10 @@ function categoryPage(key) {
   <section class="wrap section tight">
     <h2>이 주제에서 확인할 것</h2>
     <table class="summary-table"><thead><tr><th>핵심</th><th>확인 기준</th><th>활용 방법</th></tr></thead><tbody><tr><td>${esc(focus[0])}</td><td>${esc(focus[1])}</td><td>${esc(focus[2])}</td></tr></tbody></table>
+  </section>
+  <section class="wrap section tight">
+    <h2>바로 실행할 수 있는 도구와 글</h2>
+    <div class="action-strip">${actions.links.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join("")}</div>
   </section>
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
@@ -670,11 +707,11 @@ const body = `<section class="home-hero">
   <div class="wrap hero-grid">
     <div>
       <p class="eyebrow">AdSense approval guide</p>
-      <h1>애드센스 승인 준비를 한곳에서 정리하세요</h1>
-      <p>사이트 구조, 글쓰기, 정책 점검, 거절 사유 해결, 승인 이후 수익화까지 초보 운영자가 따라갈 수 있는 실전 정보 허브입니다.</p>
+      <h1>애드센스 승인 준비를 심사자 관점으로 점검하세요</h1>
+      <p>사이트 구조, 글쓰기, 정책 페이지, 색인 상태, 거절 대응까지 초보 운영자가 신청 전에 확인해야 할 흐름을 한곳에 정리한 실전 가이드입니다.</p>
       <div class="hero-actions">
-        <a class="button primary" href="/checklist/">승인 전 체크리스트</a>
-        <a class="button" href="/approval/">승인 가이드 보기</a>
+        <a class="button primary" href="/approval-hub/">승인 준비 허브</a>
+        <a class="button" href="/tools/approval-score/">승인 점수 진단</a>
       </div>
     </div>
     <figure class="hero-media">
@@ -682,19 +719,39 @@ const body = `<section class="home-hero">
     </figure>
   </div>
 </section>
+<section class="wrap section trust-section">
+  <div class="trust-grid">
+    <div>
+      <p class="eyebrow">Review-ready signals</p>
+      <h2>첫 방문자가 바로 확인하는 신뢰 요소</h2>
+      <p>애드센스 심사에서 중요한 것은 화려한 화면보다 운영 목적, 탐색 경로, 정책 페이지, 실제 도움 되는 콘텐츠가 명확하게 보이는지입니다.</p>
+    </div>
+    <ul class="trust-list">
+      <li><strong>운영자 정보 공개</strong><span>소개, 문의, 사업자 정보, 정정 요청 경로를 하단과 필수 페이지에서 확인할 수 있습니다.</span></li>
+      <li><strong>정책 페이지 분리</strong><span>개인정보처리방침, 쿠키 정책, 이용약관, 면책 고지, 운영 원칙을 별도 페이지로 제공합니다.</span></li>
+      <li><strong>목적별 허브 구성</strong><span>승인, 거절, 글쓰기, 정책, 수익화, 자료실을 학습 경로처럼 탐색할 수 있습니다.</span></li>
+      <li><strong>공식 자료 기반</strong><span>AdSense 공식 도움말과 정책을 확인한 뒤 운영자가 실행할 수 있는 점검표로 정리합니다.</span></li>
+    </ul>
+  </div>
+</section>
 <section class="wrap section">
-  <h2>원하는 방식으로 찾아보세요</h2>
-  <div class="quick-grid">
+  <div class="section-head">
+    <p class="eyebrow">Primary paths</p>
+    <h2>가장 많이 보는 핵심 경로</h2>
+    <p>상단 메뉴는 줄이고, 홈에서는 목적별 경로를 더 선명하게 제공합니다. 처음 온 방문자는 아래 여섯 가지 중 현재 상황에 맞는 길을 고르면 됩니다.</p>
+  </div>
+  <div class="quick-grid six">
+    <a href="/start-guide/"><strong>처음 시작</strong><span>도메인, 메뉴, 필수 페이지, 첫 글 순서</span></a>
     <a href="/approval/"><strong>승인 준비</strong><span>도메인, 구조, 색인, 신청 순서</span></a>
     <a href="/rejection/"><strong>거절 해결</strong><span>낮은 가치, 탐색, 접근 불가 대응</span></a>
     <a href="/writing/"><strong>글쓰기</strong><span>주제 선정, 본문 구성, 내부 링크</span></a>
     <a href="/policy/"><strong>정책 체크</strong><span>개인정보, 쿠키, 금지 콘텐츠</span></a>
+    <a href="/tools/"><strong>점검 도구</strong><span>승인 점수, 거절 진단, 30일 계획</span></a>
   </div>
 </section>
 <section class="wrap section tight">
   <h2>빠른 주제 찾기</h2>
   <div class="topic-pills">
-    <a href="/start-guide/">처음 시작</a>
     <a href="/approval-hub/">승인 준비 허브</a>
     <a href="/next-steps/">상황별 다음 단계</a>
     <a href="/guides/site-structure-audit-example/">사이트 구조 점검</a>
@@ -703,7 +760,6 @@ const body = `<section class="home-hero">
     <a href="/faq/">초보자 FAQ</a>
     <a href="/search/">사이트 검색</a>
     <a href="/sitemap/">전체 글 목록</a>
-    <a href="/tools/approval-score/">승인 점수 진단</a>
     <a href="/tools/rejection-diagnosis/">거절 사유 진단</a>
   </div>
 </section>
@@ -1271,11 +1327,19 @@ p { margin: 0 0 16px; }
 .section-head { max-width: 780px; margin-bottom: 22px; }
 .section-head p:last-child { color: var(--muted); font-size: 17px; }
 .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.quick-grid.six { grid-template-columns: repeat(3, 1fr); }
 .quick-grid a, .card { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 22px; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
 .quick-grid span, .card p { display: block; color: var(--muted); font-size: 15px; }
 .card { overflow: hidden; }
 .card-thumb { display: block; margin: -22px -22px 16px; border-bottom: 1px solid var(--line); background: var(--soft); }
 .card-thumb img { display: block; width: 100%; aspect-ratio: 14 / 7.6; height: auto; object-fit: cover; }
+.trust-section { padding-bottom: 18px; }
+.trust-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; align-items: start; border: 1px solid var(--line); border-radius: 8px; padding: 24px; background: white; box-shadow: 0 8px 26px rgba(21,32,51,.05); }
+.trust-grid p { color: var(--muted); }
+.trust-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.trust-list li { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--soft); }
+.trust-list strong { display: block; margin-bottom: 4px; }
+.trust-list span { display: block; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .topic-pills { display: flex; flex-wrap: wrap; gap: 10px; }
 .topic-pills a { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font-weight: 700; color: var(--muted); }
 .topic-pills button { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font: inherit; font-weight: 700; color: var(--muted); cursor: pointer; }
@@ -1307,6 +1371,14 @@ p { margin: 0 0 16px; }
 .hub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 20px 0 28px; }
 .hub-list a { border: 1px solid var(--line); border-radius: 8px; padding: 18px; text-decoration: none; background: white; }
 .hub-list span { display: block; color: var(--muted); margin-top: 6px; }
+.hub-overview { display: grid; grid-template-columns: 1.25fr .75fr; gap: 22px; border: 1px solid var(--line); border-radius: 8px; padding: 22px; background: var(--soft); }
+.hub-overview p { color: var(--muted); margin-bottom: 0; }
+.hub-overview dl { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.hub-overview div div, .hub-overview dl div { border: 1px solid var(--line); border-radius: 8px; background: white; padding: 14px; }
+.hub-overview dt { color: var(--muted); font-size: 13px; font-weight: 800; }
+.hub-overview dd { margin: 4px 0 0; font-size: 22px; font-weight: 800; color: var(--blue); line-height: 1.2; }
+.action-strip { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 10px; }
+.action-strip a { display: inline-flex; align-items: center; min-height: 42px; border: 1px solid var(--line); border-radius: 8px; padding: 9px 13px; background: white; color: var(--blue); font-weight: 800; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
 .visual-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 18px 0 28px; }
 .visual-grid.compact { margin-top: 22px; }
 .visual-card { display: grid; grid-template-rows: auto auto 1fr; gap: 10px; border: 1px solid var(--line); border-radius: 8px; background: white; overflow: hidden; box-shadow: 0 8px 22px rgba(21,32,51,.05); }
@@ -1357,13 +1429,14 @@ p { margin: 0 0 16px; }
 @media (max-width: 860px) {
   .header-inner { align-items: flex-start; flex-direction: column; }
   .nav { justify-content: flex-start; }
-  .hero-grid, .split, .footer-grid { grid-template-columns: 1fr; }
+  .hero-grid, .split, .footer-grid, .trust-grid, .hub-overview { grid-template-columns: 1fr; }
   .quick-grid, .grid.three, .read-order, .visual-grid { grid-template-columns: 1fr 1fr; }
+  .quick-grid.six, .trust-list { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 36px; }
 }
 @media (max-width: 560px) {
   .wrap { width: min(100% - 24px, 1120px); }
-  .quick-grid, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid { grid-template-columns: 1fr; }
+  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl { grid-template-columns: 1fr; }
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
