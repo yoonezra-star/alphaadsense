@@ -313,6 +313,96 @@ function slugPath(slug) {
   return `/guides/${slug}/`;
 }
 
+const requiredPageMeta = {
+  "/about/": {
+    label: "운영 소개",
+    purpose: "사이트의 운영 주체, 작성 범위, 독자에게 제공하는 가치를 설명합니다.",
+    review: "운영자 정보, 사이트 목적, 다루는 주제 범위가 변경될 때 즉시 갱신합니다.",
+    checks: ["사업자 정보와 문의 이메일이 일치하는지 확인합니다.", "승인 보장이나 수익 보장처럼 오해될 수 있는 표현을 쓰지 않습니다.", "운영 목적과 주요 카테고리가 실제 공개 글과 연결되는지 봅니다."]
+  },
+  "/contact/": {
+    label: "문의 창구",
+    purpose: "오류 제보, 수정 요청, 개인정보 관련 요청, 운영 문의를 받을 수 있는 경로를 제공합니다.",
+    review: "문의 이메일과 사업자 정보가 바뀌면 같은 날 수정합니다.",
+    checks: ["문의 가능한 항목을 구체적으로 안내합니다.", "수정 요청 시 필요한 URL과 근거를 안내합니다.", "개별 승인 보장이나 수익 예측 문의에는 답하지 않는 기준을 밝힙니다."]
+  },
+  "/privacy/": {
+    label: "개인정보 고지",
+    purpose: "문의 응답, 사이트 보안, 쿠키와 광고 기술 사용 가능성을 방문자에게 알립니다.",
+    review: "광고, 분석 도구, 문의 처리 방식이 바뀔 때 검토합니다.",
+    checks: ["수집 가능한 항목과 이용 목적을 표로 구분합니다.", "Google AdSense 적용 시 광고 쿠키와 제3자 공급업체 가능성을 안내합니다.", "개인정보 관련 요청을 보낼 이메일을 명확히 둡니다."]
+  },
+  "/cookie-policy/": {
+    label: "쿠키 안내",
+    purpose: "필수 쿠키, 분석 쿠키, 광고 쿠키의 역할과 방문자의 선택권을 설명합니다.",
+    review: "광고 또는 분석 도구를 새로 붙일 때 쿠키 유형과 안내 문구를 다시 봅니다.",
+    checks: ["광고 쿠키가 사용될 수 있음을 숨기지 않습니다.", "맞춤 광고 선택 해제와 브라우저 쿠키 관리 가능성을 안내합니다.", "광고가 콘텐츠와 구분되도록 운영한다는 기준을 함께 적습니다."]
+  },
+  "/terms/": {
+    label: "이용 기준",
+    purpose: "콘텐츠 이용 범위, 금지 행위, 서비스 변경 가능성을 방문자에게 안내합니다.",
+    review: "사이트 기능, 콘텐츠 제공 방식, 운영 정책이 달라질 때 보강합니다.",
+    checks: ["무단 복제와 오해 유발 재배포를 제한합니다.", "제공 정보가 일반 참고자료임을 설명합니다.", "관련 정책 페이지와 함께 읽을 수 있도록 연결합니다."]
+  },
+  "/disclaimer/": {
+    label: "면책 안내",
+    purpose: "애드센스 승인, 정책, 수익 정보의 한계와 최종 판단 기준을 분명히 합니다.",
+    review: "정책 변경 가능성이 큰 주제나 수익 관련 글을 보강할 때 함께 확인합니다.",
+    checks: ["승인 보장, 수익 보장, 우회 방법처럼 위험한 표현을 배제합니다.", "최종 판단은 Google AdSense 정책과 심사 결과에 따른다고 안내합니다.", "오류 제보와 수정 요청 경로를 제공합니다."]
+  },
+  "/editorial-policy/": {
+    label: "편집 기준",
+    purpose: "글 작성, 검토, 수정, 출처 표기, 광고 운영 기준을 공개합니다.",
+    review: "새 카테고리 추가, 정책 변경, 오래된 정보 발견 시 업데이트합니다.",
+    checks: ["공식 자료 우선 확인 원칙을 밝힙니다.", "AI 문장 반복이나 출처 없는 복제를 피하는 기준을 적습니다.", "광고와 콘텐츠를 명확히 구분한다는 원칙을 둡니다."]
+  },
+  "/sources/": {
+    label: "출처 관리",
+    purpose: "콘텐츠 작성 시 우선 확인하는 공식 자료와 외부 참고 기준을 정리합니다.",
+    review: "공식 도움말 URL, 정책 문서, 관리 화면 안내가 바뀌면 갱신합니다.",
+    checks: ["공식 자료를 개인 경험보다 우선합니다.", "오래된 링크나 깨진 링크를 정기적으로 확인합니다.", "출처가 불명확한 주장은 본문에 남기지 않습니다."]
+  }
+};
+
+function businessSummaryRows() {
+  return `<table class="trust-table"><tbody><tr><th>운영 주체</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`;
+}
+
+function requiredPageAppendix(path) {
+  const meta = requiredPageMeta[path];
+  if (!meta) return "";
+  const related = [
+    ["/about/", "소개"],
+    ["/contact/", "문의"],
+    ["/privacy/", "개인정보처리방침"],
+    ["/cookie-policy/", "쿠키 정책"],
+    ["/terms/", "이용약관"],
+    ["/disclaimer/", "면책 고지"],
+    ["/editorial-policy/", "운영 원칙"],
+    ["/sources/", "출처"]
+  ].filter(([href]) => href !== path);
+  return `<section class="required-page-note">
+    <p class="eyebrow">${meta.label}</p>
+    <h2>이 페이지를 관리하는 기준</h2>
+    <div class="trust-matrix">
+      <article>
+        <h3>페이지 목적</h3>
+        <p>${meta.purpose}</p>
+      </article>
+      <article>
+        <h3>검토 주기</h3>
+        <p>${meta.review}</p>
+      </article>
+    </div>
+    <h3>검토 체크포인트</h3>
+    <ul>${meta.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
+    <h3>운영자 확인 정보</h3>
+    ${businessSummaryRows()}
+    <h3>함께 확인할 필수 문서</h3>
+    <div class="mini-links">${related.map(([href, label]) => `<a href="${href}">${label}</a>`).join("")}</div>
+  </section>`;
+}
+
 function schemaScript(items) {
   const graph = Array.isArray(items) ? items : [items];
   const json = JSON.stringify({ "@context": "https://schema.org", "@graph": graph }).replaceAll("<", "\\u003c");
@@ -629,7 +719,7 @@ function staticPage(title, description, path, inner) {
     title,
     description,
     path,
-    content: `<section class="page-hero wrap"><h1>${esc(title)}</h1><p>${esc(description)}</p></section><section class="wrap article">${inner}</section>`
+    content: `<section class="page-hero wrap"><h1>${esc(title)}</h1><p>${esc(description)}</p></section><section class="wrap article">${inner}${requiredPageAppendix(path)}</section>`
   });
 }
 
@@ -1412,6 +1502,14 @@ p { margin: 0 0 16px; }
 .mini-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .mini-links a { border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; background: var(--soft); color: var(--blue); font-size: 14px; font-weight: 800; text-decoration: none; }
 .planner-links { margin: -10px 0 26px; }
+.required-page-note { border-top: 1px solid var(--line); margin-top: 34px; padding-top: 28px; }
+.trust-matrix { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 16px 0 20px; }
+.trust-matrix article { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: var(--soft); }
+.trust-matrix h3 { margin-bottom: 8px; }
+.trust-matrix p { color: var(--muted); margin: 0; }
+.trust-table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; background: white; }
+.trust-table th, .trust-table td { border: 1px solid var(--line); padding: 12px 14px; text-align: left; vertical-align: top; }
+.trust-table th { width: 180px; background: #eef6ff; color: #1e3a8a; }
 .hub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 20px 0 28px; }
 .hub-list a { border: 1px solid var(--line); border-radius: 8px; padding: 18px; text-decoration: none; background: white; }
 .hub-list span { display: block; color: var(--muted); margin-top: 6px; }
@@ -1480,7 +1578,7 @@ p { margin: 0 0 16px; }
 }
 @media (max-width: 560px) {
   .wrap { width: min(100% - 24px, 1120px); }
-  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid { grid-template-columns: 1fr; }
+  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid, .trust-matrix { grid-template-columns: 1fr; }
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
