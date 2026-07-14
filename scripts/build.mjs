@@ -871,6 +871,43 @@ function nextStepCard(item) {
   </article>`;
 }
 
+const homeMetrics = [
+  ["62", "공개 페이지", "허브, 가이드, 도구, 필수 문서를 한 흐름으로 구성했습니다."],
+  ["34", "상세 가이드", "승인, 거절, 글쓰기, 정책, 수익화 주제를 깊게 다룹니다."],
+  ["8", "필수 문서", "소개, 문의, 개인정보, 쿠키, 약관, 면책, 운영 원칙, 출처를 분리했습니다."],
+  ["3", "점검 도구", "승인 점수, 거절 진단, 30일 계획으로 실행 흐름을 돕습니다."]
+];
+
+const reviewCards = [
+  {
+    title: "구조",
+    text: "상단 메뉴, 카테고리 허브, 하단 필수 링크가 같은 기준으로 이어지는지 확인합니다.",
+    href: "/guides/site-structure-audit-example/"
+  },
+  {
+    title: "콘텐츠",
+    text: "대표 글마다 판단 기준, 예시, 표, 체크리스트, 관련 링크가 들어가는지 봅니다.",
+    href: "/guides/approval-friendly-article-format/"
+  },
+  {
+    title: "정책",
+    text: "개인정보, 쿠키, 면책, 금지 콘텐츠 기준이 실제 운영 방식과 맞는지 점검합니다.",
+    href: "/policy/"
+  },
+  {
+    title: "색인",
+    text: "Search Console, sitemap, 모바일 화면, 깨진 링크를 신청 직전에 다시 확인합니다.",
+    href: "/checklist/"
+  }
+];
+
+const approvalReadinessCards = [
+  ["뼈대", "도메인, 홈, 메뉴, 필수 페이지가 먼저 고정되어야 합니다.", "/start-guide/"],
+  ["깊이", "대표 글은 단순 요약보다 예시, 표, 판단 기준이 보여야 합니다.", "/writing/"],
+  ["신뢰", "사업자 정보, 문의 경로, 정책 문서가 반복 접근 가능해야 합니다.", "/about/"],
+  ["안정", "색인, HTTPS, 모바일 화면, 깨진 링크를 신청 전 다시 봅니다.", "/tools/approval-score/"]
+];
+
 const body = `<section class="home-hero">
   <div class="wrap hero-grid">
     <div>
@@ -881,6 +918,7 @@ const body = `<section class="home-hero">
         <a class="button primary" href="/approval-hub/">승인 준비 허브</a>
         <a class="button" href="/tools/approval-score/">승인 점수 진단</a>
       </div>
+      <div class="hero-metrics">${homeMetrics.map(([value, label, text]) => `<div><strong>${value}</strong><span>${label}</span><p>${text}</p></div>`).join("")}</div>
     </div>
     <figure class="hero-media">
       <img src="/assets/approval-workflow.png" alt="애드센스 승인 준비 흐름도">
@@ -901,6 +939,14 @@ const body = `<section class="home-hero">
       <li><strong>공식 자료 기반</strong><span>AdSense 공식 도움말과 정책을 확인한 뒤 운영자가 실행할 수 있는 점검표로 정리합니다.</span></li>
     </ul>
   </div>
+</section>
+<section class="wrap section tight">
+  <div class="section-head">
+    <p class="eyebrow">Approval review map</p>
+    <h2>신청 전 네 가지 관점으로 다시 보기</h2>
+    <p>승인용 사이트는 글 수보다 구조, 콘텐츠 깊이, 정책 안정성, 색인 상태가 함께 맞아야 안정적입니다. 홈에서 바로 점검 흐름을 잡을 수 있도록 주요 검토 관점을 묶었습니다.</p>
+  </div>
+  <div class="review-dashboard">${reviewCards.map((item) => `<a class="review-card" href="${item.href}"><strong>${item.title}</strong><span>${item.text}</span></a>`).join("")}</div>
 </section>
 <section class="wrap section">
   <div class="section-head">
@@ -1027,6 +1073,7 @@ ${[
   { href: "/guides/seven-day-pre-apply-log-example/", src: "/assets/seven-day-checklist.png", alt: "신청 전 7일 점검 캘린더", title: "7일 안정화 기록", text: "신청 직전 새 글보다 안정화 기록에 집중합니다." }
 ].map(visualHubCard).join("")}
 </div>
+<div class="readiness-grid">${approvalReadinessCards.map(([title, text, href]) => `<a href="${href}"><strong>${title}</strong><span>${text}</span></a>`).join("")}</div>
 <h2>단계별 대표 가이드</h2>
 <div class="hub-list">
   <a href="/guides/domain-and-trust/"><strong>1. 도메인 신뢰 신호</strong><span>새 도메인에서 소개, 문의, 정책 페이지로 기본 신뢰를 만드는 방법입니다.</span></a>
@@ -1520,6 +1567,11 @@ p { margin: 0 0 16px; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 .button { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; font-weight: 700; background: white; }
 .button.primary { color: white; background: var(--blue); border-color: var(--blue); }
+.hero-metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 24px; }
+.hero-metrics div { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: white; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
+.hero-metrics strong { display: block; color: var(--blue); font-size: 26px; line-height: 1; margin-bottom: 6px; }
+.hero-metrics span { display: block; font-weight: 800; margin-bottom: 4px; }
+.hero-metrics p { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0; }
 .hero-media { margin: 0; }
 .hero-media img { width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: var(--shadow); border: 1px solid var(--line); }
 .section { padding: 52px 0; }
@@ -1540,6 +1592,10 @@ p { margin: 0 0 16px; }
 .trust-list li { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--soft); }
 .trust-list strong { display: block; margin-bottom: 4px; }
 .trust-list span { display: block; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.review-dashboard { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.review-card { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: white; box-shadow: 0 6px 18px rgba(21,32,51,.04); text-decoration: none; }
+.review-card strong { display: block; color: #1e3a8a; font-size: 18px; margin-bottom: 8px; }
+.review-card span { display: block; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .topic-pills { display: flex; flex-wrap: wrap; gap: 10px; }
 .topic-pills a { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font-weight: 700; color: var(--muted); }
 .topic-pills button { border: 1px solid var(--line); border-radius: 999px; background: var(--soft); padding: 9px 14px; font: inherit; font-weight: 700; color: var(--muted); cursor: pointer; }
@@ -1611,6 +1667,10 @@ p { margin: 0 0 16px; }
 .visual-card img { display: block; width: 100%; aspect-ratio: 14 / 7.6; height: auto; object-fit: cover; background: var(--soft); border-bottom: 1px solid var(--line); }
 .visual-card strong { padding: 0 16px; font-size: 18px; }
 .visual-card span { display: block; color: var(--muted); padding: 0 16px 18px; font-size: 15px; line-height: 1.55; }
+.readiness-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 12px 0 30px; }
+.readiness-grid a { border: 1px solid var(--line); border-radius: 8px; padding: 16px; background: var(--soft); text-decoration: none; }
+.readiness-grid strong { display: block; color: #1e3a8a; font-size: 18px; margin-bottom: 6px; }
+.readiness-grid span { display: block; color: var(--muted); font-size: 14px; line-height: 1.55; }
 .summary-table { width: 100%; border-collapse: collapse; margin: 18px 0 28px; font-size: 15px; background: white; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
 .summary-table th, .summary-table td { border: 1px solid var(--line); padding: 13px 14px; vertical-align: top; text-align: left; }
 .summary-table th { background: #eef6ff; color: #1e3a8a; }
@@ -1656,13 +1716,13 @@ p { margin: 0 0 16px; }
   .header-inner { align-items: flex-start; flex-direction: column; }
   .nav { justify-content: flex-start; }
   .hero-grid, .split, .footer-grid, .trust-grid, .hub-overview { grid-template-columns: 1fr; }
-  .quick-grid, .grid.three, .read-order, .visual-grid { grid-template-columns: 1fr 1fr; }
+  .quick-grid, .grid.three, .read-order, .visual-grid, .review-dashboard, .readiness-grid { grid-template-columns: 1fr 1fr; }
   .quick-grid.six, .trust-list { grid-template-columns: 1fr 1fr; }
   h1 { font-size: 36px; }
 }
 @media (max-width: 560px) {
   .wrap { width: min(100% - 24px, 1120px); }
-  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid, .trust-matrix, .proof-grid { grid-template-columns: 1fr; }
+  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid, .trust-matrix, .proof-grid, .hero-metrics, .review-dashboard, .readiness-grid { grid-template-columns: 1fr; }
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
