@@ -364,6 +364,51 @@ const requiredPageMeta = {
   }
 };
 
+const qualityProfiles = {
+  approval: {
+    focus: "승인 준비",
+    good: "필수 페이지, 대표 글, 색인 상태, 모바일 화면이 한 흐름으로 연결되어 있습니다.",
+    risk: "글 수만 늘고 운영자 정보, 정책 페이지, 대표 글의 깊이가 부족합니다.",
+    action: "신청 전 체크리스트와 승인 점수 진단으로 빈 영역을 먼저 찾습니다.",
+    proof: ["대표 글 URL과 카테고리 허브 연결 상태", "필수 페이지 하단 링크 노출 여부", "Search Console 색인 확인 날짜", "모바일 화면에서 표와 메뉴가 겹치지 않는지"]
+  },
+  rejection: {
+    focus: "거절 대응",
+    good: "거절 메시지를 원인별로 분류하고 수정 전후 기록을 남깁니다.",
+    risk: "거절 사유를 추측만 하고 같은 글을 조금 바꾼 뒤 바로 재신청합니다.",
+    action: "낮은 가치, 탐색, 접근 불가, 정책 위험을 나눠 수정 순서를 정합니다.",
+    proof: ["수정한 글과 제외한 글 목록", "병합 또는 보강한 중복 글 기록", "깨진 링크와 메뉴 수정 내역", "재신청 전 7일 점검 기록"]
+  },
+  writing: {
+    focus: "글쓰기 품질",
+    good: "문제 상황, 판단 기준, 예시, 체크리스트, 관련 글 링크가 함께 들어갑니다.",
+    risk: "검색 결과를 다시 말하거나 AI 문장처럼 일반론만 반복합니다.",
+    action: "대표 글을 먼저 정하고 표, 예시, 내부 링크를 추가해 깊이를 보강합니다.",
+    proof: ["본문에 추가한 표와 예시", "독자가 따라 할 수 있는 단계", "관련 글 내부 링크", "오래된 문장 수정 날짜"]
+  },
+  monetization: {
+    focus: "승인 후 운영",
+    good: "광고와 콘텐츠를 구분하고 무효 트래픽 위험을 줄이는 방식으로 운영합니다.",
+    risk: "수익만 강조하거나 클릭 유도, 과도한 광고 배치를 먼저 생각합니다.",
+    action: "광고 배치보다 콘텐츠 가독성, 트래픽 품질, 정책 안정성을 먼저 점검합니다.",
+    proof: ["광고가 콘텐츠를 가리지 않는 화면", "클릭 유도 표현 제거 내역", "트래픽 유입 경로 점검", "승인 후 설정 변경 기록"]
+  },
+  policy: {
+    focus: "정책 안정성",
+    good: "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 방문자가 쉽게 찾을 수 있습니다.",
+    risk: "정책 페이지는 있지만 광고 쿠키, 맞춤 광고, 문의 경로가 빠져 있습니다.",
+    action: "공식 정책 기준과 실제 운영 방식이 맞는지 페이지별로 확인합니다.",
+    proof: ["개인정보처리방침의 광고 쿠키 문구", "쿠키 정책의 선택권 안내", "면책 고지와 문의 링크", "금지 콘텐츠 사전 점검 기록"]
+  },
+  resources: {
+    focus: "자료 활용",
+    good: "공식 자료를 우선 확인하고, 체크리스트와 기록표로 실행까지 연결합니다.",
+    risk: "출처가 불명확한 팁이나 오래된 화면 안내를 그대로 사용합니다.",
+    action: "공식 도움말, 사이트맵, 점검 도구를 함께 보며 최신성을 확인합니다.",
+    proof: ["참고한 공식 자료 링크", "확인 날짜와 수정 날짜", "점검표 완료 항목", "깨진 링크 정리 결과"]
+  }
+};
+
 function businessSummaryRows() {
   return `<table class="trust-table"><tbody><tr><th>운영 주체</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`;
 }
@@ -593,6 +638,37 @@ function visualHubCard({ href, src, alt, title, text }) {
   </a>`;
 }
 
+function articleQualityBlocks(cat) {
+  const profile = qualityProfiles[cat];
+  if (!profile) return "";
+  return `<section class="quality-block">
+    <h2>좋은 상태와 위험 상태 비교</h2>
+    <table class="summary-table quality-table"><thead><tr><th>구분</th><th>판단 기준</th><th>다음 행동</th></tr></thead><tbody>
+      <tr><td>좋은 상태</td><td>${esc(profile.good)}</td><td>${esc(profile.action)}</td></tr>
+      <tr><td>위험 상태</td><td>${esc(profile.risk)}</td><td>대표 글, 정책 페이지, 내부 링크, 모바일 화면 중 약한 영역을 먼저 보강합니다.</td></tr>
+    </tbody></table>
+    <h2>수정 증거 체크리스트</h2>
+    <div class="proof-grid">${profile.proof.map((item, index) => `<article><span>${index + 1}</span><p>${esc(item)}</p></article>`).join("")}</div>
+  </section>`;
+}
+
+function categoryPriorityMatrix(key) {
+  const profile = qualityProfiles[key];
+  const actions = categoryActions[key];
+  if (!profile || !actions) return "";
+  const rows = [
+    ["먼저", profile.focus, profile.good, actions.links[0]],
+    ["다음", "보강 기준", profile.action, actions.links[1]],
+    ["마지막", "신청 전 확인", "수정한 내용이 실제 공개 페이지와 모바일 화면에서 확인되는지 봅니다.", actions.links[2]]
+  ];
+  return `<section class="wrap section tight">
+    <h2>우선순위 매트릭스</h2>
+    <table class="summary-table priority-table"><thead><tr><th>순서</th><th>점검 영역</th><th>판단 기준</th><th>바로가기</th></tr></thead><tbody>
+      ${rows.map(([order, area, standard, link]) => `<tr><td>${order}</td><td>${esc(area)}</td><td>${esc(standard)}</td><td><a href="${link[1]}">${esc(link[0])}</a></td></tr>`).join("")}
+    </tbody></table>
+  </section>`;
+}
+
 function articlePage(article) {
   const [cat, slug, title, description, points] = article;
   const related = articles.filter((item) => item[0] === cat && item[1] !== slug).slice(0, 3);
@@ -649,6 +725,7 @@ function articlePage(article) {
     <p>먼저 현재 사이트에서 이 주제와 관련된 페이지를 모두 열어 봅니다. 제목, 첫 문단, 메뉴 연결, 하단 정책 링크, 모바일 화면을 순서대로 확인하면 문제를 빠르게 찾을 수 있습니다. 수정 후에는 사이트맵을 다시 생성하고 주요 페이지의 색인 상태를 확인하세요.</p>
     <h2>자가 진단 표</h2>
     <table><thead><tr><th>점검 영역</th><th>확인할 내용</th><th>보강 방법</th></tr></thead><tbody>${diagnostics}</tbody></table>
+    ${articleQualityBlocks(cat)}
     ${deepDive ? `<h2>${esc(deepDive.title)}</h2>${deepDive.html}` : ""}
     <h2>수정 기록으로 남길 것</h2>
     <p>승인 준비는 한 번에 끝나는 작업이 아니라 개선 내역을 쌓아 가는 과정입니다. 재신청을 해야 하는 상황이 오더라도 어떤 부분을 고쳤는지 기록해 두면 같은 문제를 반복하지 않을 수 있습니다. 아래 항목은 이 글의 주제에 맞춰 남겨 두면 좋은 증거입니다.</p>
@@ -704,6 +781,7 @@ function categoryPage(key) {
     <h2>이 주제에서 확인할 것</h2>
     <table class="summary-table"><thead><tr><th>핵심</th><th>확인 기준</th><th>활용 방법</th></tr></thead><tbody><tr><td>${esc(focus[0])}</td><td>${esc(focus[1])}</td><td>${esc(focus[2])}</td></tr></tbody></table>
   </section>
+  ${categoryPriorityMatrix(key)}
   <section class="wrap section tight">
     <h2>바로 실행할 수 있는 도구와 글</h2>
     <div class="action-strip">${actions.links.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join("")}</div>
@@ -1510,6 +1588,12 @@ p { margin: 0 0 16px; }
 .trust-table { width: 100%; border-collapse: collapse; margin: 14px 0 22px; background: white; }
 .trust-table th, .trust-table td { border: 1px solid var(--line); padding: 12px 14px; text-align: left; vertical-align: top; }
 .trust-table th { width: 180px; background: #eef6ff; color: #1e3a8a; }
+.quality-block { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 24px 0 28px; margin: 28px 0; }
+.quality-table td:first-child, .priority-table td:first-child { font-weight: 800; color: #1e3a8a; white-space: nowrap; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0 4px; }
+.proof-grid article { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--soft); }
+.proof-grid span { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 999px; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }
+.proof-grid p { margin: 0; color: var(--muted); font-size: 15px; }
 .hub-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin: 20px 0 28px; }
 .hub-list a { border: 1px solid var(--line); border-radius: 8px; padding: 18px; text-decoration: none; background: white; }
 .hub-list span { display: block; color: var(--muted); margin-top: 6px; }
@@ -1578,7 +1662,7 @@ p { margin: 0 0 16px; }
 }
 @media (max-width: 560px) {
   .wrap { width: min(100% - 24px, 1120px); }
-  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid, .trust-matrix { grid-template-columns: 1fr; }
+  .quick-grid, .quick-grid.six, .grid.three, .read-order, .hub-list, .visual-grid, .path-grid, .trust-list, .hub-overview dl, .tool-result-grid, .trust-matrix, .proof-grid { grid-template-columns: 1fr; }
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
