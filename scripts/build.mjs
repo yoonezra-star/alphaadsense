@@ -575,6 +575,7 @@ function layout({ title, description, path = "/", content, schema = [] }) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="_hP9RZUOUGh31ZUx04wMj46IdWLrOwO18FopYY4hpY4">
   <title>${esc(title)} | ${site.name}</title>
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="${url}">
