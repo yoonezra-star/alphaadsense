@@ -76,3 +76,4 @@
 - 공개 DNS에서 NS가 Cloudflare로 응답하고 루트 TXT는 점검 환경에서 데이터 없음 응답을 받았다. 계정 소유권 상태를 조회하거나 인증을 변경한 것은 아니다.
 - 화면 기록: [RPM 데스크톱](qa/step2-rpm-desktop.png), [가비아 연결 데스크톱](qa/step2-gabia-desktop.png), [인증 코드 모바일](qa/step2-search-mobile.png).
 - 다음 우선 작업은 12번 글쓰기 편집 사례, 30번 실제 구조 감사 문서다.
+- 공개 배포: 구현 커밋 `9c9148b`의 세 문서 모두 200 응답, 새 본문과 수정일, 인증 태그를 확인했다. [공개 화면 기록](qa/step2-live.png).
