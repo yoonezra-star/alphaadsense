@@ -2,6 +2,8 @@ import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import revisedGuides from "../content/guides/index.mjs";
 import { contentWorkbench, toolStyles } from "./tool-markup.mjs";
+import { homePage, homeStyles } from "./home.mjs";
+import { searchPage, searchStyles } from "./search-markup.mjs";
 
 const site = {
   name: "Alpha AdSense",
@@ -24,7 +26,8 @@ const nav = [
   ["거절", "/rejection/"],
   ["글쓰기", "/writing/"],
   ["정책", "/policy/"],
-  ["도구", "/tools/"]
+  ["도구", "/tools/"],
+  ["검색", "/search/"]
 ];
 
 const categories = {
@@ -597,11 +600,11 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
     <div class="wrap header-inner">
       <a class="brand" href="/"><span>Alpha</span> AdSense</a>
       <nav class="nav" aria-label="주요 메뉴">
-        ${nav.map(([label, href]) => `<a href="${href}">${label}</a>`).join("")}
+        ${nav.map(([label, href]) => `<a href="${href}"${path === href ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
       </nav>
     </div>
   </header>
-  <main id="content">
+  <main id="content" tabindex="-1">
     ${content}
   </main>
   <footer class="footer">
@@ -614,7 +617,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
       <div>
         <strong>운영 정보</strong>
         <p>문의: <a href="mailto:${site.email}">${site.email}</a></p>
-        <p><a href="/privacy/">개인정보처리방침</a> · <a href="/cookie-policy/">쿠키 정책</a> · <a href="/terms/">이용약관</a> · <a href="/disclaimer/">면책 고지</a> · <a href="/editorial-policy/">운영 원칙</a> · <a href="/sources/">출처</a> · <a href="/sitemap/">사이트맵</a> · <a href="/updates/">업데이트</a></p>
+        <nav class="footer-links" aria-label="운영 및 정책">${[["소개", "/about/"], ["문의", "/contact/"], ["개인정보처리방침", "/privacy/"], ["쿠키 정책", "/cookie-policy/"], ["이용약관", "/terms/"], ["면책 고지", "/disclaimer/"], ["운영 원칙", "/editorial-policy/"], ["출처", "/sources/"], ["사이트맵", "/sitemap/"], ["업데이트", "/updates/"]].map(([label, href]) => `<a href="${href}"${path === href ? ' aria-current="page"' : ""}>${label}</a>`).join("")}</nav>
         <p>© 2026 ${site.copyrightName}. All Rights Reserved.</p>
       </div>
     </div>
@@ -839,35 +842,12 @@ rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist", { recursive: true });
 copyPublic();
 mkdirSync("dist/assets/icons", { recursive: true });
-for (const name of ["save", "x", "download", "trash-2", "calculator", "file-input", "rotate-ccw", "pencil"]) {
+for (const name of ["save", "x", "download", "trash-2", "calculator", "file-input", "rotate-ccw", "pencil", "search", "arrow-right", "arrow-left", "clipboard-list"]) {
   cpSync(`node_modules/lucide-static/icons/${name}.svg`, `dist/assets/icons/${name}.svg`);
 }
 cpSync("node_modules/lucide-static/LICENSE", "dist/assets/icons/LICENSE.txt");
 
 const latest = [...articles].sort((left, right) => (revisedGuides[right[1]]?.updatedAt || siteUpdatedAt).localeCompare(revisedGuides[left[1]]?.updatedAt || siteUpdatedAt)).slice(0, 8);
-const visualHubs = [
-  {
-    href: "/approval-hub/",
-    src: "/assets/approval-workflow.png",
-    alt: "애드센스 승인 준비 전체 흐름도",
-    title: "승인 준비 전체 흐름",
-    text: "도메인, 구조, 콘텐츠, 정책, 색인을 한 번에 보는 대표 허브입니다."
-  },
-  {
-    href: "/guides/site-structure-audit-example/",
-    src: "/assets/site-structure-audit.png",
-    alt: "사이트 구조 점검 이미지",
-    title: "사이트 구조 점검",
-    text: "홈, 메뉴, 카테고리, 글 상세, 정책 페이지 연결을 시각적으로 확인합니다."
-  },
-  {
-    href: "/guides/low-value-rejection-rewrite-example/",
-    src: "/assets/low-value-rewrite.png",
-    alt: "낮은 가치 콘텐츠 수정 예시 이미지",
-    title: "낮은 가치 콘텐츠 보강",
-    text: "짧은 글을 종합 가이드와 체크리스트형 본문으로 바꾸는 기준입니다."
-  }
-];
 const nextStepPaths = [
   {
     title: "처음 만드는 운영자",
@@ -899,35 +879,6 @@ function nextStepCard(item) {
   </article>`;
 }
 
-const homeMetrics = [
-  ["62", "공개 페이지", "허브, 가이드, 도구, 필수 문서를 한 흐름으로 구성했습니다."],
-  ["34", "상세 가이드", "승인, 거절, 글쓰기, 정책, 수익화 주제를 깊게 다룹니다."],
-  ["8", "필수 문서", "소개, 문의, 개인정보, 쿠키, 약관, 면책, 운영 원칙, 출처를 분리했습니다."],
-  ["4", "운영 도구", "콘텐츠 작업표, RPM 계산, 거절 안내와 30일 계획을 제공합니다."]
-];
-
-const reviewCards = [
-  {
-    title: "구조",
-    text: "상단 메뉴, 카테고리 허브, 하단 필수 링크가 같은 기준으로 이어지는지 확인합니다.",
-    href: "/guides/site-structure-audit-example/"
-  },
-  {
-    title: "콘텐츠",
-    text: "대표 글마다 판단 기준, 예시, 표, 체크리스트, 관련 링크가 들어가는지 봅니다.",
-    href: "/guides/approval-friendly-article-format/"
-  },
-  {
-    title: "정책",
-    text: "개인정보, 쿠키, 면책, 금지 콘텐츠 기준이 실제 운영 방식과 맞는지 점검합니다.",
-    href: "/policy/"
-  },
-  {
-    title: "색인",
-    text: "Search Console, sitemap, 모바일 화면, 깨진 링크를 신청 직전에 다시 확인합니다.",
-    href: "/checklist/"
-  }
-];
 
 const approvalReadinessCards = [
   ["뼈대", "도메인, 홈, 메뉴, 필수 페이지가 먼저 고정되어야 합니다.", "/start-guide/"],
@@ -936,117 +887,9 @@ const approvalReadinessCards = [
   ["안정", "색인, HTTPS, 모바일 화면, 깨진 링크를 신청 전 다시 봅니다.", "/tools/approval-score/"]
 ];
 
-const body = `<section class="home-hero">
-  <div class="wrap hero-grid">
-    <div>
-      <p class="eyebrow">AdSense approval guide</p>
-      <h1>애드센스 승인 준비를 심사자 관점으로 점검하세요</h1>
-      <p>사이트 구조, 글쓰기, 정책 페이지, 색인 상태, 거절 대응까지 초보 운영자가 신청 전에 확인해야 할 흐름을 한곳에 정리한 실전 가이드입니다.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="/approval-hub/">승인 준비 허브</a>
-        <a class="button" href="/tools/approval-score/">콘텐츠 점검 작업표</a>
-      </div>
-      <div class="hero-metrics">${homeMetrics.map(([value, label, text]) => `<div><strong>${value}</strong><span>${label}</span><p>${text}</p></div>`).join("")}</div>
-    </div>
-    <figure class="hero-media">
-      <img src="/assets/approval-workflow.png" alt="애드센스 승인 준비 흐름도">
-    </figure>
-  </div>
-</section>
-<section class="wrap section trust-section">
-  <div class="trust-grid">
-    <div>
-      <p class="eyebrow">Review-ready signals</p>
-      <h2>첫 방문자가 바로 확인하는 신뢰 요소</h2>
-      <p>애드센스 심사에서 중요한 것은 화려한 화면보다 운영 목적, 탐색 경로, 정책 페이지, 실제 도움 되는 콘텐츠가 명확하게 보이는지입니다.</p>
-    </div>
-    <ul class="trust-list">
-      <li><strong>운영자 정보 공개</strong><span>소개, 문의, 사업자 정보, 정정 요청 경로를 하단과 필수 페이지에서 확인할 수 있습니다.</span></li>
-      <li><strong>정책 페이지 분리</strong><span>개인정보처리방침, 쿠키 정책, 이용약관, 면책 고지, 운영 원칙을 별도 페이지로 제공합니다.</span></li>
-      <li><strong>목적별 허브 구성</strong><span>승인, 거절, 글쓰기, 정책, 수익화, 자료실을 학습 경로처럼 탐색할 수 있습니다.</span></li>
-      <li><strong>공식 자료 기반</strong><span>AdSense 공식 도움말과 정책을 확인한 뒤 운영자가 실행할 수 있는 점검표로 정리합니다.</span></li>
-    </ul>
-  </div>
-</section>
-<section class="wrap section tight">
-  <div class="section-head">
-    <p class="eyebrow">Approval review map</p>
-    <h2>신청 전 네 가지 관점으로 다시 보기</h2>
-    <p>승인용 사이트는 글 수보다 구조, 콘텐츠 깊이, 정책 안정성, 색인 상태가 함께 맞아야 안정적입니다. 홈에서 바로 점검 흐름을 잡을 수 있도록 주요 검토 관점을 묶었습니다.</p>
-  </div>
-  <div class="review-dashboard">${reviewCards.map((item) => `<a class="review-card" href="${item.href}"><strong>${item.title}</strong><span>${item.text}</span></a>`).join("")}</div>
-</section>
-<section class="wrap section">
-  <div class="section-head">
-    <p class="eyebrow">Primary paths</p>
-    <h2>가장 많이 보는 핵심 경로</h2>
-    <p>상단 메뉴는 줄이고, 홈에서는 목적별 경로를 더 선명하게 제공합니다. 처음 온 방문자는 아래 여섯 가지 중 현재 상황에 맞는 길을 고르면 됩니다.</p>
-  </div>
-  <div class="quick-grid six">
-    <a href="/start-guide/"><strong>처음 시작</strong><span>도메인, 메뉴, 필수 페이지, 첫 글 순서</span></a>
-    <a href="/approval/"><strong>승인 준비</strong><span>도메인, 구조, 색인, 신청 순서</span></a>
-    <a href="/rejection/"><strong>거절 해결</strong><span>낮은 가치, 탐색, 접근 불가 대응</span></a>
-    <a href="/writing/"><strong>글쓰기</strong><span>주제 선정, 본문 구성, 내부 링크</span></a>
-    <a href="/policy/"><strong>정책 체크</strong><span>개인정보, 쿠키, 금지 콘텐츠</span></a>
-    <a href="/tools/"><strong>점검 도구</strong><span>콘텐츠 작업표, 거절 안내, 30일 계획</span></a>
-  </div>
-</section>
-<section class="wrap section tight">
-  <h2>빠른 주제 찾기</h2>
-  <div class="topic-pills">
-    <a href="/approval-hub/">승인 준비 허브</a>
-    <a href="/next-steps/">상황별 다음 단계</a>
-    <a href="/guides/site-structure-audit-example/">사이트 구조 점검</a>
-    <a href="/guides/low-value-rejection-rewrite-example/">낮은 가치 수정</a>
-    <a href="/official-resources/">공식 자료 확인</a>
-    <a href="/faq/">초보자 FAQ</a>
-    <a href="/search/">사이트 검색</a>
-    <a href="/sitemap/">전체 글 목록</a>
-    <a href="/tools/rejection-diagnosis/">거절 사유 진단</a>
-  </div>
-</section>
-<section class="wrap section">
-  <div class="section-head">
-    <p class="eyebrow">대표 허브</p>
-    <h2>이미지로 먼저 보는 승인 준비 흐름</h2>
-    <p>초보 운영자는 글 목록만 보면 어디서 시작할지 헷갈릴 수 있습니다. 핵심 흐름을 그림과 함께 묶어 두면 사용자가 현재 필요한 단계를 더 빠르게 고를 수 있습니다.</p>
-  </div>
-  <div class="visual-grid">${visualHubs.map(visualHubCard).join("")}</div>
-</section>
-<section class="wrap section tight">
-  <h2>신청 전 로드맵</h2>
-  <table class="summary-table"><thead><tr><th>단계</th><th>확인할 내용</th><th>바로가기</th></tr></thead><tbody><tr><td>1. 뼈대 만들기</td><td>도메인, 홈, 메뉴, 필수 페이지를 먼저 고정합니다.</td><td><a href="/start-guide/">시작 가이드</a></td></tr><tr><td>2. 대표 글 채우기</td><td>카테고리마다 문제 해결형 대표 글과 내부 링크를 배치합니다.</td><td><a href="/writing/">글쓰기 가이드</a></td></tr><tr><td>3. 정책 점검</td><td>개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 확인합니다.</td><td><a href="/policy/">정책 체크</a></td></tr><tr><td>4. 색인과 재점검</td><td>사이트맵, Search Console, 모바일 화면, 깨진 링크를 점검합니다.</td><td><a href="/checklist/">체크리스트</a></td></tr></tbody></table>
-</section>
-<section class="wrap section tight">
-  <div class="section-head">
-    <p class="eyebrow">다음 행동</p>
-    <h2>내 상황에 맞는 경로로 이어서 보기</h2>
-    <p>방문자가 바로 다음 글을 고를 수 있도록 상황별 읽기 경로를 나눴습니다. 같은 글 목록이라도 목적별로 묶이면 허브의 역할이 훨씬 분명해집니다.</p>
-  </div>
-  <div class="path-grid">${nextStepPaths.map(nextStepCard).join("")}</div>
-  <p><a class="button" href="/next-steps/">상황별 전체 경로 보기</a></p>
-</section>
-<section class="band">
-  <div class="wrap split">
-    <div>
-      <p class="eyebrow">신청 전 핵심</p>
-      <h2>승인 가능성을 높이는 기본 원칙</h2>
-      <p>공식 도움말은 고유하고 흥미로운 콘텐츠, 쉬운 탐색, 정책 준수를 강조합니다. 이 사이트는 그 기준을 운영자가 실행 가능한 점검표로 바꾸는 데 집중합니다.</p>
-    </div>
-    <ol class="steps">
-      <li><strong>주제 명확화</strong><span>방문자가 어떤 문제를 해결할 수 있는지 첫 화면에서 보여줍니다.</span></li>
-      <li><strong>콘텐츠 완성도</strong><span>얇은 글보다 판단 기준과 예시가 있는 글을 우선합니다.</span></li>
-      <li><strong>정책 페이지</strong><span>개인정보, 쿠키, 문의, 면책 고지를 공개합니다.</span></li>
-      <li><strong>색인 확인</strong><span>Search Console에서 주요 페이지가 발견되는지 확인합니다.</span></li>
-    </ol>
-  </div>
-</section>
-<section class="wrap section">
-  <h2>최근 업데이트된 가이드</h2>
-  <div class="grid three">${latest.map(articleCard).join("")}</div>
-</section>`;
+const body = homePage({ latest, images: articleImages, guides: revisedGuides, categories, escape: esc });
 
-write("index.html", layout({ title: "애드센스 승인 준비와 수익형 글쓰기 가이드", description: site.description, content: body }));
+write("index.html", layout({ title: "콘텐츠 수정과 사이트 운영 자료실", description: site.description, content: body, updatedAt: "2026-10-27" }));
 
 for (const key of Object.keys(categories)) {
   write(`${key}/index.html`, categoryPage(key));
@@ -1152,7 +995,9 @@ const searchableStaticPages = [
   ["/privacy/", "개인정보처리방침", "개인정보 처리와 광고 쿠키 관련 고지입니다.", "정책"],
   ["/cookie-policy/", "쿠키 정책", "광고 쿠키와 맞춤 광고 선택권에 대한 안내입니다.", "정책"],
   ["/editorial-policy/", "운영 원칙", "콘텐츠 작성 기준과 정책 준수 원칙입니다.", "운영"],
-  ["/sources/", "출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "자료"]
+  ["/sources/", "출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "자료"],
+  ["/about/", "소개", "Alpha AdSense의 운영 목적, 리플리더스 운영자 정보와 편집 범위입니다.", "운영"],
+  ["/contact/", "문의", "오류 정정과 운영 문의를 보내는 연락처와 필요한 정보입니다.", "운영"]
 ];
 
 const searchIndex = [
@@ -1168,53 +1013,7 @@ const searchIndex = [
 
 write("search-index.json", JSON.stringify(searchIndex, null, 2));
 
-write("search/index.html", staticPage("사이트 검색", "애드센스 승인 준비, 거절 해결, 정책 체크, 글쓰기 자료를 한 번에 찾을 수 있는 내부 검색입니다.", "/search/", `
-<form class="search-box" role="search">
-  <label for="site-search">검색어</label>
-  <div><input id="site-search" type="search" placeholder="예: 낮은 가치, 쿠키, Cloudflare, 색인" autocomplete="off"><button class="button primary" type="submit">검색</button></div>
-</form>
-<div class="topic-pills search-suggestions">
-  <button type="button" data-query="낮은 가치">낮은 가치</button>
-  <button type="button" data-query="정책">정책</button>
-  <button type="button" data-query="색인">색인</button>
-  <button type="button" data-query="Cloudflare">Cloudflare</button>
-  <button type="button" data-query="쿠키">쿠키</button>
-  <button type="button" data-query="거절">거절</button>
-</div>
-<div id="search-results" class="search-results" aria-live="polite"></div>
-<h2>검색 활용법</h2>
-<p>검색어는 하나의 문제 단위로 입력하는 것이 좋습니다. 예를 들어 승인 전 기술 점검이 궁금하면 Cloudflare, HTTPS, 색인을 검색하고, 콘텐츠 보강이 필요하면 낮은 가치, 중복, 글 구성을 검색합니다. 정책 페이지를 확인할 때는 쿠키, 개인정보, 면책 고지처럼 페이지 이름을 직접 입력하면 관련 자료를 빠르게 찾을 수 있습니다.</p>
-<h2>찾기 어려울 때 보는 경로</h2>
-<ul><li>처음 사이트를 만드는 단계라면 <a href="/start-guide/">시작 가이드</a>를 먼저 봅니다.</li><li>전체 승인 흐름을 보고 싶다면 <a href="/approval-hub/">승인 준비 허브</a>를 확인합니다.</li><li>공식 기준이 필요한 글은 <a href="/official-resources/">공식 자료 활용 안내</a>와 함께 읽습니다.</li><li>모든 페이지를 한 번에 보고 싶다면 <a href="/sitemap/">전체 글 목록</a>을 사용합니다.</li></ul>
-<script>
-(async function () {
-  const input = document.getElementById("site-search");
-  const results = document.getElementById("search-results");
-  const form = document.querySelector(".search-box");
-  const params = new URLSearchParams(location.search);
-  const response = await fetch("/search-index.json");
-  const items = await response.json();
-
-  function render(query) {
-    const q = query.trim().toLowerCase();
-    input.value = query;
-    const matches = q ? items.filter((item) => [item.title, item.description, item.category].join(" ").toLowerCase().includes(q)).slice(0, 24) : items.slice(0, 12);
-    results.innerHTML = "<p class=\\"result-count\\">" + matches.length + "개 결과</p>" + matches.map((item) => "<article class=\\"search-result\\"><p class=\\"eyebrow\\">" + item.category + "</p><h2><a href=\\"" + item.url + "\\">" + item.title + "</a></h2><p>" + item.description + "</p></article>").join("");
-    if (q) history.replaceState(null, "", "/search/?q=" + encodeURIComponent(query));
-  }
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    render(input.value);
-  });
-
-  document.querySelectorAll("[data-query]").forEach((button) => {
-    button.addEventListener("click", () => render(button.dataset.query));
-  });
-
-  render(params.get("q") || "");
-}());
-</script>`));
+write("search/index.html", staticPage("사이트 검색", "콘텐츠·배포·정책 문서를 찾습니다.", "/search/", searchPage, "2026-10-27"));
 
 write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 주요 허브, 정책 페이지, 카테고리, 가이드 글을 한눈에 볼 수 있는 사용자용 사이트맵입니다.", "/sitemap/", `
 <h2>주요 허브</h2>
@@ -1227,6 +1026,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span>홈을 문제별 출발점·개정 가이드·운영 도구 중심으로 정리했습니다. 공통 하단에 소개·문의 링크를 추가하고, 검색에 제목 일치 우선순위, 결과 페이지 이동과 불러오기 실패 시 재시도를 반영했습니다. <a href="/guides/site-structure-audit-example/#follow-up-navigation">후속 검사 기록</a>에서 최초 감사와 변경 결과를 구분합니다.</span></li>
   <li><strong>2026-10-27</strong><span>기존 점수 진단을 <a href="/tools/approval-score/">콘텐츠 점검 작업표</a>로 교체하고, <a href="/guides/rpm-cpc-basics/#rpm-calculator">RPM·광고 CTR 계산기</a>를 추가했습니다. 브라우저 저장, 편집·삭제·CSV 내보내기와 오류 검증을 제공하고 개인정보 안내에 실제 저장 범위를 반영했습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/approval-friendly-article-format/">정보 글 편집 실제 사례</a>와 <a href="/guides/site-structure-audit-example/">실제 사이트 구조 감사</a>를 재작성했습니다. 원문 편집 판단, 공개 홈 캡처와 탐색·응답 검사 결과를 넣고 미적용 개선 과제를 구분했습니다.</span></li>
   <li><strong>2026-10-26</strong><span><a href="/guides/rpm-cpc-basics/">RPM 계산과 해석</a>, <a href="/guides/cloudflare-gabia-domain-guide/">가비아·Cloudflare 연결</a>, <a href="/guides/cloudflare-search-console-example/">Search Console 인증 해결</a> 문서를 개별 본문으로 재작성했습니다. 계산 예시와 DNS·HTML 확인 범위, 실패별 점검 순서를 추가했습니다.</span></li>
@@ -1528,16 +1328,21 @@ write("styles.css", `
 body { margin: 0; font-family: Arial, "Noto Sans KR", sans-serif; color: var(--ink); background: var(--white); line-height: 1.7; }
 a { color: inherit; text-decoration: none; }
 a:hover { color: var(--blue); }
-a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid rgba(37, 99, 235, .34); outline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
 .skip { position: absolute; left: -999px; top: 12px; background: var(--ink); color: white; padding: 8px 12px; z-index: 3; }
 .skip:focus { left: 12px; }
 .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+main { scroll-margin-top: 96px; }
 .site-header { border-bottom: 1px solid var(--line); background: rgba(255,255,255,.95); position: sticky; top: 0; z-index: 2; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 0; }
 .brand { font-size: 22px; font-weight: 800; letter-spacing: 0; white-space: nowrap; }
 .brand span { color: var(--blue); }
 .nav { display: flex; flex-wrap: wrap; gap: 14px; justify-content: flex-end; font-size: 14px; color: var(--muted); }
-.nav a { padding: 4px 0; }
+.nav a { padding: 4px 6px; display: inline-flex; align-items: center; min-height: 44px; }
+.nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-underline-offset: 6px; font-weight: 700; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 0 14px; margin: 10px 0; }
+.footer-links a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; }
+.footer-links a[aria-current="page"] { font-weight: 700; }
 .home-hero { background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%); border-bottom: 1px solid var(--line); }
 .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; padding: 64px 0 50px; }
 .eyebrow { color: var(--green); font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0; margin: 0 0 10px; }
@@ -1704,6 +1509,8 @@ p { margin: 0 0 16px; }
 .article-revision { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 28px; color: var(--muted); font-size: 14px; }
 .article-code { max-width: 100%; overflow-x: auto; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--soft); font-size: 14px; white-space: pre; }
 ${toolStyles}
+${homeStyles}
+${searchStyles}
 .read-order { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; counter-reset: order; }
 .read-order li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; counter-increment: order; }
 .read-order li::before { content: counter(order); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }
@@ -1716,8 +1523,9 @@ ${toolStyles}
 .footer .business-info { font-size: 14px; line-height: 1.65; }
 .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
 @media (max-width: 860px) {
-  .header-inner { align-items: flex-start; flex-direction: column; }
-  .nav { justify-content: flex-start; }
+  main { scroll-margin-top: 180px; }
+  .header-inner { align-items: flex-start; flex-direction: column; gap: 12px; }
+  .nav { justify-content: flex-start; gap: 6px; }
   .hero-grid, .split, .footer-grid, .trust-grid, .hub-overview { grid-template-columns: 1fr; }
   .quick-grid, .grid.three, .read-order, .visual-grid, .review-dashboard, .readiness-grid { grid-template-columns: 1fr 1fr; }
   .quick-grid.six, .trust-list { grid-template-columns: 1fr 1fr; }
@@ -1729,7 +1537,10 @@ ${toolStyles}
   .hero-grid { padding-top: 42px; }
   h1 { font-size: 30px; }
   h2 { font-size: 24px; }
-  .nav { gap: 10px 12px; }
+  .header-inner { padding-block: 12px; gap: 8px; }
+  .nav { gap: 0 4px; }
+  .nav a { padding: 0 6px; }
+  .article-section h2, .metric-tool, .workbench { scroll-margin-top: 180px; }
   .search-box div { grid-template-columns: 1fr; }
   .article table, .summary-table { display: block; overflow-x: auto; white-space: normal; }
 }

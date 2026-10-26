@@ -7,6 +7,7 @@ import { before, test } from "node:test";
 import guide from "../content/guides/low-value-content-fix.mjs";
 import revisedGuides from "../content/guides/index.mjs";
 import { metricExample } from "../content/guides/rpm-cpc-basics.mjs";
+import { searchDocuments } from "../public/assets/search-engine.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const dist = resolve(root, "dist");
@@ -89,8 +90,9 @@ test("an untouched guide keeps its previous modification date", () => {
 });
 
 test("the latest list and search index include the revised article", () => {
-  const latest = read("index.html").split("<h2>최근 업데이트된 가이드</h2>")[1];
-  assert.ok(latest.indexOf("/guides/low-value-content-fix/") < latest.indexOf("/guides/adsense-approval-roadmap/"));
+  const latest = read("index.html");
+  assert.ok(latest.includes('data-home-guide="low-value-content-fix"'));
+  assert.ok(!latest.includes('data-home-guide="adsense-approval-roadmap"'));
   const entries = JSON.parse(read("search-index.json"));
   const revised = entries.find((entry) => entry.url === "/guides/low-value-content-fix/");
   for (const section of guide.sections) assert.ok(revised.description.includes(section.title));
@@ -175,11 +177,13 @@ test("the editing case distinguishes real changes from approval claims", () => {
   assert.ok(html.includes("승인 성공 사례는 아닙니다"));
 });
 
-test("the structure audit labels its snapshot and unapplied recommendations", () => {
+test("the structure audit separates its original snapshot from follow-up changes", () => {
   const html = read("guides/site-structure-audit-example/index.html");
   assert.ok(html.includes("문서를 개정하기 전 시점의 기록"));
   assert.ok(html.includes("200 응답"));
   assert.ok(html.includes("공통 푸터를 바꾸지 않았습니다"));
+  assert.ok(html.includes('id="follow-up-navigation"'));
+  assert.ok(html.includes("나머지 28개"));
   assert.ok(html.includes("계정 내부의 심사·색인·방문 통계"));
   assert.ok(html.includes('src="/assets/audit-home-20261027.jpg"'));
   assert.ok(html.includes('width="1425" height="976"'));
@@ -188,9 +192,33 @@ test("the structure audit labels its snapshot and unapplied recommendations", ()
 });
 
 test("newly revised documents lead the latest list by their real modification dates", () => {
-  const latest = read("index.html").split("<h2>최근 업데이트된 가이드</h2>")[1];
+  const latest = read("index.html").split('<div class="home-guide-list">')[1];
   assert.ok(latest.indexOf("/guides/approval-friendly-article-format/") < latest.indexOf("/guides/low-value-content-fix/"));
   assert.ok(latest.indexOf("/guides/site-structure-audit-example/") < latest.indexOf("/guides/low-value-content-fix/"));
+  const slugs = [...latest.matchAll(/data-home-guide="([^"]+)"/g)].map((match) => match[1]);
+  assert.equal(slugs.length, 6);
+  assert.ok(slugs.every((slug) => revisedGuides[slug]));
+});
+
+test("every page exposes direct trust navigation and a working search entry", () => {
+  for (const file of htmlFiles(dist)) {
+    const html = readFileSync(file, "utf8");
+    const footer = html.split('aria-label="운영 및 정책"')[1].split("</nav>")[0];
+    assert.ok(footer.includes('href="/about/"'));
+    assert.ok(footer.includes('href="/contact/"'));
+    assert.ok(html.includes('href="/search/"'));
+    assert.ok(html.includes('<main id="content" tabindex="-1">'));
+  }
+  assert.ok(read("about/index.html").includes('href="/about/" aria-current="page"'));
+  assert.ok(read("search/index.html").includes('href="/search/" aria-current="page"'));
+});
+
+test("search ranks the real verification document first and exposes fallbacks", () => {
+  const items = JSON.parse(read("search-index.json"));
+  assert.equal(searchDocuments(items, "인증")[0].url, "/guides/cloudflare-search-console-example/");
+  const html = read("search/index.html");
+  for (const marker of ['id="search-error"', 'id="search-retry"', 'aria-busy="true"', 'aria-label="검색 결과 페이지"', '<noscript>', 'src="/assets/site-search.mjs"']) assert.ok(html.includes(marker));
+  assert.ok(!readFileSync(join(root, "public/assets/site-search.mjs"), "utf8").includes("innerHTML"));
 });
 
 test("score page is replaced by a privacy-disclosed workbench with safe initial controls", () => {
