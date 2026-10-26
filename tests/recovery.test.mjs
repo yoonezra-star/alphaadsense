@@ -192,3 +192,14 @@ test("newly revised documents lead the latest list by their real modification da
   assert.ok(latest.indexOf("/guides/approval-friendly-article-format/") < latest.indexOf("/guides/low-value-content-fix/"));
   assert.ok(latest.indexOf("/guides/site-structure-audit-example/") < latest.indexOf("/guides/low-value-content-fix/"));
 });
+
+test("score page is replaced by a privacy-disclosed workbench with safe initial controls", () => {
+  const html = read("tools/approval-score/index.html");
+  for (const old of ["data-points", "85점 이상", 'id="score-tool"']) assert.ok(!html.includes(old));
+  assert.ok(html.includes('id="audit-fields" aria-label="점검 항목 입력" disabled'));
+  assert.ok(html.includes('src="/assets/content-audit.mjs"'));
+  assert.ok(html.includes("URL의 본문을 자동으로 읽거나"));
+  assert.ok(html.includes('href="/privacy/#local-tools"'));
+  assert.ok(read("privacy/index.html").includes('id="local-tools"'));
+  assert.ok(read("guides/rpm-cpc-basics/index.html").includes('id="rpm-calculator"'));
+});

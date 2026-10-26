@@ -5,10 +5,16 @@ Alpha AdSense is a Korean static information site for AdSense approval preparati
 ## Local
 
 ```powershell
+npm.cmd ci
 npm.cmd run assets
+npm.cmd test
 npm.cmd run build
 npm.cmd run dev
 ```
+
+`npm ci` installs the pinned Lucide build-time icon assets. The published tools use local JavaScript and SVG files, not a third-party CDN. Regenerating the existing bitmap assets is optional when only editing content or tools.
+
+The content workbench remains at `/tools/approval-score/` for existing links. It stores records only in the browser. The metric calculator is embedded at `/guides/rpm-cpc-basics/#rpm-calculator` and does not persist its input.
 
 ## Cloudflare Pages
 

@@ -1,3 +1,5 @@
+import { rpmCalculator } from "../../scripts/tool-markup.mjs";
+
 export const metricExample = {
   revenue: 12,
   pageviews: 6000,
@@ -10,11 +12,12 @@ const adRpm = (metricExample.revenue / metricExample.adImpressions * 1000).toFix
 const adCtr = (metricExample.adClicks / metricExample.adImpressions * 100).toFixed(2);
 
 export default {
-  updatedAt: "2026-10-26",
-  reviewSummary: "RPM의 분모를 바로잡고, 동일한 가상 데이터의 계산·기간 합산·지표 해석 사례를 추가했습니다.",
+  updatedAt: "2026-10-27",
+  reviewSummary: "분모와 단위 검증을 포함한 브라우저 계산기와 CSV 내보내기를 추가했습니다. 입력값은 저장하거나 전송하지 않습니다.",
   relatedSlugs: ["traffic-quality", "ad-placement-principles", "glossary-for-beginners"],
   intro: `<p><strong>페이지 RPM은 방문자 수나 방문 횟수가 아니라 페이지 조회수를 기준으로 계산합니다.</strong> 같은 수입이라도 어떤 수치를 분모에 넣느냐에 따라 결과가 달라집니다. 수익 보고서를 읽기 전에 페이지 조회, 광고 노출, 클릭을 구분해야 합니다.</p><p>아래 수치는 계산 방법을 설명하기 위한 가상 데이터입니다. Alpha AdSense의 실제 수익이나 기대 수익을 뜻하지 않습니다. 예시 통화는 USD이며 다른 통화를 섞어 계산하지 않습니다.</p>`,
   sections: [
+    { id: "interactive-calculator", title: "직접 계산", html: rpmCalculator },
     { id: "metric-definitions", title: "1. 지표 이름보다 먼저 분모를 확인하세요", html: `<div class="article-table-scroll" role="region" aria-label="수익 지표의 정의와 분모" tabindex="0"><table><caption>서로 바꿔 사용할 수 없는 네 가지 지표</caption><thead><tr><th scope="col">지표</th><th scope="col">의미와 계산</th><th scope="col">혼동하기 쉬운 점</th></tr></thead><tbody>
       <tr><th scope="row">페이지 RPM</th><td>예상 수입 ÷ 페이지 조회수 × 1,000</td><td>사용자 수나 세션 수를 넣는 공식이 아닙니다.</td></tr>
       <tr><th scope="row">광고 RPM</th><td>예상 수입 ÷ 광고 노출수 × 1,000</td><td>한 페이지에서 여러 광고가 노출될 수 있어 페이지 RPM과 값이 다릅니다.</td></tr>
