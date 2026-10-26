@@ -4,6 +4,8 @@ import gabiaCloudflare from "./cloudflare-gabia-domain-guide.mjs";
 import searchConsole from "./cloudflare-search-console-example.mjs";
 import articleEditing from "./approval-friendly-article-format.mjs";
 import structureAudit from "./site-structure-audit-example.mjs";
+import duplicateCleanup from "./duplicate-content-cleanup.mjs";
+import indexing from "./indexing-before-adsense.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -11,5 +13,7 @@ export default {
   "cloudflare-gabia-domain-guide": gabiaCloudflare,
   "cloudflare-search-console-example": searchConsole,
   "approval-friendly-article-format": articleEditing,
-  "site-structure-audit-example": structureAudit
+  "site-structure-audit-example": structureAudit,
+  "duplicate-content-cleanup": duplicateCleanup,
+  "indexing-before-adsense": indexing
 };

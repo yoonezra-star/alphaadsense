@@ -23,7 +23,7 @@ export function homePage({ latest, images, guides, categories, escape }) {
     <div class="home-guide-list">${recent.map(([category, slug, title, description]) => {
       const visual = slug === "rpm-cpc-basics" ? { src: "/assets/rpm-calculator-20261027.jpg" } : images[slug];
       const date = guides[slug].updatedAt;
-      return `<article class="home-guide" data-home-guide="${slug}" data-updated="${date}">
+      return `<article class="home-guide${visual ? "" : " home-guide-text"}" data-home-guide="${slug}" data-updated="${date}">
         ${visual ? `<img class="home-guide-image" src="${visual.src}" alt="" loading="lazy" width="160" height="112">` : ""}
         <div><p class="home-guide-meta">${escape(categories[category].title)} · <time datetime="${date}">${date}</time></p><h3><a href="/guides/${slug}/">${escape(title)}</a></h3><p>${escape(description)}</p></div>
       </article>`;
@@ -65,6 +65,7 @@ export const homeStyles = `
 .home-section-head > a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--muted); font-size: 14px; }
 .home-guide-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; }
 .home-guide { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 16px; min-width: 0; padding: 20px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.home-guide.home-guide-text { grid-template-columns: minmax(0, 1fr); }
 .home-guide-image { display: block; width: 120px; height: 90px; object-fit: cover; border: 1px solid var(--line); border-radius: 4px; background: var(--soft); }
 .home-guide h3 { font-size: 17px; line-height: 1.5; margin-bottom: 8px; word-break: keep-all; overflow-wrap: anywhere; }
 .home-guide p { color: var(--muted); font-size: 14px; line-height: 1.6; margin: 0; overflow-wrap: anywhere; }

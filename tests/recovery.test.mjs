@@ -198,6 +198,37 @@ test("newly revised documents lead the latest list by their real modification da
   const slugs = [...latest.matchAll(/data-home-guide="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(slugs.length, 6);
   assert.ok(slugs.every((slug) => revisedGuides[slug]));
+  assert.ok(slugs.includes("duplicate-content-cleanup"));
+  assert.ok(slugs.includes("indexing-before-adsense"));
+  assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
+});
+
+test("duplicate cleanup separates editorial decisions from unapplied URL moves", () => {
+  const html = read("guides/duplicate-content-cleanup/index.html");
+  for (const marker of ["공통 화면 요소", "고유한 답", "실제 URL 병합·삭제·리디렉션 추가는 하지 않았습니다", "미적용 예시", "Functions", "Location", "기본값은 302"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+  assert.ok(!existsSync(join(dist, "_redirects")));
+});
+
+test("indexing guidance separates account data, public access and hypothetical outcomes", () => {
+  const html = read("guides/indexing-before-adsense/index.html");
+  for (const marker of ["실시간 검사", "개정 전 공개 HTTPS 응답", "계정 결과를 확인하거나 색인 요청을 실행하지 않았습니다", "가상 사례", "Google-Extended", "Mediapartners-Google", "반복 제출이 크롤링을 더 빠르게 하지는 않습니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["신청 준비 신호", "대표 글 10개 중 대부분", "신청 타이밍을 판단"]) assert.ok(!html.includes(old));
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("both new guides have accessible tables and publish no active redirect or robots rules", () => {
+  for (const slug of ["duplicate-content-cleanup", "indexing-before-adsense"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length >= 3);
+    for (const [, table] of tables) {
+      for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker));
+    }
+    assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
+    assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
+  }
+  assert.equal(Object.keys(revisedGuides).length, 8);
 });
 
 test("every page exposes direct trust navigation and a working search entry", () => {
