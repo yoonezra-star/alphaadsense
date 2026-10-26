@@ -1,5 +1,10 @@
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import lowValueContentGuide from "../content/guides/low-value-content-fix.mjs";
+
+const revisedGuides = {
+  "low-value-content-fix": lowValueContentGuide
+};
 
 const site = {
   name: "Alpha AdSense",
@@ -77,7 +82,7 @@ const articles = [
   ["approval", "minimum-content-myth", "애드센스 글 개수 기준에 대한 오해", "공식 최소 글 수보다 중요한 것은 독창성, 완성도, 탐색성이라는 점을 기준별로 설명합니다.", ["공식적으로 모든 사이트에 적용되는 동일한 최소 글 개수는 공개되어 있지 않습니다.", "다만 빈약해 보이는 사이트는 낮은 가치로 판단될 가능성이 큽니다.", "초기에는 글 수보다 카테고리별 균형과 페이지 완성도가 중요합니다.", "짧은 글을 많이 만드는 것보다 문제를 실제로 해결하는 글을 쌓아야 합니다."]],
   ["approval", "homepage-for-review", "승인 심사에 유리한 홈 화면 구성", "홈 화면에서 사이트의 주제, 신뢰, 탐색 경로가 바로 보이도록 구성하는 방법입니다.", ["첫 화면에는 사이트가 누구를 돕는지 바로 보여야 합니다.", "대표 카테고리와 체크리스트를 배치하면 탐색 의도가 선명해집니다.", "최근 글 영역은 업데이트가 계속되는 사이트라는 신호를 줍니다.", "과한 광고 자리나 클릭 유도 문구는 신청 전에는 배제합니다."]],
   ["approval", "domain-and-trust", "새 도메인에서 신뢰 신호를 만드는 방법", "새 도메인이라도 운영 목적, 문의 경로, 정책 페이지, 일관된 콘텐츠로 신뢰를 보강할 수 있습니다.", ["도메인 주제와 사이트명이 자연스럽게 연결되어야 합니다.", "운영자 소개는 거창하지 않아도 실제 운영 목적이 분명해야 합니다.", "연락 가능한 이메일과 문의 페이지를 공개합니다.", "주제와 무관한 글을 섞지 않아 전문성을 흐리지 않습니다."]],
-  ["rejection", "low-value-content-fix", "가치가 낮은 콘텐츠 거절 사유 해결법", "Low value content로 보이는 원인과 글, 구조, 내부 링크를 고치는 순서를 정리했습니다.", ["검색 결과를 다시 말하는 글은 독자에게 새 도움을 주기 어렵습니다.", "글마다 상황, 판단 기준, 예시, 체크리스트를 넣어 실사용 가치를 높입니다.", "비슷한 제목의 글이 많다면 통합하거나 관점을 분리합니다.", "재신청 전에는 대표 글을 먼저 보강하고 얇은 글은 비공개 또는 병합합니다."]],
+  ["rejection", "low-value-content-fix", "가치가 낮은 콘텐츠 거절 사유 해결법", "실제 사이트의 반복 본문 분석을 바탕으로 글별 유지·재작성·병합 판단, 수정 전후 예시와 재검토 전 확인 방법을 설명합니다.", ["검색 결과를 다시 말하는 글은 독자에게 새 도움을 주기 어렵습니다.", "글마다 상황, 판단 기준, 예시, 체크리스트를 넣어 실사용 가치를 높입니다.", "비슷한 제목의 글이 많다면 통합하거나 관점을 분리합니다.", "재신청 전에는 대표 글을 먼저 보강하고 얇은 글은 비공개 또는 병합합니다."]],
   ["rejection", "navigation-issue-fix", "탐색 문제로 거절될 때 확인할 항목", "메뉴, 링크, 카테고리, 모바일 탐색에서 생기는 문제를 점검하는 가이드입니다.", ["상단 메뉴와 하단 링크가 서로 모순되지 않아야 합니다.", "카테고리 페이지가 빈 목록으로 보이면 품질 신호가 약해집니다.", "모바일에서 메뉴 버튼, 링크 간격, 글자 크기를 확인합니다.", "광고처럼 보이는 버튼을 메뉴 근처에 두지 않습니다."]],
   ["rejection", "site-down-unavailable", "사이트 다운 또는 접근 불가 문제 해결", "심사 중 사이트 접근이 막히는 상황을 줄이기 위한 DNS, HTTPS, 리다이렉트 점검입니다.", ["도메인 루트와 www 주소가 모두 정상 접속되는지 확인합니다.", "HTTPS 인증서가 발급되기 전 신청하지 않습니다.", "Cloudflare Pages 배포 후 커스텀 도메인 상태가 Active인지 봅니다.", "국가나 봇 접근을 차단하는 보안 규칙은 신청 전 최소화합니다."]],
   ["rejection", "duplicate-content-cleanup", "중복 콘텐츠를 정리하는 방법", "비슷한 글이 많을 때 승인 전에 병합, 삭제, 리라이팅을 판단하는 기준입니다.", ["같은 질문에 답하는 글이 여러 개라면 하나의 종합 가이드로 묶습니다.", "제목만 바꾸고 본문 흐름이 같은 글은 중복으로 보일 수 있습니다.", "각 글은 대상 독자, 상황, 해결 단계 중 하나 이상이 달라야 합니다.", "정리 후에는 내부 링크와 사이트맵을 다시 생성합니다."]],
@@ -454,7 +459,7 @@ function schemaScript(items) {
   return `<script type="application/ld+json">${json}</script>`;
 }
 
-function baseSchema(url, title, description) {
+function baseSchema(url, title, description, updatedAt = siteUpdatedAt) {
   return [
     {
       "@type": "Organization",
@@ -482,7 +487,7 @@ function baseSchema(url, title, description) {
       "isPartOf": { "@id": `${site.domain}/#website` },
       "inLanguage": "ko-KR",
       "datePublished": sitePublishedAt,
-      "dateModified": siteUpdatedAt
+      "dateModified": updatedAt
     }
   ];
 }
@@ -567,9 +572,9 @@ const articleImages = {
   }
 };
 
-function layout({ title, description, path = "/", content, schema = [] }) {
+function layout({ title, description, path = "/", content, schema = [], updatedAt = siteUpdatedAt }) {
   const url = `${site.domain}${path === "/" ? "" : path}`;
-  const schemas = [...baseSchema(url, title, description), ...schema];
+  const schemas = [...baseSchema(url, title, description, updatedAt), ...schema];
   return `<!doctype html>
 <html lang="ko">
 <head>
@@ -670,9 +675,26 @@ function categoryPriorityMatrix(key) {
   </section>`;
 }
 
+function revisedGuideContent(guide) {
+  return `${guide.intro}
+    <nav class="article-toc" aria-label="이 글의 목차">
+      <h2>목차</h2>
+      <ol>${guide.sections.map((section) => `<li><a href="#${esc(section.id)}">${esc(section.title)}</a></li>`).join("")}</ol>
+    </nav>
+    ${guide.sections.map((section) => `<section class="article-section" aria-labelledby="${esc(section.id)}"><h2 id="${esc(section.id)}" tabindex="-1">${esc(section.title)}</h2>${section.html}</section>`).join("")}
+    <section class="article-section" aria-labelledby="guide-sources">
+      <h2 id="guide-sources" tabindex="-1">공식 자료와 확인 범위</h2>
+      <p>공식 자료 확인일: <time datetime="${guide.updatedAt}">${guide.updatedAt}</time>. 정책 판단은 원문과 현재 계정 안내를 함께 확인하세요.</p>
+      <ul>${guide.sources.map((source) => `<li><a href="${esc(source.url)}">${esc(source.title)}</a><p>${esc(source.note)}</p></li>`).join("")}</ul>
+    </section>
+    <p class="article-revision"><strong>이번 개정:</strong> ${esc(guide.reviewSummary)} <a href="/updates/">업데이트 기록</a></p>`;
+}
+
 function articlePage(article) {
   const [cat, slug, title, description, points] = article;
-  const related = articles.filter((item) => item[0] === cat && item[1] !== slug).slice(0, 3);
+  const guide = revisedGuides[slug];
+  const updatedAt = guide?.updatedAt || siteUpdatedAt;
+  const related = guide ? guide.relatedSlugs.map((relatedSlug) => articles.find((item) => item[1] === relatedSlug)).filter(Boolean) : articles.filter((item) => item[0] === cat && item[1] !== slug).slice(0, 3);
   const deepDive = deepDives[slug];
   const visual = articleImages[slug];
   const visualFigure = visual ? `<figure class="article-visual">
@@ -698,7 +720,7 @@ function articlePage(article) {
       "publisher": { "@id": `${site.domain}/#organization` },
       "mainEntityOfPage": { "@id": `${url}#webpage` },
       "datePublished": sitePublishedAt,
-      "dateModified": siteUpdatedAt,
+      "dateModified": updatedAt,
       "inLanguage": "ko-KR"
     }
   ];
@@ -715,11 +737,11 @@ function articlePage(article) {
     <p class="eyebrow">${categories[cat].title}</p>
     <h1>${esc(title)}</h1>
     <p>${esc(description)}</p>
-    <p class="meta-line">작성자: ${site.name} 편집팀 · 업데이트: ${siteUpdatedAt}</p>
+    <p class="meta-line">${guide ? `작성·검토: ${site.company}` : `작성자: ${site.name} 편집팀`} · 업데이트: ${updatedAt}</p>
   </section>
   <article class="wrap article">
     ${visualFigure}
-    <p>이 글은 애드센스 승인을 준비하는 초보 운영자가 실제로 점검할 수 있도록 작성했습니다. 승인 여부는 사이트 전체 품질, 정책 준수, 사용자 경험, 콘텐츠의 독창성에 따라 달라질 수 있으므로 단일 항목만 고치기보다 구조와 글 품질을 함께 확인하는 것이 좋습니다.</p>
+    ${guide ? revisedGuideContent(guide) : `<p>이 글은 애드센스 승인을 준비하는 초보 운영자가 실제로 점검할 수 있도록 작성했습니다. 승인 여부는 사이트 전체 품질, 정책 준수, 사용자 경험, 콘텐츠의 독창성에 따라 달라질 수 있으므로 단일 항목만 고치기보다 구조와 글 품질을 함께 확인하는 것이 좋습니다.</p>
     <h2>핵심 점검 항목</h2>
     <ul>${points.map((point) => `<li>${esc(point)}</li>`).join("")}</ul>
     <h2>실행 순서</h2>
@@ -739,14 +761,14 @@ function articlePage(article) {
     <div class="note">
       <strong>운영자 메모</strong>
       <p>이 글은 승인 보장을 약속하지 않습니다. 대신 신청 전 품질을 높이기 위한 실무 점검 기준을 제공합니다.</p>
-    </div>
+    </div>`}
   </article>
   <section class="wrap section">
     <h2>같은 주제의 글</h2>
     <div class="grid three">${related.map(articleCard).join("")}</div>
   </section>`;
 
-  return layout({ title, description, path, content: body, schema: articleSchema });
+  return layout({ title, description, path, content: body, schema: articleSchema, updatedAt });
 }
 
 function categoryPage(key) {
@@ -817,7 +839,7 @@ rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist", { recursive: true });
 copyPublic();
 
-const latest = articles.slice(0, 8);
+const latest = [...articles].sort((left, right) => (revisedGuides[right[1]]?.updatedAt || siteUpdatedAt).localeCompare(revisedGuides[left[1]]?.updatedAt || siteUpdatedAt)).slice(0, 8);
 const visualHubs = [
   {
     href: "/approval-hub/",
@@ -1134,7 +1156,7 @@ const searchIndex = [
   ...articles.map(([cat, slug, title, description, points]) => ({
     url: slugPath(slug),
     title,
-    description: `${description} ${points.join(" ")}`,
+    description: `${description} ${revisedGuides[slug] ? revisedGuides[slug].sections.map((section) => section.title).join(" ") : points.join(" ")}`,
     category: categories[cat].title
   }))
 ];
@@ -1200,6 +1222,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-26</strong><span><a href="/guides/low-value-content-fix/">가치가 낮은 콘텐츠 해결 글</a>을 실제 사이트 점검, 글별 편집 판단, 수정 전후 예시 중심으로 재작성했습니다. 이 글부터 개별 수정일을 관리하며, 다른 가이드의 개편은 순차 진행합니다.</span></li>
   <li><strong>2026-07-13</strong><span>쿠키 고지, 금지 콘텐츠, 면책 고지, 최종 점검표, 30일 콘텐츠 계획표 등 정책·자료실 클러스터의 판단표와 실행 체크리스트를 보강했습니다.</span></li>
   <li><strong>2026-07-13</strong><span>주제 선정, 내부 링크, AI 문장 편집, 에버그린 콘텐츠, RPM/CPC 이해 등 글쓰기·수익화 클러스터의 사례·표·체크리스트를 보강했습니다.</span></li>
   <li><strong>2026-07-13</strong><span>탐색 문제, 접근 불가, 중복 콘텐츠, 빈 카테고리, 거절 메시지별 대응표 등 거절 해결 클러스터의 사례·표·체크리스트를 보강했습니다.</span></li>
@@ -1702,6 +1725,24 @@ p { margin: 0 0 16px; }
 .article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 15px; }
 .article th, .article td { border: 1px solid var(--line); padding: 12px; vertical-align: top; text-align: left; }
 .article th { background: #f4f8fb; }
+.article-toc { margin: 28px 0; padding: 20px 0; border-block: 1px solid var(--line); }
+.article .article-toc h2 { margin: 0 0 12px; font-size: 18px; }
+.article-toc ol { margin: 0; padding: 0; list-style: none; }
+.article-toc li { margin: 0; }
+.article-toc a { display: block; padding: 10px 0; min-height: 44px; overflow-wrap: anywhere; }
+.article-section h2 { scroll-margin-top: 150px; }
+.article-toc a:focus-visible, .article-section h2:focus-visible, .article-table-scroll:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.article-section p, .article-section li, .article-revision { overflow-wrap: anywhere; }
+.article blockquote { margin: 20px 0; border-left: 3px solid var(--green); padding: 4px 0 4px 20px; }
+.article blockquote p { margin: 8px 0; }
+.article-table-scroll { max-width: 100%; overflow-x: auto; margin: 20px 0 28px; }
+.article .article-table-scroll table { display: table; margin: 0; min-width: 640px; }
+.article caption { text-align: left; color: var(--muted); font-size: 14px; padding-bottom: 12px; }
+.article .article-table-scroll th[scope="row"] { width: 27%; }
+.article-decisions { margin: 20px 0; }
+.article-decisions dt { font-weight: 700; margin-top: 20px; }
+.article-decisions dd { margin: 8px 0 0; }
+.article-revision { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 28px; color: var(--muted); font-size: 14px; }
 .read-order { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; counter-reset: order; }
 .read-order li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; counter-increment: order; }
 .read-order li::before { content: counter(order); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }
