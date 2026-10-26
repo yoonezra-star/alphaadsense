@@ -14,7 +14,9 @@ const types = {
   ".json": "application/json; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
-  ".png": "image/png"
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg"
 };
 
 createServer((req, res) => {

@@ -126,7 +126,9 @@ test("every revised guide has its own sections, current metadata and valid relat
     const html = read(`guides/${slug}/index.html`);
     assert.ok(html.includes(content.intro));
     assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
-    assert.ok(!html.includes("먼저 현재 사이트에서 이 주제와 관련된 페이지를 모두 열어 봅니다."));
+    const legacy = "먼저 현재 사이트에서 이 주제와 관련된 페이지를 모두 열어 봅니다.";
+    const authored = content.intro + content.sections.map((section) => section.html).join("");
+    assert.equal(html.split(legacy).length - 1, authored.split(legacy).length - 1, `Unexpected automatic paragraph in ${slug}`);
     const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
     assert.equal(ids.length, new Set(ids).size, slug);
     for (const section of content.sections) {
@@ -164,4 +166,29 @@ test("verification and domain guides distinguish public observations from accoun
   const domainHtml = read("guides/cloudflare-gabia-domain-guide/index.html");
   for (const term of ["MX", "SPF", "DKIM", "DMARC", "DNSSEC"]) assert.ok(domainHtml.includes(term));
   assert.ok(domainHtml.includes("실제 계정 설정을 변경하지는 않았습니다"));
+});
+
+test("the editing case distinguishes real changes from approval claims", () => {
+  const html = read("guides/approval-friendly-article-format/index.html");
+  for (const term of ["개정 전", "편집 판단", "정의의 정확성", "검증 기록", "실제 수익"]) assert.ok(html.includes(term));
+  assert.ok(html.includes('href="/guides/rpm-cpc-basics/#worked-calculation"'));
+  assert.ok(html.includes("승인 성공 사례는 아닙니다"));
+});
+
+test("the structure audit labels its snapshot and unapplied recommendations", () => {
+  const html = read("guides/site-structure-audit-example/index.html");
+  assert.ok(html.includes("문서를 개정하기 전 시점의 기록"));
+  assert.ok(html.includes("200 응답"));
+  assert.ok(html.includes("공통 푸터를 바꾸지 않았습니다"));
+  assert.ok(html.includes("계정 내부의 심사·색인·방문 통계"));
+  assert.ok(html.includes('src="/assets/audit-home-20261027.jpg"'));
+  assert.ok(html.includes('width="1425" height="976"'));
+  const jpeg = readFileSync(join(dist, "assets/audit-home-20261027.jpg"));
+  assert.equal(jpeg.readUInt16BE(0), 0xffd8);
+});
+
+test("newly revised documents lead the latest list by their real modification dates", () => {
+  const latest = read("index.html").split("<h2>최근 업데이트된 가이드</h2>")[1];
+  assert.ok(latest.indexOf("/guides/approval-friendly-article-format/") < latest.indexOf("/guides/low-value-content-fix/"));
+  assert.ok(latest.indexOf("/guides/site-structure-audit-example/") < latest.indexOf("/guides/low-value-content-fix/"));
 });
