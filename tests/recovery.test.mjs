@@ -5,6 +5,8 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { before, test } from "node:test";
 import guide from "../content/guides/low-value-content-fix.mjs";
+import revisedGuides from "../content/guides/index.mjs";
+import { metricExample } from "../content/guides/rpm-cpc-basics.mjs";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const dist = resolve(root, "dist");
@@ -80,7 +82,7 @@ test("visible and structured modification dates agree without changing publicati
 });
 
 test("an untouched guide keeps its previous modification date", () => {
-  const html = read("guides/rpm-cpc-basics/index.html");
+  const html = read("guides/ad-placement-principles/index.html");
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(schema["@graph"].find((entry) => entry["@type"] === "Article").dateModified, "2026-07-13");
   assert.ok(html.includes("업데이트: 2026-07-13"));
@@ -116,4 +118,50 @@ test("existing guide URLs remain in the sitemap and no redirects were introduced
   assert.equal([...sitemap.matchAll(/<loc>/g)].length, 62);
   for (const slug of readdirSync(join(dist, "guides"))) assert.ok(sitemap.includes(`/guides/${slug}/`));
   assert.ok(!existsSync(join(dist, "_redirects")));
+});
+
+test("every revised guide has its own sections, current metadata and valid related guides", () => {
+  const search = JSON.parse(read("search-index.json"));
+  for (const [slug, content] of Object.entries(revisedGuides)) {
+    const html = read(`guides/${slug}/index.html`);
+    assert.ok(html.includes(content.intro));
+    assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+    assert.ok(!html.includes("먼저 현재 사이트에서 이 주제와 관련된 페이지를 모두 열어 봅니다."));
+    const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+    assert.equal(ids.length, new Set(ids).size, slug);
+    for (const section of content.sections) {
+      assert.ok(html.includes(section.html));
+      assert.ok(html.includes(`href="#${section.id}"`));
+      assert.ok(html.includes(`id="${section.id}" tabindex="-1"`));
+      assert.ok(search.find((entry) => entry.url === `/guides/${slug}/`).description.includes(section.title));
+    }
+    const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    for (const type of ["Article", "WebPage"]) assert.equal(graph.find((item) => item["@type"] === type).dateModified, content.updatedAt);
+    for (const related of content.relatedSlugs) assert.ok(existsSync(join(dist, "guides", related, "index.html")));
+  }
+});
+
+test("metric examples calculate consistently and distinguish the denominators", () => {
+  const html = read("guides/rpm-cpc-basics/index.html");
+  const { revenue, pageviews, adImpressions, adClicks } = metricExample;
+  assert.equal(revenue / pageviews * 1000, 2);
+  assert.equal(revenue / adImpressions * 1000, 1);
+  assert.equal(adClicks / adImpressions * 100, 0.5);
+  assert.ok(html.includes("2.00 USD"));
+  assert.ok(html.includes("1.00 USD"));
+  assert.ok(html.includes("0.50%"));
+  assert.ok(html.includes("24 ÷ 8,000 × 1,000"));
+  assert.equal((12 + 12) / (6000 + 2000) * 1000, 3);
+  assert.ok(html.includes("분모가 0"));
+  assert.ok(html.includes("가상 데이터"));
+});
+
+test("verification and domain guides distinguish public observations from account access", () => {
+  const verificationHtml = read("guides/cloudflare-search-console-example/index.html");
+  assert.ok(verificationHtml.includes("점검 환경에서 TXT 레코드 데이터 없음 응답"));
+  assert.ok(verificationHtml.includes("계정 인증 완료를 뜻하지 않습니다"));
+  assert.ok(verificationHtml.includes("자리표시자"));
+  const domainHtml = read("guides/cloudflare-gabia-domain-guide/index.html");
+  for (const term of ["MX", "SPF", "DKIM", "DMARC", "DNSSEC"]) assert.ok(domainHtml.includes(term));
+  assert.ok(domainHtml.includes("실제 계정 설정을 변경하지는 않았습니다"));
 });

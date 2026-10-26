@@ -1,10 +1,6 @@
 import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import lowValueContentGuide from "../content/guides/low-value-content-fix.mjs";
-
-const revisedGuides = {
-  "low-value-content-fix": lowValueContentGuide
-};
+import revisedGuides from "../content/guides/index.mjs";
 
 const site = {
   name: "Alpha AdSense",
@@ -93,7 +89,7 @@ const articles = [
   ["writing", "avoid-ai-like-writing", "AI 티가 나는 글을 줄이는 편집법", "반복 문장, 일반론, 과장 표현을 줄이고 실제 운영자의 판단이 보이게 다듬는 방법입니다.", ["모든 글이 같은 문단 구조와 표현을 반복하면 개성이 약해집니다.", "경험 기반 판단, 예외 상황, 실패 사례를 넣으면 글이 살아납니다.", "근거가 필요한 내용은 공식 문서나 신뢰 가능한 자료로 연결합니다.", "과도한 확신보다 조건과 한계를 함께 설명하는 문장이 좋습니다."]],
   ["writing", "evergreen-content-plan", "오래 가는 콘텐츠 발행 계획", "승인 후에도 검색 유입을 유지할 수 있는 에버그린 글을 설계하는 방법입니다.", ["한 번 쓰고 끝나는 뉴스성 글보다 꾸준히 찾는 문제 해결 글을 우선합니다.", "분기마다 업데이트할 글을 표시해 관리합니다.", "기초 가이드, 체크리스트, 용어 정리는 오래 유지되는 자산입니다.", "시즌성 글은 발행 시점과 업데이트 시점을 미리 정합니다."]],
   ["monetization", "after-approval-first-settings", "애드센스 승인 후 처음 확인할 설정", "승인 직후 광고를 무리하게 늘리기 전에 확인할 기본 설정과 운영 기준입니다.", ["자동 광고를 켜기 전 모바일에서 레이아웃이 깨지지 않는지 확인합니다.", "첫 주에는 광고 수익보다 광고가 콘텐츠를 가리지 않는지 봅니다.", "민감한 카테고리 차단은 수익과 브랜드 안정성의 균형으로 판단합니다.", "정책 알림과 이메일을 놓치지 않게 계정 상태를 확인합니다."]],
-  ["monetization", "rpm-cpc-basics", "RPM과 CPC를 초보자 관점에서 이해하기", "수익 지표를 단순 금액이 아니라 콘텐츠, 방문자, 광고 위치와 연결해 해석합니다.", ["RPM은 방문 1,000회당 예상 수익으로 전체 효율을 보는 지표입니다.", "CPC는 클릭당 수익이지만 클릭 유도를 해서는 안 됩니다.", "페이지 주제, 체류 시간, 방문자 국가, 광고 수요가 지표에 영향을 줍니다.", "단기간 수치보다 글 묶음별 추세를 보는 편이 정확합니다."]],
+  ["monetization", "rpm-cpc-basics", "RPM·CPC·CTR 계산과 보고서 해석", "페이지 조회수와 광고 노출수를 구분하고, 가상 데이터 계산과 기간 합산 예시로 수익 지표를 검산합니다.", ["페이지 RPM은 예상 수입을 페이지 조회수로 나누고 1,000을 곱합니다.", "광고 RPM은 광고 노출수, 광고 CTR은 광고 클릭수와 노출수의 비율로 계산합니다.", "통화, 기간과 보고서 범위가 다른 수치를 섞지 않습니다.", "CPC와 CTR은 승인 점수나 다음 달 수익을 보장하는 지표가 아닙니다."]],
   ["monetization", "ad-placement-principles", "콘텐츠를 해치지 않는 광고 배치 원칙", "승인 후 광고를 넣을 때 독자 경험과 정책을 함께 지키는 기준입니다.", ["광고는 메뉴, 다운로드, 다음 단계 버튼처럼 보이면 안 됩니다.", "첫 문단을 읽기도 전에 광고가 화면을 과도하게 차지하지 않게 합니다.", "본문 중간 광고는 문맥을 끊지 않는 위치에 제한적으로 배치합니다.", "모바일에서 실수 클릭이 생기지 않도록 간격을 확보합니다."]],
   ["monetization", "traffic-quality", "애드센스에서 트래픽 품질이 중요한 이유", "수익을 높이기 전에 무효 트래픽과 저품질 유입을 피해야 하는 이유를 설명합니다.", ["본인 클릭, 지인 클릭 요청, 클릭 교환은 절대 피해야 합니다.", "광고성 대량 유입은 체류 시간과 정책 위험을 함께 악화시킬 수 있습니다.", "검색 유입은 느리지만 장기적으로 가장 안정적인 기반입니다.", "SNS 유입은 글 주제와 기대치가 맞을 때만 품질이 좋아집니다."]],
   ["policy", "privacy-policy-for-adsense", "애드센스용 개인정보처리방침에 넣을 항목", "구글 광고 쿠키, 맞춤 광고, 제3자 공급업체 고지를 개인정보처리방침에 반영하는 방법입니다.", ["구글을 포함한 제3자 공급업체가 쿠키를 사용할 수 있음을 알려야 합니다.", "맞춤 광고 선택 해제 경로를 안내합니다.", "문의 이메일과 개인정보 관련 요청 방법을 명확히 적습니다.", "정책 문구는 사이트 운영 방식에 맞게 작성하고 정기적으로 검토합니다."]],
@@ -104,11 +100,11 @@ const articles = [
   ["resources", "content-calendar-30-days", "30일 콘텐츠 발행 계획표", "승인 준비 사이트를 한 달 동안 무리 없이 채우는 글 발행 순서입니다.", ["1주차에는 소개, 정책, 핵심 가이드처럼 뼈대를 만듭니다.", "2주차에는 카테고리별 대표 글을 고르게 채웁니다.", "3주차에는 거절 사유와 체크리스트형 글을 보강합니다.", "4주차에는 내부 링크, 색인, 업데이트를 점검합니다."]],
   ["resources", "rejection-message-map", "거절 메시지별 대응표", "애드센스 심사 메시지를 받았을 때 어떤 영역부터 고칠지 정리한 자료입니다.", ["가치가 낮은 콘텐츠는 글의 깊이와 중복성을 먼저 봅니다.", "탐색 문제는 메뉴, 링크, 모바일 화면을 확인합니다.", "접근 불가는 DNS, HTTPS, 리다이렉트, 보안 설정을 점검합니다.", "정책 문제는 해당 글을 수정하거나 신청 전 제외합니다."]],
   ["resources", "glossary-for-beginners", "애드센스 초보 용어 정리", "RPM, CPC, CTR, 무효 트래픽, 사이트맵 같은 기본 용어를 쉽게 정리했습니다.", ["RPM은 전체 수익 효율을 보는 지표입니다.", "CTR은 광고 클릭률이지만 인위적으로 높이려 해서는 안 됩니다.", "무효 트래픽은 계정 제한으로 이어질 수 있어 가장 조심해야 합니다.", "사이트맵은 검색엔진이 페이지를 찾는 데 도움을 주는 파일입니다."]],
-  ["resources", "cloudflare-gabia-domain-guide", "가비아 도메인을 Cloudflare Pages에 연결하는 순서", "alphaadsense.com처럼 가비아에 있는 도메인을 Cloudflare Pages에 연결하는 기본 흐름입니다.", ["Cloudflare에 도메인을 추가하고 안내되는 네임서버를 확인합니다.", "가비아 도메인 관리에서 네임서버를 Cloudflare 값으로 바꿉니다.", "Cloudflare Pages에서 GitHub 저장소를 연결하고 커스텀 도메인을 추가합니다.", "HTTPS가 활성화된 뒤 Search Console과 AdSense 신청을 진행합니다."]],
+  ["resources", "cloudflare-gabia-domain-guide", "가비아 도메인을 Cloudflare Pages에 연결하는 순서", "도메인 등록과 DNS 호스팅을 구분하고 메일 레코드 보존, GitHub 배포, 커스텀 도메인 연결과 장애 점검을 안내합니다.", ["현재 DNS와 메일 레코드를 보관하고 등록기관과 DNS 관리 위치를 구분합니다.", "Pages 기본 배포와 빌드 결과를 먼저 확인합니다.", "배정된 네임서버와 Pages의 커스텀 도메인 연결을 각각 확인합니다.", "웹, HTTPS와 메일의 정상 여부를 나누어 검증합니다."]],
   ["approval", "site-structure-audit-example", "애드센스 승인 전 사이트 구조 점검 실제 예시", "신청 전 사이트를 홈, 메뉴, 카테고리, 정책 페이지, 모바일 화면 순서로 점검하는 사례형 가이드입니다.", ["홈 첫 화면에서 사이트의 주제와 대상 독자가 바로 보이는지 확인합니다.", "상단 메뉴와 하단 정책 링크가 같은 기준으로 연결되는지 봅니다.", "빈 카테고리, 임시 페이지, 깨진 링크가 심사 경로에 남아 있지 않아야 합니다.", "모바일 화면에서 메뉴, 버튼, 본문, 표가 겹치지 않는지 실제 기기로 확인합니다."]],
   ["rejection", "low-value-rejection-rewrite-example", "가치가 낮은 콘텐츠 거절 후 수정 예시", "낮은 가치 콘텐츠 거절을 받았다는 가정에서 글 통합, 본문 보강, 내부 링크 정리를 어떻게 진행하는지 정리했습니다.", ["비슷한 제목의 짧은 글을 하나의 종합 가이드로 병합합니다.", "각 글에 문제 상황, 판단 기준, 수정 예시, 신청 전 체크 항목을 추가합니다.", "검색 결과 요약처럼 보이는 일반론 문장을 줄이고 운영자의 판단을 넣습니다.", "재신청 전에는 수정한 글과 제외한 글의 목록을 따로 기록합니다."]],
   ["policy", "privacy-cookie-page-example", "개인정보처리방침과 쿠키 정책 작성 예시", "애드센스 적용 예정 사이트가 개인정보처리방침과 쿠키 정책을 어떻게 분리해 작성할 수 있는지 보여 주는 사례입니다.", ["개인정보처리방침에는 문의 응답에 필요한 수집 항목과 연락처를 적습니다.", "쿠키 정책에는 광고 쿠키, 맞춤 광고, 제3자 공급업체 가능성을 설명합니다.", "정책 페이지는 하단 링크에서 항상 접근 가능해야 합니다.", "애드센스 적용 후 실제 사용하는 광고와 분석 도구에 맞춰 문구를 다시 검토합니다."]],
-  ["resources", "cloudflare-search-console-example", "Cloudflare Pages 배포 후 Search Console 등록 예시", "Cloudflare Pages로 배포한 정적 사이트를 Search Console에 등록하고 sitemap을 제출하는 흐름을 예시로 정리했습니다.", ["커스텀 도메인의 HTTPS가 정상화된 뒤 Search Console 속성을 추가합니다.", "도메인 속성과 URL 접두어 속성 중 운영 방식에 맞는 방법을 선택합니다.", "sitemap.xml 제출 후 주요 페이지가 발견되는지 확인합니다.", "색인이 늦는 글은 내부 링크와 본문 첫 문단을 보강한 뒤 URL 검사를 요청합니다."]],
+  ["resources", "cloudflare-search-console-example", "Cloudflare Pages의 Search Console 인증 실패 해결", "도메인 속성의 DNS 인증과 URL 접두어의 HTML 태그를 구분하고 공개 응답 사례와 실패 유형별 확인 순서를 제공합니다.", ["선택한 속성 종류, 주소와 Google 계정을 먼저 확인합니다.", "HTML 태그는 공개 홈페이지의 head와 최종 배포 결과에서 확인합니다.", "DNS 인증은 현재 권한 DNS에서 레코드 이름과 값을 확인합니다.", "소유권 인증, 사이트맵 제출과 색인은 별도의 상태로 기록합니다."]],
   ["resources", "seven-day-pre-apply-log-example", "애드센스 신청 전 7일 점검 기록 예시", "신청 직전 일주일 동안 어떤 항목을 매일 확인하고 기록하면 좋은지 정리한 승인 준비 로그입니다.", ["1~2일차에는 필수 페이지와 메뉴 구조를 점검합니다.", "3~4일차에는 대표 글의 깊이와 중복 문장을 보강합니다.", "5일차에는 모바일 화면과 깨진 링크를 확인합니다.", "6~7일차에는 Search Console 색인 상태와 정책 위험 표현을 최종 점검합니다."]]
 ];
 
@@ -1222,6 +1218,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-26</strong><span><a href="/guides/rpm-cpc-basics/">RPM 계산과 해석</a>, <a href="/guides/cloudflare-gabia-domain-guide/">가비아·Cloudflare 연결</a>, <a href="/guides/cloudflare-search-console-example/">Search Console 인증 해결</a> 문서를 개별 본문으로 재작성했습니다. 계산 예시와 DNS·HTML 확인 범위, 실패별 점검 순서를 추가했습니다.</span></li>
   <li><strong>2026-10-26</strong><span><a href="/guides/low-value-content-fix/">가치가 낮은 콘텐츠 해결 글</a>을 실제 사이트 점검, 글별 편집 판단, 수정 전후 예시 중심으로 재작성했습니다. 이 글부터 개별 수정일을 관리하며, 다른 가이드의 개편은 순차 진행합니다.</span></li>
   <li><strong>2026-07-13</strong><span>쿠키 고지, 금지 콘텐츠, 면책 고지, 최종 점검표, 30일 콘텐츠 계획표 등 정책·자료실 클러스터의 판단표와 실행 체크리스트를 보강했습니다.</span></li>
   <li><strong>2026-07-13</strong><span>주제 선정, 내부 링크, AI 문장 편집, 에버그린 콘텐츠, RPM/CPC 이해 등 글쓰기·수익화 클러스터의 사례·표·체크리스트를 보강했습니다.</span></li>
@@ -1731,7 +1728,7 @@ p { margin: 0 0 16px; }
 .article-toc li { margin: 0; }
 .article-toc a { display: block; padding: 10px 0; min-height: 44px; overflow-wrap: anywhere; }
 .article-section h2 { scroll-margin-top: 150px; }
-.article-toc a:focus-visible, .article-section h2:focus-visible, .article-table-scroll:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.article-toc a:focus-visible, .article-section h2:focus-visible, .article-table-scroll:focus-visible, .article-code:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 .article-section p, .article-section li, .article-revision { overflow-wrap: anywhere; }
 .article blockquote { margin: 20px 0; border-left: 3px solid var(--green); padding: 4px 0 4px 20px; }
 .article blockquote p { margin: 8px 0; }
@@ -1743,6 +1740,7 @@ p { margin: 0 0 16px; }
 .article-decisions dt { font-weight: 700; margin-top: 20px; }
 .article-decisions dd { margin: 8px 0 0; }
 .article-revision { border-top: 1px solid var(--line); padding-top: 20px; margin-top: 28px; color: var(--muted); font-size: 14px; }
+.article-code { max-width: 100%; overflow-x: auto; padding: 16px; border: 1px solid var(--line); border-radius: 4px; background: var(--soft); font-size: 14px; white-space: pre; }
 .read-order { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; counter-reset: order; }
 .read-order li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; counter-increment: order; }
 .read-order li::before { content: counter(order); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }
