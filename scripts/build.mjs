@@ -535,7 +535,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
   ${schemaScript(schemas)}
-  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/styles.css?v=20261027-writing">
 </head>
 <body>
   <a class="skip" href="#content">콘텐츠로 건너뛰기</a>

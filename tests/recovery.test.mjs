@@ -245,6 +245,7 @@ test("writing hub routes through topic evidence and verification with an accurat
 
 test("wrapped search result titles retain a continuous link area", () => {
   assert.ok(read("styles.css").includes('.search-interface .search-result h2 a { display: block; }'));
+  assert.ok(read("search/index.html").includes('href="/styles.css?v=20261027-writing"'));
 });
 
 test("navigation repair separates observed working paths from hypothetical failures", () => {
