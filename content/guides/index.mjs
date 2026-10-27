@@ -20,6 +20,8 @@ import internalLinks from "./internal-linking-guide.mjs";
 import contentMaintenance from "./evergreen-content-plan.mjs";
 import contentCalendar from "./content-calendar-30-days.mjs";
 import glossary from "./glossary-for-beginners.mjs";
+import afterApproval from "./after-approval-first-settings.mjs";
+import adPlacement from "./ad-placement-principles.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -43,5 +45,7 @@ export default {
   "internal-linking-guide": internalLinks,
   "evergreen-content-plan": contentMaintenance,
   "content-calendar-30-days": contentCalendar,
-  "glossary-for-beginners": glossary
+  "glossary-for-beginners": glossary,
+  "after-approval-first-settings": afterApproval,
+  "ad-placement-principles": adPlacement
 };

@@ -44,7 +44,7 @@ const categoryFocus = {
   approval: ["구조", "홈, 메뉴, 카테고리, 정책 페이지가 자연스럽게 연결되는지 확인합니다.", "신청 전 전체 흐름을 점검"],
   rejection: ["원인", "거절 메시지를 콘텐츠, 탐색, 접근, 정책 문제로 나누어 수정 순서를 정합니다.", "재신청 전 수정 근거 정리"],
   writing: ["질문과 근거", "독자가 해결할 질문에 필요한 자료를 확보하고 사실·예시·판단의 범위를 구분합니다.", "기획, 초안 검증과 실제 편집 사례 연결"],
-  monetization: ["운영", "승인 후 광고 배치와 수익 지표를 사용자 경험과 정책 기준 안에서 다룹니다.", "무효 트래픽과 과도한 광고 방지"],
+  monetization: ["상태와 이용", "사이트·ads.txt·정책 안내를 나누고 배치가 본문·도구 이용을 방해하는지 확인합니다.", "변경 기록·화면 검사·같은 범위의 지표 비교"],
   policy: ["신뢰", "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 독자가 확인할 수 있게 정리합니다.", "하단 필수 링크와 공식 기준 점검"],
   resources: ["실행", "체크리스트, 계획표, 용어 정리로 운영자가 바로 적용할 수 있는 자료를 제공합니다.", "신청 전 기록과 반복 점검"]
 };
@@ -64,7 +64,7 @@ const categoryActions = {
   },
   monetization: {
     use: "승인 전에는 과한 수익 약속을 피하고, 승인 후 광고 배치와 트래픽 품질을 안정적으로 운영하는 기준을 확인합니다.",
-    links: [["광고 배치 원칙", "/guides/ad-placement-principles/"], ["트래픽 품질", "/guides/traffic-quality/"], ["승인 후 첫 설정", "/guides/after-approval-first-settings/"]]
+    links: [["승인 후 상태·설정 확인", "/guides/after-approval-first-settings/"], ["광고 배치 검사", "/guides/ad-placement-principles/"], ["지표 비교 조건", "/guides/rpm-cpc-basics/#comparison-checks"]]
   },
   policy: {
     use: "정책 허브는 개인정보, 쿠키, 금지 콘텐츠, 면책 문구를 신청 전에 한 번 더 확인하는 안전장치입니다.",
@@ -93,9 +93,9 @@ const articles = [
   ["writing", "internal-linking-guide", "내부 링크 편집: 다음 질문·연결 문구·도착 검사", "독자의 다음 질문으로 링크 여부와 목적지를 결정하고 실제 허브 변경 사례, 절 주소와 공개 도달 검사 방법을 설명합니다.", ["링크를 넣기 전에 현재 글에 남은 질문을 적습니다.", "연결 문구와 도착 문서의 답을 일치시킵니다.", "문서 주소와 실제 존재하는 절 주소를 구분합니다.", "주소 성공뿐 아니라 연결 문맥과 도착 내용을 검사합니다."]],
   ["writing", "avoid-ai-like-writing", "AI 초안 검증: 사실·출처·가상 사례 편집 절차", "초안을 주장별로 나누고 원문 대조, 계산 검산, 실제 경험과 가상 사례 구분을 거쳐 수정·삭제·발행 보류를 결정합니다.", ["문체를 고치기 전에 정의·정책·수치·경험을 검증합니다.", "실제 열어 본 원문이 해당 주장을 뒷받침하는지 봅니다.", "직접 겪지 않은 경험과 성과를 만들어 넣지 않습니다.", "검증 범위와 남은 항목을 남기고 공개 결과를 확인합니다."]],
   ["writing", "evergreen-content-plan", "기존 글 갱신: 변경 계기·수정일·공개 검증", "정보 유형별 변경 계기로 유지·부분 수정·재작성·병합을 결정하고 실제 배포 사례와 날짜·과거 관찰 보존을 설명합니다.", ["정의·화면·정책·연결마다 재확인 계기를 정합니다.", "변경 없음과 부분 수정·재작성·병합을 구분합니다.", "원래 발행일과 과거 관찰을 보존하고 실제 수정일을 표시합니다.", "본문 수정과 공개 배포·이용 검사를 따로 기록합니다."]],
-  ["monetization", "after-approval-first-settings", "애드센스 승인 후 처음 확인할 설정", "승인 직후 광고를 무리하게 늘리기 전에 확인할 기본 설정과 운영 기준입니다.", ["자동 광고를 켜기 전 모바일에서 레이아웃이 깨지지 않는지 확인합니다.", "첫 주에는 광고 수익보다 광고가 콘텐츠를 가리지 않는지 봅니다.", "민감한 카테고리 차단은 수익과 브랜드 안정성의 균형으로 판단합니다.", "정책 알림과 이메일을 놓치지 않게 계정 상태를 확인합니다."]],
+  ["monetization", "after-approval-first-settings", "애드센스 승인 후 점검: 상태·설정·미리보기·복구", "사이트·ads.txt·정책·동의 상태를 구분하고 변경 전 기록, 공식 미리보기와 실제 적용·공개 검사·복구 절차를 설명합니다.", ["사이트 승인과 ads.txt·정책 상태를 따로 확인합니다.", "설정 전 기준선과 목적·복구 범위를 남깁니다.", "미리보기·적용·공개 결과를 별도로 검사합니다.", "계정 미확인과 가상 변경 사례를 실제 성과와 구분합니다."]],
   ["monetization", "rpm-cpc-basics", "RPM·CPC·CTR 계산과 보고서 해석", "페이지 조회수와 광고 노출수를 구분하고, 가상 데이터 계산과 기간 합산 예시로 수익 지표를 검산합니다.", ["페이지 RPM은 예상 수입을 페이지 조회수로 나누고 1,000을 곱합니다.", "광고 RPM은 광고 노출수, 광고 CTR은 광고 클릭수와 노출수의 비율로 계산합니다.", "통화, 기간과 보고서 범위가 다른 수치를 섞지 않습니다.", "CPC와 CTR은 승인 점수나 다음 달 수익을 보장하는 지표가 아닙니다."]],
-  ["monetization", "ad-placement-principles", "콘텐츠를 해치지 않는 광고 배치 원칙", "승인 후 광고를 넣을 때 독자 경험과 정책을 함께 지키는 기준입니다.", ["광고는 메뉴, 다운로드, 다음 단계 버튼처럼 보이면 안 됩니다.", "첫 문단을 읽기도 전에 광고가 화면을 과도하게 차지하지 않게 합니다.", "본문 중간 광고는 문맥을 끊지 않는 위치에 제한적으로 배치합니다.", "모바일에서 실수 클릭이 생기지 않도록 간격을 확보합니다."]],
+  ["monetization", "ad-placement-principles", "광고 배치 검사: 콘텐츠 구분·우발 클릭·도구 이용", "정책 위험별 판단과 비상호작용 가상 배치도, 실제 도구의 조작 지점과 모바일·키보드·상태 변화 검사를 설명합니다.", ["광고가 기능·콘텐츠로 오해되는지 확인합니다.", "광고 개수·간격 대신 조작과 페이지 전체 결과를 검사합니다.", "가상 개념도와 실제 광고 운영 검사를 구분합니다.", "수정 전후 기록과 수익·이용 효과 측정을 분리합니다."]],
   ["monetization", "traffic-quality", "애드센스에서 트래픽 품질이 중요한 이유", "수익을 높이기 전에 무효 트래픽과 저품질 유입을 피해야 하는 이유를 설명합니다.", ["본인 클릭, 지인 클릭 요청, 클릭 교환은 절대 피해야 합니다.", "광고성 대량 유입은 체류 시간과 정책 위험을 함께 악화시킬 수 있습니다.", "검색 유입은 느리지만 장기적으로 가장 안정적인 기반입니다.", "SNS 유입은 글 주제와 기대치가 맞을 때만 품질이 좋아집니다."]],
   ["policy", "privacy-policy-for-adsense", "애드센스용 개인정보처리방침에 넣을 항목", "구글 광고 쿠키, 맞춤 광고, 제3자 공급업체 고지를 개인정보처리방침에 반영하는 방법입니다.", ["구글을 포함한 제3자 공급업체가 쿠키를 사용할 수 있음을 알려야 합니다.", "맞춤 광고 선택 해제 경로를 안내합니다.", "문의 이메일과 개인정보 관련 요청 방법을 명확히 적습니다.", "정책 문구는 사이트 운영 방식에 맞게 작성하고 정기적으로 검토합니다."]],
   ["policy", "cookie-notice-basics", "쿠키 고지와 동의 안내 기본", "방문자에게 쿠키와 광고 기술 사용을 알리는 기본 원칙을 정리했습니다.", ["쿠키 고지는 숨겨진 페이지가 아니라 쉽게 찾을 수 있어야 합니다.", "지역별 법률 요구가 다를 수 있으므로 방문자 범위를 고려합니다.", "애드센스의 Privacy & messaging 도구도 검토할 수 있습니다.", "초기에는 복잡한 추적 도구를 많이 붙이지 않는 것이 관리에 유리합니다."]],
@@ -521,7 +521,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
   ${schemaScript(schemas)}
-  <link rel="stylesheet" href="/styles.css?v=20261027-planning">
+  <link rel="stylesheet" href="/styles.css?v=20261027-ad-review">
 </head>
 <body>
   <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -597,6 +597,10 @@ function categoryPriorityMatrix(key) {
     ["먼저", "질문과 자료", "답할 질문과 확보 자료, 기존 글과의 차이로 다음 작업을 결정합니다.", actions.links[0]],
     ["다음", "주장 검증", "정의·정책·계산·실제 경험을 근거와 대조하고 미확인 주장을 보류합니다.", actions.links[1]],
     ["참고", "실제 편집", "원문의 결함과 수정 판단, 공개 결과를 비교합니다. 표 개수로 완료를 판단하지 않습니다.", actions.links[2]]
+  ] : key === "monetization" ? [
+    ["먼저", "계정 상태", "승인·ads.txt·정책 안내와 실제 변경 범위를 구분합니다.", actions.links[0]],
+    ["다음", "배치와 조작", "광고를 클릭하지 않고 본문·도구·모바일 이용을 검사합니다.", actions.links[1]],
+    ["참고", "지표 해석", "기간·통화·분모·형식이 같은 값인지 확인하고 인과관계를 단정하지 않습니다.", actions.links[2]]
   ] : [
     ["먼저", profile.focus, profile.good, actions.links[0]],
     ["다음", "보강 기준", profile.action, actions.links[1]],
@@ -709,9 +713,11 @@ function articlePage(article) {
 function categoryPage(key) {
   const category = categories[key];
   const items = articles.filter((article) => article[0] === key);
-  const firstItems = key === "writing"
-    ? ["topic-selection-for-adsense", "avoid-ai-like-writing", "approval-friendly-article-format", "internal-linking-guide"].map(slug => items.find(item => item[1] === slug))
-    : items.slice(0, 4);
+  const preferredOrder = {
+    writing: ["topic-selection-for-adsense", "avoid-ai-like-writing", "approval-friendly-article-format", "internal-linking-guide"],
+    monetization: ["after-approval-first-settings", "ad-placement-principles", "rpm-cpc-basics", "traffic-quality"]
+  }[key];
+  const firstItems = preferredOrder ? preferredOrder.map(slug => items.find(item => item[1] === slug)) : items.slice(0, 4);
   const focus = categoryFocus[key];
   const actions = categoryActions[key];
   const body = `<section class="page-hero wrap">
@@ -749,7 +755,7 @@ function categoryPage(key) {
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
   </section>`;
-  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["writing", "resources"].includes(key) ? "2026-10-27" : siteUpdatedAt });
+  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["writing", "resources", "monetization"].includes(key) ? "2026-10-27" : siteUpdatedAt });
 }
 
 function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) {
@@ -963,6 +969,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/after-approval-first-settings/">승인 후 점검</a>과 <a href="/guides/ad-placement-principles/">광고 배치 검사</a>를 재작성했습니다. 상태·미리보기·복구를 나누고 실제 광고가 아닌 가상 배치도와 도구 이용 검사를 추가했습니다. 실제 승인·계정 설정·광고 활성화는 수행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/content-calendar-30-days/">발행 계획</a>과 <a href="/guides/glossary-for-beginners/">운영 용어집</a>을 재작성했습니다. 가상 시간 예산과 지표별 분모·단위 비교를 추가하고 <a href="/tools/content-planner/#editorial-planner">편집 가능한 시간표</a>를 연결했습니다. 시간표 입력은 저장·전송하지 않으며 승인 판정·자동 발행 기능은 없습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/internal-linking-guide/">내부 링크 편집</a>과 <a href="/guides/evergreen-content-plan/">기존 글 갱신</a>을 재작성했습니다. 실제 허브 연결 변경과 배포 사례, 절 주소 검사와 날짜·관찰 기록 보존을 추가했습니다. 링크 수·고정 갱신 주기를 승인 기준으로 삼지 않습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/topic-selection-for-adsense/">자료 기반 주제 선정</a>과 <a href="/guides/avoid-ai-like-writing/">AI 초안 검증</a>을 재작성했습니다. 확보 자료로 정한 실제 편집 판단, 주장별 근거 대조와 가상 사례 표시를 추가했습니다. AI 문체 숨기기나 승인·수익 예측을 목표로 삼지 않습니다.</span></li>
@@ -1431,6 +1438,17 @@ p { margin: 0 0 16px; }
 .article-visual { margin: 24px 0 30px; }
 .article-visual img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); background: var(--soft); }
 .article-visual figcaption { margin-top: 8px; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.placement-diagram { margin: 24px 0; }
+.placement-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.placement-scenario { min-width: 0; border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.placement-scenario h3 { font-size: 18px; margin: 0 0 16px; }
+.placement-scenario p, .placement-diagram figcaption { font-size: 14px; color: var(--muted); margin: 16px 0 0; }
+.placement-content, .placement-action, .placement-ad { min-height: 64px; display: flex; align-items: center; padding: 12px; margin: 12px 0; overflow-wrap: anywhere; }
+.placement-content { border-left: 3px solid var(--green); background: var(--soft); }
+.placement-action { border: 1px solid var(--blue); font-weight: 700; margin-bottom: 0; }
+.placement-ad { border: 2px dashed var(--muted); background: var(--soft); }
+.placement-ad-near { border-color: var(--amber); margin-top: 0; }
+@media (max-width: 600px) { .placement-comparison { grid-template-columns: minmax(0, 1fr); } }
 .article table { width: 100%; border-collapse: collapse; margin: 20px 0 28px; font-size: 15px; }
 .article th, .article td { border: 1px solid var(--line); padding: 12px; vertical-align: top; text-align: left; }
 .article th { background: #f4f8fb; }
