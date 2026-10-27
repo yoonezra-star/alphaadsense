@@ -6,6 +6,8 @@ import articleEditing from "./approval-friendly-article-format.mjs";
 import structureAudit from "./site-structure-audit-example.mjs";
 import duplicateCleanup from "./duplicate-content-cleanup.mjs";
 import indexing from "./indexing-before-adsense.mjs";
+import structureChecklist from "./site-structure-before-apply.mjs";
+import homeCase from "./homepage-for-review.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -15,5 +17,7 @@ export default {
   "approval-friendly-article-format": articleEditing,
   "site-structure-audit-example": structureAudit,
   "duplicate-content-cleanup": duplicateCleanup,
-  "indexing-before-adsense": indexing
+  "indexing-before-adsense": indexing,
+  "site-structure-before-apply": structureChecklist,
+  "homepage-for-review": homeCase
 };

@@ -90,9 +90,6 @@ test("an untouched guide keeps its previous modification date", () => {
 });
 
 test("the latest list and search index include the revised article", () => {
-  const latest = read("index.html");
-  assert.ok(latest.includes('data-home-guide="low-value-content-fix"'));
-  assert.ok(!latest.includes('data-home-guide="adsense-approval-roadmap"'));
   const entries = JSON.parse(read("search-index.json"));
   const revised = entries.find((entry) => entry.url === "/guides/low-value-content-fix/");
   for (const section of guide.sections) assert.ok(revised.description.includes(section.title));
@@ -193,11 +190,13 @@ test("the structure audit separates its original snapshot from follow-up changes
 
 test("newly revised documents lead the latest list by their real modification dates", () => {
   const latest = read("index.html").split('<div class="home-guide-list">')[1];
-  assert.ok(latest.indexOf("/guides/approval-friendly-article-format/") < latest.indexOf("/guides/low-value-content-fix/"));
-  assert.ok(latest.indexOf("/guides/site-structure-audit-example/") < latest.indexOf("/guides/low-value-content-fix/"));
   const slugs = [...latest.matchAll(/data-home-guide="([^"]+)"/g)].map((match) => match[1]);
   assert.equal(slugs.length, 6);
   assert.ok(slugs.every((slug) => revisedGuides[slug]));
+  const dates = slugs.map((slug) => revisedGuides[slug].updatedAt);
+  assert.deepEqual(dates, [...dates].sort().reverse());
+  assert.ok(slugs.includes("site-structure-before-apply"));
+  assert.ok(slugs.includes("homepage-for-review"));
   assert.ok(slugs.includes("duplicate-content-cleanup"));
   assert.ok(slugs.includes("indexing-before-adsense"));
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
@@ -228,7 +227,35 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 8);
+  assert.equal(Object.keys(revisedGuides).length, 10);
+});
+
+test("structure checklist is a reproducible inspection rather than arbitrary approval thresholds", () => {
+  const html = read("guides/site-structure-before-apply/index.html");
+  for (const marker of ['id="task-walkthrough"', 'id="mobile-keyboard"', "정상·수정 필요·미확인", "메일 발송이나 답변 속도는 시험하지 않았습니다", "실제 주소를 가진", "프로젝트의 선택"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["최소 여러 개의 실제 글", "상단 메뉴는 주제를 분명히 보여 주어야", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old));
+  assert.ok(html.includes('href="/guides/homepage-for-review/"'));
+});
+
+test("home case preserves real before and after images without claiming approval or user outcomes", () => {
+  const html = read("guides/homepage-for-review/index.html");
+  for (const marker of ['src="/assets/audit-home-20261027.jpg"', 'src="/assets/home-redesign-after-20261027.jpg"', 'width="1424" height="1640"', "최근 목록은 현재와 다를 수 있습니다", "방문자 실험·수익 개선·AdSense 승인 성공의 증거는 아닙니다", "기존 문서는 유지", 'id="decisions"']) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+  assert.ok(!html.includes("승인 심사에 유리한 홈 화면 구성"));
+  assert.ok(read("guides/duplicate-content-cleanup/index.html").includes("두 문서를 해당 역할의 개별 본문으로 재작성"));
+  const jpeg = readFileSync(join(dist, "assets/home-redesign-after-20261027.jpg"));
+  assert.equal(jpeg.readUInt16BE(0), 0xffd8);
+});
+
+test("structure and home guides expose table regions and explicit row and column headings", () => {
+  for (const slug of ["site-structure-before-apply", "homepage-for-review"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) {
+      for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), `${slug}: ${marker}`);
+    }
+  }
 });
 
 test("every page exposes direct trust navigation and a working search entry", () => {
