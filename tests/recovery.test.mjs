@@ -202,6 +202,41 @@ test("newly revised documents lead the latest list by their real modification da
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
 });
 
+test("internal links use real editorial changes and separate targets from arbitrary quotas", () => {
+  const html = read("guides/internal-linking-guide/index.html");
+  for (const marker of ['id="next-question"', 'id="actual-link-edit"', 'id="section-address"', 'id="maintenance-check"', "변경 전 생성 소스와 개정 결과를 비교한 기록", "방문자가 이 순서로 행동하거나 작업 시간이 줄었다는 통계는 확인하지 않았습니다", "관련 문서가 이동하면", "실제 URL 삭제·병합·리디렉션 규칙을 추가하지 않았습니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["관련 글 3개와 공식 자료 링크 제공", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+});
+
+test("maintenance distinguishes real changes, observation dates and unmeasured outcomes", () => {
+  const html = read("guides/evergreen-content-plan/index.html");
+  for (const marker of ['id="information-types"', 'id="actual-maintenance"', 'id="dates-and-observations"', 'id="publish-check"', "5c6dc94", "0e21740", "본문을 고친 것처럼 수정일을 올리지 않습니다", "과거 측정 날짜까지 바꾸기", "자동 감시·예약·알림을 실행하는 것은 아닙니다", "모든 방문자의 캐시를 검사한 것은 아님"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["<h3>분기별 점검 항목</h3>", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+});
+
+test("link and maintenance guides retain table semantics and valid cross-document fragments", () => {
+  for (const slug of ["internal-linking-guide", "evergreen-content-plan"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), marker);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/guides/${slug}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${slug}: ${href}`);
+    }
+  }
+  assert.ok(read("guides/internal-linking-guide/index.html").includes('aria-label="문서와 절을 연결하는 HTML 예시" tabindex="0"'));
+});
+
+test("the content plan routes to editorial linking and maintenance rather than adding fixed formats", () => {
+  const html = read("tools/content-planner/index.html");
+  for (const marker of ["주차는 조정 가능한 작업 묶음입니다", "유지·조사·재작성·병합 검토", "수정일·과거 관찰을 구분", "/guides/evergreen-content-plan/"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("2주차: 각 대표 글에 표, 예시, 수정 기록, 관련 글 링크를 추가합니다"));
+  assert.ok(read("updates/index.html").includes("실제 허브 연결 변경과 배포 사례"));
+});
+
 test("topic planning uses evidence and explicit editorial decisions rather than approval quotas", () => {
   const html = read("guides/topic-selection-for-adsense/index.html");
   for (const marker of ['id="question-brief"', 'id="actual-selection"', 'id="decision-gates"', 'id="maintenance-cost"']) assert.ok(html.includes(marker), marker);
@@ -313,7 +348,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 18);
+  assert.equal(Object.keys(revisedGuides).length, 20);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {

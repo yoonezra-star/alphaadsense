@@ -16,6 +16,8 @@ import navigationRepair from "./navigation-issue-fix.mjs";
 import accessRepair from "./site-down-unavailable.mjs";
 import topicSelection from "./topic-selection-for-adsense.mjs";
 import draftVerification from "./avoid-ai-like-writing.mjs";
+import internalLinks from "./internal-linking-guide.mjs";
+import contentMaintenance from "./evergreen-content-plan.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -35,5 +37,7 @@ export default {
   "navigation-issue-fix": navigationRepair,
   "site-down-unavailable": accessRepair,
   "topic-selection-for-adsense": topicSelection,
-  "avoid-ai-like-writing": draftVerification
+  "avoid-ai-like-writing": draftVerification,
+  "internal-linking-guide": internalLinks,
+  "evergreen-content-plan": contentMaintenance
 };
