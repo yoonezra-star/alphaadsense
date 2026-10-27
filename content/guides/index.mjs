@@ -26,6 +26,8 @@ import trafficQuality from "./traffic-quality.mjs";
 import contentPolicy from "./prohibited-content-check.mjs";
 import privacyNotice from "./privacy-policy-for-adsense.mjs";
 import cookieNotice from "./cookie-notice-basics.mjs";
+import disclaimerGuide from "./disclaimer-page-guide.mjs";
+import privacyCase from "./privacy-cookie-page-example.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -55,5 +57,7 @@ export default {
   "traffic-quality": trafficQuality,
   "prohibited-content-check": contentPolicy,
   "privacy-policy-for-adsense": privacyNotice,
-  "cookie-notice-basics": cookieNotice
+  "cookie-notice-basics": cookieNotice,
+  "disclaimer-page-guide": disclaimerGuide,
+  "privacy-cookie-page-example": privacyCase
 };
