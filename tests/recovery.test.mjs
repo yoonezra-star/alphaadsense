@@ -202,6 +202,51 @@ test("newly revised documents lead the latest list by their real modification da
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
 });
 
+test("topic planning uses evidence and explicit editorial decisions rather than approval quotas", () => {
+  const html = read("guides/topic-selection-for-adsense/index.html");
+  for (const marker of ['id="question-brief"', 'id="actual-selection"', 'id="decision-gates"', 'id="maintenance-cost"']) assert.ok(html.includes(marker), marker);
+  for (const marker of ["이번 기획에서 조회하지 않았습니다", "처음부터 이 표대로 사이트를 기획했다는 과거 기록은 아닙니다", "핵심 주장을 검증할 수 없다면", "기존 글 보강·병합", "승인 확률이나 예상 수익을 매기지 않습니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["카테고리는 3~6개", "글 5개 뒤", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+});
+
+test("draft verification distinguishes real source edits from fictional examples and performance claims", () => {
+  const html = read("guides/avoid-ai-like-writing/index.html");
+  for (const marker of ['id="claim-ledger"', 'id="real-editorial-case"', 'id="worked-verification"', 'id="fiction-and-disclosure"', "‘AI가 만든 문장’이라고 단정하지 않습니다", "실제 발행 문장이나 성공 기록이 아닙니다", "모델의 성능 시험이나 AI 생성 원문 판별 실험이 아닙니다", "12 ÷ 6,000 × 1,000 = 2 USD", "메타데이터", "발행을 보류합니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("AI 티가 나는 글을 줄이는 편집법"));
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("new writing guides retain accessible tables and searchable, uniquely linked sections", () => {
+  const entries = JSON.parse(read("search-index.json"));
+  for (const slug of ["topic-selection-for-adsense", "avoid-ai-like-writing"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), marker);
+    const entry = entries.find(item => item.url === `/guides/${slug}/`);
+    for (const section of revisedGuides[slug].sections) assert.ok(entry.description.includes(section.title));
+    assert.ok(html.includes("공식 자료 확인일:"));
+  }
+});
+
+test("writing hub routes through topic evidence and verification with an accurate revision date", () => {
+  const html = read("writing/index.html");
+  for (const marker of ["자료 기반 주제 선정", "AI 초안 사실 검증", "확보 자료를 정하고 초안의 사실·출처를 검증합니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("AI 문장감 줄이기"));
+  assert.ok(html.includes("표 개수로 완료를 판단하지 않습니다"));
+  assert.ok(!html.includes("표, 예시, 내부 링크를 추가해 깊이를 보강합니다"));
+  const order = html.split('<ol class="read-order">')[1].split('</ol>')[0];
+  const slugs = [...order.matchAll(/href="\/guides\/([^/]+)\//g)].map(match => match[1]);
+  assert.deepEqual(slugs, ["topic-selection-for-adsense", "avoid-ai-like-writing", "approval-friendly-article-format", "internal-linking-guide"]);
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
+  assert.ok(read("updates/index.html").includes("주장별 근거 대조와 가상 사례 표시"));
+});
+
+test("wrapped search result titles retain a continuous link area", () => {
+  assert.ok(read("styles.css").includes('.search-interface .search-result h2 a { display: block; }'));
+});
+
 test("navigation repair separates observed working paths from hypothetical failures", () => {
   const html = read("guides/navigation-issue-fix/index.html");
   for (const marker of ['id="classify-symptom"', 'id="reproduction-record"', 'id="worked-failure"', 'id="public-path-check"', "가상 고장 사례이며 실제 사이트에서 발생한 장애 기록이 아닙니다", "초점 대상 id도 site-audit", "이메일 발송·문의 응답은 시험하지 않음", "출발 URL", "공통 원본"]) assert.ok(html.includes(marker), marker);
@@ -267,7 +312,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 16);
+  assert.equal(Object.keys(revisedGuides).length, 18);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {

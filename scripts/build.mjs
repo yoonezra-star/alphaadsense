@@ -42,7 +42,7 @@ const categories = {
 const categoryFocus = {
   approval: ["구조", "홈, 메뉴, 카테고리, 정책 페이지가 자연스럽게 연결되는지 확인합니다.", "신청 전 전체 흐름을 점검"],
   rejection: ["원인", "거절 메시지를 콘텐츠, 탐색, 접근, 정책 문제로 나누어 수정 순서를 정합니다.", "재신청 전 수정 근거 정리"],
-  writing: ["본문", "문제 정의, 판단 기준, 예시, 체크리스트가 들어간 글로 얇은 콘텐츠를 피합니다.", "대표 글과 내부 링크 보강"],
+  writing: ["질문과 근거", "독자가 해결할 질문에 필요한 자료를 확보하고 사실·예시·판단의 범위를 구분합니다.", "기획, 초안 검증과 실제 편집 사례 연결"],
   monetization: ["운영", "승인 후 광고 배치와 수익 지표를 사용자 경험과 정책 기준 안에서 다룹니다.", "무효 트래픽과 과도한 광고 방지"],
   policy: ["신뢰", "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 독자가 확인할 수 있게 정리합니다.", "하단 필수 링크와 공식 기준 점검"],
   resources: ["실행", "체크리스트, 계획표, 용어 정리로 운영자가 바로 적용할 수 있는 자료를 제공합니다.", "신청 전 기록과 반복 점검"]
@@ -58,8 +58,8 @@ const categoryActions = {
     links: [["거절 사유 진단", "/tools/rejection-diagnosis/"], ["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"]]
   },
   writing: {
-    use: "글쓰기 허브는 승인용 대표 글을 보강할 때 씁니다. 주제 선정, 본문 형식, 내부 링크, AI 문장감 줄이기 순서가 안정적입니다.",
-    links: [["승인 친화 글 구성", "/guides/approval-friendly-article-format/"], ["30일 계획 도구", "/tools/content-planner/"], ["내부 링크 가이드", "/guides/internal-linking-guide/"]]
+    use: "먼저 답할 질문과 확보 자료를 정하고 초안의 사실·출처를 검증합니다. 실제 편집 사례를 참고하되 글 수나 문체를 승인 기준으로 삼지 않습니다.",
+    links: [["자료 기반 주제 선정", "/guides/topic-selection-for-adsense/"], ["AI 초안 사실 검증", "/guides/avoid-ai-like-writing/"], ["실제 원문 편집 사례", "/guides/approval-friendly-article-format/"]]
   },
   monetization: {
     use: "승인 전에는 과한 수익 약속을 피하고, 승인 후 광고 배치와 트래픽 품질을 안정적으로 운영하는 기준을 확인합니다.",
@@ -88,9 +88,9 @@ const articles = [
   ["rejection", "duplicate-content-cleanup", "중복 콘텐츠 정리: 역할 비교와 URL 병합 절차", "본문 반복과 URL 변형을 구분하고 재작성·병합·canonical 선택, 내용 이관과 Cloudflare Pages 이전 검사를 설명합니다.", ["공통 화면 요소와 질문·본문 중복, URL 변형을 구분합니다.", "고유한 답과 기존 유입을 확인해 재작성 또는 병합을 결정합니다.", "내용을 먼저 이관한 뒤 의미가 맞는 최종 URL로 연결합니다.", "실제 응답·내부 링크·canonical·사이트맵을 함께 검증합니다."]],
   ["rejection", "thin-category-pages", "빈 카테고리와 얇은 허브 페이지 보강법", "카테고리 페이지가 단순 목록에 그치지 않도록 소개문, 추천 순서, 관련 글을 보강합니다.", ["허브 페이지에는 해당 주제를 읽는 순서를 안내합니다.", "각 글 카드에는 단순 제목보다 해결하는 문제를 함께 적습니다.", "대표 글, 최신 글, 체크리스트를 함께 배치하면 페이지 가치가 올라갑니다.", "글이 부족한 카테고리는 신청 전 메뉴에서 빼는 것도 방법입니다."]],
   ["writing", "approval-friendly-article-format", "정보 글 편집 실제 사례: RPM 설명을 고친 과정", "이 사이트의 RPM 문서를 대상으로 독자 질문, 원문 결함, 편집 전후 판단과 계산 검증을 구체적으로 기록했습니다.", ["독자가 해결할 질문을 먼저 정합니다.", "실제 원문의 정의 오류와 주제에 맞지 않는 본문을 구분합니다.", "판단 근거와 계산 예시를 제공하고 사실·화면 검사를 나눕니다.", "승인 성공이나 수익 증가를 편집 결과로 주장하지 않습니다."]],
-  ["writing", "topic-selection-for-adsense", "수익형 블로그 주제 선정 기준", "승인 가능성과 장기 수익성을 함께 고려해 주제를 고르는 방법입니다.", ["검색량만 높은 주제보다 꾸준히 새 글을 쓸 수 있는 주제가 좋습니다.", "정책 위험이 높은 주제는 초보 사이트에서 피하는 편이 안전합니다.", "정보 갱신이 필요한 주제라면 업데이트 날짜를 관리해야 합니다.", "카테고리는 3~6개 정도로 시작하면 운영 부담이 적습니다."]],
+  ["writing", "topic-selection-for-adsense", "블로그 주제 선정: 독자 질문·자료·유지 비용", "독자 질문과 확보 자료, 기존 글과의 차이와 유지 비용으로 작성·추가 조사·병합·보류를 결정하는 기획 절차입니다.", ["독자가 읽은 뒤 해결할 일을 한 문장으로 정합니다.", "공식 자료·직접 관찰·가상 데이터의 확보 범위를 구분합니다.", "기존 글과 같은 답이면 새 URL 대신 보강을 검토합니다.", "검색 수요·수익을 확인하지 않았다면 예측하지 않습니다."]],
   ["writing", "internal-linking-guide", "내부 링크를 자연스럽게 넣는 방법", "승인 심사와 독자 경험에 모두 도움이 되는 내부 링크 설계 기준입니다.", ["관련 없는 글을 억지로 연결하면 탐색 품질이 떨어집니다.", "초보자는 시작 글, 심화 글, 체크리스트 순서로 연결하면 좋습니다.", "카테고리 허브에서 핵심 글로 가는 길을 명확히 만듭니다.", "본문 중간 링크와 글 하단 추천 링크를 함께 사용합니다."]],
-  ["writing", "avoid-ai-like-writing", "AI 티가 나는 글을 줄이는 편집법", "반복 문장, 일반론, 과장 표현을 줄이고 실제 운영자의 판단이 보이게 다듬는 방법입니다.", ["모든 글이 같은 문단 구조와 표현을 반복하면 개성이 약해집니다.", "경험 기반 판단, 예외 상황, 실패 사례를 넣으면 글이 살아납니다.", "근거가 필요한 내용은 공식 문서나 신뢰 가능한 자료로 연결합니다.", "과도한 확신보다 조건과 한계를 함께 설명하는 문장이 좋습니다."]],
+  ["writing", "avoid-ai-like-writing", "AI 초안 검증: 사실·출처·가상 사례 편집 절차", "초안을 주장별로 나누고 원문 대조, 계산 검산, 실제 경험과 가상 사례 구분을 거쳐 수정·삭제·발행 보류를 결정합니다.", ["문체를 고치기 전에 정의·정책·수치·경험을 검증합니다.", "실제 열어 본 원문이 해당 주장을 뒷받침하는지 봅니다.", "직접 겪지 않은 경험과 성과를 만들어 넣지 않습니다.", "검증 범위와 남은 항목을 남기고 공개 결과를 확인합니다."]],
   ["writing", "evergreen-content-plan", "오래 가는 콘텐츠 발행 계획", "승인 후에도 검색 유입을 유지할 수 있는 에버그린 글을 설계하는 방법입니다.", ["한 번 쓰고 끝나는 뉴스성 글보다 꾸준히 찾는 문제 해결 글을 우선합니다.", "분기마다 업데이트할 글을 표시해 관리합니다.", "기초 가이드, 체크리스트, 용어 정리는 오래 유지되는 자산입니다.", "시즌성 글은 발행 시점과 업데이트 시점을 미리 정합니다."]],
   ["monetization", "after-approval-first-settings", "애드센스 승인 후 처음 확인할 설정", "승인 직후 광고를 무리하게 늘리기 전에 확인할 기본 설정과 운영 기준입니다.", ["자동 광고를 켜기 전 모바일에서 레이아웃이 깨지지 않는지 확인합니다.", "첫 주에는 광고 수익보다 광고가 콘텐츠를 가리지 않는지 봅니다.", "민감한 카테고리 차단은 수익과 브랜드 안정성의 균형으로 판단합니다.", "정책 알림과 이메일을 놓치지 않게 계정 상태를 확인합니다."]],
   ["monetization", "rpm-cpc-basics", "RPM·CPC·CTR 계산과 보고서 해석", "페이지 조회수와 광고 노출수를 구분하고, 가상 데이터 계산과 기간 합산 예시로 수익 지표를 검산합니다.", ["페이지 RPM은 예상 수입을 페이지 조회수로 나누고 1,000을 곱합니다.", "광고 RPM은 광고 노출수, 광고 CTR은 광고 클릭수와 노출수의 비율로 계산합니다.", "통화, 기간과 보고서 범위가 다른 수치를 섞지 않습니다.", "CPC와 CTR은 승인 점수나 다음 달 수익을 보장하는 지표가 아닙니다."]],
@@ -135,11 +135,6 @@ const deepDives = {
     title: "본문 템플릿 예시",
     html: `<p>승인 준비용 정보 글은 문제를 넓게 소개한 뒤, 독자가 바로 실행할 수 있는 순서로 좁혀 가는 것이 좋습니다. 한 글 안에는 문제 정의, 판단 기준, 실행 순서, 예외 상황, 관련 정책, 체크리스트가 들어가면 안정적입니다.</p>
     <table><thead><tr><th>문단</th><th>역할</th><th>예시</th></tr></thead><tbody><tr><td>도입</td><td>누구의 어떤 문제인지 정의</td><td>승인 전 색인이 안 잡히는 초보 운영자</td></tr><tr><td>기준</td><td>좋은 상태와 나쁜 상태 구분</td><td>색인됨, 발견됨, 제외됨 상태 비교</td></tr><tr><td>실행</td><td>수정 순서 제시</td><td>내부 링크 추가, 본문 보강, URL 검사 요청</td></tr><tr><td>점검</td><td>신청 전 확인 항목</td><td>모바일, 링크, 정책 페이지, 사이트맵 확인</td></tr></tbody></table>`
-  },
-  "topic-selection-for-adsense": {
-    title: "주제 선정 매트릭스",
-    html: `<p>승인용 사이트의 주제는 너무 넓어도 약하고, 너무 좁아도 글을 지속하기 어렵습니다. 애드센스, 글쓰기, 정책, 수익화처럼 서로 이어지는 주제를 묶으면 사이트의 전문성이 보이고 장기 운영도 쉽습니다.</p>
-    <table><thead><tr><th>기준</th><th>좋은 주제</th><th>주의할 주제</th></tr></thead><tbody><tr><td>정책 위험</td><td>사이트 운영, 글쓰기, 검색 최적화</td><td>도박, 성인, 불법, 과장 수익 보장</td></tr><tr><td>지속성</td><td>꾸준히 업데이트 가능한 기초 가이드</td><td>하루짜리 이슈성 뉴스만 있는 주제</td></tr><tr><td>전문성</td><td>경험과 체크리스트를 쌓을 수 있는 주제</td><td>서로 관계없는 잡다한 주제 혼합</td></tr></tbody></table>`
   },
   "privacy-policy-for-adsense": {
     title: "개인정보 페이지 점검 항목",
@@ -215,21 +210,11 @@ const deepDiveAdditions = {
     <table><thead><tr><th>메시지 유형</th><th>먼저 볼 영역</th><th>수정 예시</th></tr></thead><tbody><tr><td>가치가 낮은 콘텐츠</td><td>대표 글 깊이, 중복 글, 카테고리 균형</td><td>짧은 글 병합, 표와 사례 추가, 내부 링크 보강</td></tr><tr><td>탐색 문제</td><td>홈, 메뉴, 카테고리, 모바일 화면</td><td>상황별 허브, 추천 읽기 순서, 푸터 정책 링크 추가</td></tr><tr><td>사이트 접근 불가</td><td>DNS, HTTPS, 리다이렉트, 보안 규칙</td><td>루트와 www 접속 확인, Cloudflare 상태 안정화</td></tr><tr><td>정책 위험</td><td>금지 콘텐츠, 클릭 유도, 수익 보장 표현</td><td>문제 글 제외, 면책 고지 보강, 공식 자료 확인</td></tr></tbody></table>
     <h3>재신청 메모 양식</h3>
     <ul><li>받은 메시지와 날짜를 기록합니다.</li><li>문제 가능성이 있는 페이지 URL을 분류합니다.</li><li>수정, 병합, 비공개 처리한 항목을 나눠 적습니다.</li><li>수정 후 3~7일 동안 접속, 색인, 모바일 화면을 다시 확인합니다.</li><li>같은 문제가 반복되면 글 추가보다 구조와 정책 페이지를 먼저 재검토합니다.</li></ul>`,
-  "topic-selection-for-adsense": `<h3>승인용 주제 판단표</h3>
-    <p>수익형 블로그 주제는 검색량만 보고 고르면 승인 준비 단계에서 흔들리기 쉽습니다. 초보 사이트는 정책 위험이 낮고, 오래 업데이트할 수 있으며, 카테고리별로 대표 글을 만들 수 있는 주제가 안정적입니다.</p>
-    <table><thead><tr><th>판단 기준</th><th>좋은 신호</th><th>주의 신호</th></tr></thead><tbody><tr><td>지속성</td><td>6개월 뒤에도 검색될 기초 문제를 다룸</td><td>하루 이슈나 단발 뉴스에만 의존</td></tr><tr><td>정책 안정성</td><td>정보 제공, 절차, 체크리스트 중심</td><td>과장 수익, 투자 보장, 민감 주제 중심</td></tr><tr><td>글 확장성</td><td>기초, 사례, 도구, FAQ로 나눌 수 있음</td><td>글 5개 뒤 더 쓸 주제가 없음</td></tr><tr><td>운영자 관점</td><td>실제 경험과 판단 기준을 넣을 수 있음</td><td>검색 결과 요약만 반복하게 됨</td></tr></tbody></table>
-    <h3>카테고리 설계 예시</h3>
-    <ul><li>승인 준비: 구조, 색인, 필수 페이지, 신청 전 점검</li><li>거절 해결: 낮은 가치, 탐색 문제, 접근 불가, 정책 위험</li><li>글쓰기: 주제 선정, 내부 링크, 본문 구성, 업데이트</li><li>정책 체크: 개인정보, 쿠키, 면책, 금지 콘텐츠</li><li>수익화: 광고 배치, RPM/CPC, 트래픽 품질, 승인 후 설정</li></ul>`,
   "internal-linking-guide": `<h3>내부 링크 설계 원칙</h3>
     <p>내부 링크는 단순히 페이지뷰를 늘리기 위한 장치가 아니라 사이트의 주제 구조를 보여 주는 신호입니다. 승인 준비 사이트에서는 홈, 허브, 카테고리, 글 상세가 서로 자연스럽게 연결되어야 합니다.</p>
     <table><thead><tr><th>링크 위치</th><th>역할</th><th>좋은 예시</th></tr></thead><tbody><tr><td>홈</td><td>대표 주제 입구 제공</td><td>승인 준비 허브, 다음 단계, 체크리스트 연결</td></tr><tr><td>카테고리</td><td>읽는 순서 안내</td><td>기초 글에서 사례 글, 도구 글로 연결</td></tr><tr><td>본문 중간</td><td>맥락 보충</td><td>정책 언급 시 개인정보/쿠키 페이지 글 연결</td></tr><tr><td>글 하단</td><td>다음 행동 제안</td><td>관련 글 3개와 공식 자료 링크 제공</td></tr></tbody></table>
     <h3>과한 내부 링크를 피하는 기준</h3>
     <ul><li>문맥과 관계없는 글을 억지로 연결하지 않습니다.</li><li>한 문단에 링크를 너무 많이 넣어 독서를 방해하지 않습니다.</li><li>같은 앵커 문구를 반복하지 않고 목적이 보이는 문구를 씁니다.</li><li>정책 페이지는 숨기지 않고 푸터와 관련 글에서 자연스럽게 연결합니다.</li></ul>`,
-  "avoid-ai-like-writing": `<h3>AI처럼 보이는 문장을 줄이는 편집 기준</h3>
-    <p>AI 도구를 사용했는지보다 중요한 것은 글이 실제 운영자의 판단을 담고 있는지입니다. 모든 문장이 일반론으로 끝나거나, 같은 구조를 반복하거나, 구체적인 예시 없이 “중요합니다”만 반복하면 품질이 약해 보일 수 있습니다.</p>
-    <table><thead><tr><th>약한 표현</th><th>문제</th><th>수정 방향</th></tr></thead><tbody><tr><td>좋은 콘텐츠를 작성해야 합니다.</td><td>판단 기준이 없음</td><td>대표 글에는 문제, 기준, 절차, 체크리스트가 있어야 한다고 구체화</td></tr><tr><td>정책을 잘 지켜야 합니다.</td><td>어떤 정책인지 불명확</td><td>광고 클릭 유도, 금지 콘텐츠, 쿠키 고지처럼 항목화</td></tr><tr><td>꾸준히 관리하세요.</td><td>실행 방법이 없음</td><td>수정일, 업데이트 기록, Search Console 확인 항목 제시</td></tr></tbody></table>
-    <h3>발행 전 편집 체크</h3>
-    <ul><li>첫 문단에 독자의 상황이 구체적으로 들어갑니다.</li><li>본문에는 최소 1개 이상의 표나 체크리스트가 있습니다.</li><li>운영자가 직접 판단한 기준이나 예외 상황이 보입니다.</li><li>승인 보장, 수익 보장, 클릭 유도 표현을 쓰지 않습니다.</li><li>공식 자료가 필요한 내용은 출처 페이지나 공식 링크로 연결합니다.</li></ul>`,
   "evergreen-content-plan": `<h3>오래 가는 글 묶음 설계</h3>
     <p>에버그린 콘텐츠는 한 번 쓰고 방치하는 글이 아니라 주기적으로 업데이트할 수 있는 글입니다. 승인용 사이트에서는 기초 가이드, 체크리스트, 사례형 글, 용어 정리처럼 시간이 지나도 독자가 반복해서 찾는 주제가 좋습니다.</p>
     <table><thead><tr><th>글 유형</th><th>예시</th><th>업데이트 기준</th></tr></thead><tbody><tr><td>기초 가이드</td><td>애드센스 승인 준비 전체 순서</td><td>정책이나 관리자 화면 변경 시 수정</td></tr><tr><td>체크리스트</td><td>신청 전 최종 점검표</td><td>신청 전 항목이 바뀔 때 보강</td></tr><tr><td>사례 글</td><td>낮은 가치 콘텐츠 수정 예시</td><td>새 거절 사례나 수정 방식이 생길 때 추가</td></tr><tr><td>용어 정리</td><td>RPM, CPC, 무효 트래픽</td><td>초보자 질문이 반복될 때 설명 보강</td></tr></tbody></table>
@@ -622,7 +607,11 @@ function categoryPriorityMatrix(key) {
   const profile = qualityProfiles[key];
   const actions = categoryActions[key];
   if (!profile || !actions) return "";
-  const rows = [
+  const rows = key === "writing" ? [
+    ["먼저", "질문과 자료", "답할 질문과 확보 자료, 기존 글과의 차이로 다음 작업을 결정합니다.", actions.links[0]],
+    ["다음", "주장 검증", "정의·정책·계산·실제 경험을 근거와 대조하고 미확인 주장을 보류합니다.", actions.links[1]],
+    ["참고", "실제 편집", "원문의 결함과 수정 판단, 공개 결과를 비교합니다. 표 개수로 완료를 판단하지 않습니다.", actions.links[2]]
+  ] : [
     ["먼저", profile.focus, profile.good, actions.links[0]],
     ["다음", "보강 기준", profile.action, actions.links[1]],
     ["마지막", "신청 전 확인", "수정한 내용이 실제 공개 페이지와 모바일 화면에서 확인되는지 봅니다.", actions.links[2]]
@@ -734,7 +723,9 @@ function articlePage(article) {
 function categoryPage(key) {
   const category = categories[key];
   const items = articles.filter((article) => article[0] === key);
-  const firstItems = items.slice(0, 4);
+  const firstItems = key === "writing"
+    ? ["topic-selection-for-adsense", "avoid-ai-like-writing", "approval-friendly-article-format", "internal-linking-guide"].map(slug => items.find(item => item[1] === slug))
+    : items.slice(0, 4);
   const focus = categoryFocus[key];
   const actions = categoryActions[key];
   const body = `<section class="page-hero wrap">
@@ -772,7 +763,7 @@ function categoryPage(key) {
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
   </section>`;
-  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body });
+  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: key === "writing" ? "2026-10-27" : siteUpdatedAt });
 }
 
 function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) {
@@ -986,6 +977,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/topic-selection-for-adsense/">자료 기반 주제 선정</a>과 <a href="/guides/avoid-ai-like-writing/">AI 초안 검증</a>을 재작성했습니다. 확보 자료로 정한 실제 편집 판단, 주장별 근거 대조와 가상 사례 표시를 추가했습니다. AI 문체 숨기기나 승인·수익 예측을 목표로 삼지 않습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/navigation-issue-fix/">메뉴·링크 오류 복구</a>와 <a href="/guides/site-down-unavailable/">사이트 접근 오류 진단</a>을 증상별 재현·근거·복구 절차로 재작성했습니다. 공개 경로와 HTTP 응답의 실제 관찰을 기록하고 보안 전체 완화 안내를 제거했습니다. DNS·보안 설정과 심사 계정은 변경하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/adsense-approval-roadmap/">준비 작업 순서</a>와 <a href="/guides/seven-day-pre-apply-log-example/">수정 후 관찰 기록</a>을 재작성했습니다. 고정 준비 기간을 선행 조건·병행 작업·재검사 조건으로 바꾸고, 실제 변경과 가상 해석 사례를 구분했습니다. 기존 주소를 유지하며 실제 재검토 요청은 실행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/minimum-content-myth/">글 수·분량 기준의 오해</a>와 <a href="/guides/pre-apply-checklist/">재검토 전 근거 점검</a>을 재작성했습니다. <a href="/checklist/">점검 안내</a>는 상세 절차와 기록 도구의 입구로 정리하고, 대표 글 수·점검 시간·색인을 합격선으로 사용하지 않습니다. 실제 검토 요청은 실행하지 않았습니다.</span></li>

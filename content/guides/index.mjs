@@ -14,6 +14,8 @@ import roadmap from "./adsense-approval-roadmap.mjs";
 import observationLog from "./seven-day-pre-apply-log-example.mjs";
 import navigationRepair from "./navigation-issue-fix.mjs";
 import accessRepair from "./site-down-unavailable.mjs";
+import topicSelection from "./topic-selection-for-adsense.mjs";
+import draftVerification from "./avoid-ai-like-writing.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -31,5 +33,7 @@ export default {
   "adsense-approval-roadmap": roadmap,
   "seven-day-pre-apply-log-example": observationLog,
   "navigation-issue-fix": navigationRepair,
-  "site-down-unavailable": accessRepair
+  "site-down-unavailable": accessRepair,
+  "topic-selection-for-adsense": topicSelection,
+  "avoid-ai-like-writing": draftVerification
 };

@@ -29,6 +29,7 @@ export const searchStyles = `
 .search-interface .search-results { margin-top: 16px; }
 .search-interface .search-result { padding: 20px 0; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; }
 .search-interface .search-result h2 { margin-top: 0; word-break: keep-all; overflow-wrap: anywhere; }
+.search-interface .search-result h2 a { display: block; }
 .search-interface .search-result p { overflow-wrap: anywhere; }
 .search-pagination { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 24px 0; }
 .search-pagination span { min-width: 64px; text-align: center; font-size: 14px; }
