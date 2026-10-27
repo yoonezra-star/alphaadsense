@@ -83,7 +83,7 @@ test("visible and structured modification dates agree without changing publicati
 });
 
 test("an untouched guide keeps its previous modification date", () => {
-  const html = read("guides/domain-and-trust/index.html");
+  const html = read("guides/rejection-message-map/index.html");
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(schema["@graph"].find((entry) => entry["@type"] === "Article").dateModified, "2026-07-13");
   assert.ok(html.includes("업데이트: 2026-07-13"));
@@ -196,8 +196,8 @@ test("newly revised documents lead the latest list by their real modification da
   const dates = slugs.map((slug) => revisedGuides[slug].updatedAt);
   assert.deepEqual(dates, [...dates].sort().reverse());
   assert.ok(slugs.includes("site-structure-before-apply"));
-  assert.ok(slugs.includes("homepage-for-review"));
-  assert.ok(slugs.includes("navigation-issue-fix"));
+  assert.ok(slugs.includes("thin-category-pages"));
+  assert.ok(slugs.includes("domain-and-trust"));
   assert.ok(slugs.includes("indexing-before-adsense"));
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
 });
@@ -327,7 +327,7 @@ test("published notices and search disclose actual data paths without fake conse
   assert.ok(search.includes('href="/privacy/#search-requests"'));
   assert.ok(search.includes("검색어는 주소·방문 기록에 남습니다"));
   assert.ok(read("styles.css").includes(".article > h2[id] { scroll-margin-top: 150px; }"));
-  assert.ok(read("styles.css").includes(".article > h2[id], .metric-tool, .workbench { scroll-margin-top: 180px; }"));
+  assert.ok(read("styles.css").includes(".article > h2[id], .hub-entry h2, .metric-tool, .workbench { scroll-margin-top: 180px; }"));
   assert.ok(privacy.includes("문의 이메일의 구체적인 보관 기한과 정기 삭제 기준은 미정입니다"));
   assert.ok(read("guides/privacy-policy-for-adsense/index.html").includes("문의 이메일의 보관·삭제 기준이 아직 미정이라고 답했습니다"));
   const hub = read("policy/index.html");
@@ -376,6 +376,62 @@ test("published disclaimer and terms distinguish correction, viewing and consent
   assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
   assert.ok(read("approval-hub/index.html").includes("정책 페이지 실제 사례"));
   assert.ok(read("updates/index.html").includes("공통 면책과 열람·동의의 차이"));
+});
+
+test("operator trust distinguishes published identity, actual process and independent verification", () => {
+  const html = read("guides/domain-and-trust/index.html");
+  for (const marker of ['id="operator-record"', 'id="actual-operator-path"', 'id="content-process-evidence"', 'id="trust-path-check"', "사업자 등록의 외부 조회·도메인 소유 증빙·메일 수신·계정 심사는 이번에 검증하지 않았습니다", "564-04-03514", "가짜 개인 저자·경력·전문가 사진을 만들지 않습니다", "문의 보관·삭제 기준은 운영자 확인상 미정", "E-E-A-T 점수"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("hub editorial guidance distinguishes role decisions from hiding and article-count quotas", () => {
+  const html = read("guides/thin-category-pages/index.html");
+  for (const marker of ['id="hub-decisions"', 'id="actual-hub-change"', 'id="task-path-check"', 'id="not-review-only-hiding"', "독자 선택과 목적지 차이", "판단을 설명하는 가상 예시", "실제 방문자 실험·검색 성과·광고 심사 결과도 확인하지 않았습니다", "메뉴 노출을 줄이는 것은 탐색 편집일 수 있지만", "실제 삭제·병합·보안·색인 요청·AdSense 계정 변경은 실행하지 않았습니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("카테고리에 글이 1~2개뿐이라면"));
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("trust and hub guides retain semantic tables and valid fragment destinations", () => {
+  for (const slug of ["domain-and-trust", "thin-category-pages"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0, slug);
+    for (const [, table] of tables) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), `${slug}: ${marker}`);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/guides/${slug}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${slug}: ${href}`);
+    }
+  }
+});
+
+test("approval and rejection hubs expose scoped task entries and accurate creation disclosure", () => {
+  const expected = {
+    approval: ["/guides/domain-and-trust/#operator-record", "/guides/site-structure-before-apply/", "/guides/topic-selection-for-adsense/", "/guides/pre-apply-checklist/"],
+    rejection: ["/guides/low-value-content-fix/", "/guides/thin-category-pages/#hub-decisions", "/guides/navigation-issue-fix/", "/guides/site-down-unavailable/"]
+  };
+  for (const [key, paths] of Object.entries(expected)) {
+    const html = read(`${key}/index.html`);
+    const entries = html.split('<div class="home-path-list">')[1].split('</div>')[0];
+    assert.deepEqual([...entries.matchAll(/href="([^"]+)"/g)].map(match => match[1]), paths);
+    assert.ok(html.indexOf('id="hub-entry-paths"') < html.indexOf('class="hub-overview"'));
+    assert.ok(html.includes('id="hub-entry-paths" tabindex="-1"'));
+    const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-28");
+  }
+  for (const key of ["writing", "policy", "monetization", "resources"]) assert.ok(!read(`${key}/index.html`).includes('id="hub-entry-paths"'));
+  for (const slug of readdirSync(join(dist, "guides"))) {
+    const html = read(`guides/${slug}/index.html`);
+    assert.ok(html.includes('작성·검토: <a href="/about/#content-process">리플리더스 (ReplyLeaders)</a>'));
+    assert.ok(!html.includes("작성자: Alpha AdSense 편집팀"));
+  }
+  for (const marker of ['id="operator-info" tabindex="-1"', 'id="content-process" tabindex="-1"', "AI 도구의 지원을 사용합니다", "모든 내용이 사람 전문가의 전수 검수를 받았다는 뜻"]) assert.ok(read("about/index.html").includes(marker), marker);
+  assert.ok(read("contact/index.html").includes('id="correction-request" tabindex="-1"'));
+  assert.ok(!read("start-guide/index.html").includes("시작 후 3일 안에 할 일"));
+  assert.ok(!read("start-guide/index.html").includes("초기 사이트에 필요한 최소 흐름"));
+  assert.ok(read("start-guide/index.html").includes('href="/approval/#hub-entry-paths"'));
+  assert.ok(read("updates/index.html").includes("작성·검토 표시를 실제 AI 지원·제작 방식 안내로 연결"));
 });
 
 test("calendar separates hypothetical time budgets from production and approval outcomes", () => {
@@ -491,7 +547,7 @@ test("writing hub routes through topic evidence and verification with an accurat
 
 test("wrapped search result titles retain a continuous link area", () => {
   assert.ok(read("styles.css").includes('.search-interface .search-result h2 a { display: block; }'));
-  assert.ok(read("search/index.html").includes('href="/styles.css?v=20261027-privacy-notice"'));
+  assert.ok(read("search/index.html").includes('href="/styles.css?v=20261028-trust-hubs"'));
 });
 
 test("navigation repair separates observed working paths from hypothetical failures", () => {
@@ -559,7 +615,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 30);
+  assert.equal(Object.keys(revisedGuides).length, 32);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {
@@ -582,7 +638,7 @@ test("linked hubs and tools no longer use a week as completion or automatic read
     for (const old of ["7일 안정화 기록", "신청 전 7일 기록", "수정 기록과 7일 점검 로그", "일주일 점검표로 안정화", "4주차: 7일 점검 기록"]) assert.ok(!html.includes(old), `${path}: ${old}`);
     assert.ok(html.includes('/guides/seven-day-pre-apply-log-example/'));
     const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
-    assert.equal(graph.find((item) => item["@type"] === "WebPage").dateModified, "2026-10-27");
+    assert.equal(graph.find((item) => item["@type"] === "WebPage").dateModified, path === "approval-hub/index.html" ? "2026-10-28" : "2026-10-27");
   }
   assert.ok(read("tools/content-planner/index.html").includes("편집 계획 예시이지 Google의 준비·대기 요건이 아닙니다"));
   assert.ok(!read("next-steps/index.html").includes("각 카테고리에 대표 글을 1개 이상"));

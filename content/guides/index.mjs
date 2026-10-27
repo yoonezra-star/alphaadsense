@@ -28,6 +28,8 @@ import privacyNotice from "./privacy-policy-for-adsense.mjs";
 import cookieNotice from "./cookie-notice-basics.mjs";
 import disclaimerGuide from "./disclaimer-page-guide.mjs";
 import privacyCase from "./privacy-cookie-page-example.mjs";
+import operatorTrust from "./domain-and-trust.mjs";
+import categoryHubs from "./thin-category-pages.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -59,5 +61,7 @@ export default {
   "privacy-policy-for-adsense": privacyNotice,
   "cookie-notice-basics": cookieNotice,
   "disclaimer-page-guide": disclaimerGuide,
-  "privacy-cookie-page-example": privacyCase
+  "privacy-cookie-page-example": privacyCase,
+  "domain-and-trust": operatorTrust,
+  "thin-category-pages": categoryHubs
 };
