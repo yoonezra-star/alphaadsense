@@ -4,6 +4,7 @@ import revisedGuides from "../content/guides/index.mjs";
 import { contentWorkbench, toolStyles } from "./tool-markup.mjs";
 import { homePage, homeStyles } from "./home.mjs";
 import { searchPage, searchStyles } from "./search-markup.mjs";
+import { editorialPlanner, planningStyles } from "./planning-markup.mjs";
 
 const site = {
   name: "Alpha AdSense",
@@ -101,9 +102,9 @@ const articles = [
   ["policy", "prohibited-content-check", "애드센스 금지 콘텐츠 사전 점검", "승인 전 피해야 할 콘텐츠 유형과 애매한 주제를 다루는 방법입니다.", ["성인, 불법, 폭력, 혐오, 사기성 내용은 광고 정책 위험이 큽니다.", "의료, 금융, 법률 정보는 단정적 조언을 피하고 출처를 명확히 합니다.", "수익 보장, 클릭 유도, 시스템 우회 표현은 사용하지 않습니다.", "애매하면 해당 글을 신청 이후로 미루는 편이 안전합니다."]],
   ["policy", "disclaimer-page-guide", "면책 고지 페이지 작성 기준", "정보 사이트가 제공하는 내용의 범위와 한계를 독자에게 설명하는 방법입니다.", ["정보 제공 목적임을 분명히 하되 책임 회피 문구만 길게 쓰지 않습니다.", "정책과 수익 관련 정보는 시간이 지나면 바뀔 수 있음을 안내합니다.", "공식 판단은 구글 애드센스의 최신 정책을 따라야 한다고 연결합니다.", "문의 경로를 함께 제공하면 신뢰가 높아집니다."]],
   ["resources", "pre-apply-checklist", "재검토 전 근거 점검: 완료·미완료·미확인 구분", "공개 범위와 수정 근거, 실제 배포와 계정 확인을 나누고 재검토를 보류할 결함과 미확인 항목을 기록하는 절차입니다.", ["검토할 공개 주소와 남은 작업을 구분합니다.", "영역별 근거와 그 근거의 한계를 적습니다.", "공개 배포·계정 연결·검색 색인을 따로 확인합니다.", "고정 점수나 대기 일수로 신청을 자동 결정하지 않습니다."]],
-  ["resources", "content-calendar-30-days", "30일 콘텐츠 발행 계획표", "승인 준비 사이트를 한 달 동안 무리 없이 채우는 글 발행 순서입니다.", ["1주차에는 소개, 정책, 핵심 가이드처럼 뼈대를 만듭니다.", "2주차에는 카테고리별 대표 글을 고르게 채웁니다.", "3주차에는 거절 사유와 체크리스트형 글을 보강합니다.", "4주차에는 내부 링크, 색인, 업데이트를 점검합니다."]],
+  ["resources", "content-calendar-30-days", "콘텐츠 발행 계획: 가용 시간·작업·검증 예산", "조사·집필·검증·공개 확인의 시간 예산을 세우고 가상 초과 사례와 편집 가능한 작업 시간표로 계획을 조정합니다.", ["글 수 대신 완료할 작업과 필요한 근거를 적습니다.", "가용 시간에서 예비 시간을 뺀 뒤 예상 작업 시간을 비교합니다.", "근거 부족·범위 변경·시간 초과에 따라 계획을 조정합니다.", "시간표를 채운 것과 실제 검증·재검토 준비를 구분합니다."]],
   ["resources", "rejection-message-map", "거절 메시지별 대응표", "애드센스 심사 메시지를 받았을 때 어떤 영역부터 고칠지 정리한 자료입니다.", ["가치가 낮은 콘텐츠는 글의 깊이와 중복성을 먼저 봅니다.", "탐색 문제는 메뉴, 링크, 모바일 화면을 확인합니다.", "접근 불가는 DNS, HTTPS, 리다이렉트, 보안 설정을 점검합니다.", "정책 문제는 해당 글을 수정하거나 신청 전 제외합니다."]],
-  ["resources", "glossary-for-beginners", "애드센스 초보 용어 정리", "RPM, CPC, CTR, 무효 트래픽, 사이트맵 같은 기본 용어를 쉽게 정리했습니다.", ["RPM은 전체 수익 효율을 보는 지표입니다.", "CTR은 광고 클릭률이지만 인위적으로 높이려 해서는 안 됩니다.", "무효 트래픽은 계정 제한으로 이어질 수 있어 가장 조심해야 합니다.", "사이트맵은 검색엔진이 페이지를 찾는 데 도움을 주는 파일입니다."]],
+  ["resources", "glossary-for-beginners", "애드센스·검색 용어집: 정의·분모·단위 비교", "페이지 조회·광고 노출, RPM·CPC·CTR의 분모와 가상 계산, 크롤링·색인·접근·무효 트래픽의 차이를 설명합니다.", ["지표의 전체 이름과 분모·단위·보고서 범위를 확인합니다.", "가상 수치로 페이지와 광고 기준 지표를 구분합니다.", "검색 발견·크롤링·색인과 광고 승인을 분리합니다.", "수치 하나로 무효 트래픽이나 승인 여부를 판정하지 않습니다."]],
   ["resources", "cloudflare-gabia-domain-guide", "가비아 도메인을 Cloudflare Pages에 연결하는 순서", "도메인 등록과 DNS 호스팅을 구분하고 메일 레코드 보존, GitHub 배포, 커스텀 도메인 연결과 장애 점검을 안내합니다.", ["현재 DNS와 메일 레코드를 보관하고 등록기관과 DNS 관리 위치를 구분합니다.", "Pages 기본 배포와 빌드 결과를 먼저 확인합니다.", "배정된 네임서버와 Pages의 커스텀 도메인 연결을 각각 확인합니다.", "웹, HTTPS와 메일의 정상 여부를 나누어 검증합니다."]],
   ["approval", "site-structure-audit-example", "Alpha AdSense 실제 사이트 구조 감사", "공개 홈 화면, 실제 메뉴·검색 경로와 사이트맵 62개 주소를 점검하고 정상 동작과 남은 개선 과제를 구분했습니다.", ["실제 독자 질문으로 메뉴와 검색을 사용합니다.", "공개 화면과 응답에서 확인한 사실만 감사 결과로 기록합니다.", "기술적 정상 제공과 콘텐츠 품질을 별도로 판단합니다.", "개선 제안을 이미 적용한 변경과 구분하고 다시 검증합니다."]],
   ["rejection", "low-value-rejection-rewrite-example", "가치가 낮은 콘텐츠 거절 후 수정 예시", "낮은 가치 콘텐츠 거절을 받았다는 가정에서 글 통합, 본문 보강, 내부 링크 정리를 어떻게 진행하는지 정리했습니다.", ["비슷한 제목의 짧은 글을 하나의 종합 가이드로 병합합니다.", "각 글에 문제 상황, 판단 기준, 수정 예시, 신청 전 체크 항목을 추가합니다.", "검색 결과 요약처럼 보이는 일반론 문장을 줄이고 운영자의 판단을 넣습니다.", "재신청 전에는 수정한 글과 제외한 글의 목록을 따로 기록합니다."]],
@@ -230,11 +231,6 @@ const deepDiveAdditions = {
     <table><thead><tr><th>구분</th><th>명시할 내용</th><th>좋은 표현</th></tr></thead><tbody><tr><td>승인</td><td>승인 결과는 Google 심사와 정책에 따름</td><td>이 글은 승인 보장이 아니라 신청 전 점검 기준입니다.</td></tr><tr><td>수익</td><td>수익 지표는 사이트와 방문자에 따라 달라짐</td><td>RPM/CPC 정보는 일반적인 운영 참고 자료입니다.</td></tr><tr><td>정책</td><td>정책과 관리자 화면은 바뀔 수 있음</td><td>중요한 설정 전 공식 도움말을 다시 확인해야 합니다.</td></tr><tr><td>외부 링크</td><td>외부 사이트 운영은 해당 운영자 책임</td><td>공식 자료는 최신성을 확인한 뒤 적용합니다.</td></tr></tbody></table>
     <h3>면책 고지와 연결할 페이지</h3>
     <ul><li>개인정보처리방침: 개인정보 처리 범위와 문의 경로</li><li>쿠키 정책: 광고 쿠키와 맞춤 광고 선택권</li><li>운영 원칙: 콘텐츠 작성 기준과 수정 요청 방법</li><li>출처 페이지: 공식 자료 우선 원칙</li></ul>`,
-  "content-calendar-30-days": `<h3>30일 발행 계획을 쓰는 방법</h3>
-    <p>승인 준비용 30일 계획은 매일 아무 글이나 쓰는 일정표가 아닙니다. 첫 주에는 사이트 뼈대, 둘째 주에는 대표 글, 셋째 주에는 거절 리스크 보강, 넷째 주에는 내부 링크와 색인 점검에 집중하는 것이 안정적입니다.</p>
-    <table><thead><tr><th>기간</th><th>목표</th><th>발행 또는 수정 예시</th></tr></thead><tbody><tr><td>1주차</td><td>기본 신뢰 구축</td><td>소개, 문의, 개인정보, 쿠키, 면책, 시작 가이드</td></tr><tr><td>2주차</td><td>대표 콘텐츠 확보</td><td>승인 로드맵, 사이트 구조, 글 구성, 정책 페이지 예시</td></tr><tr><td>3주차</td><td>거절 사유 대비</td><td>낮은 가치, 탐색 문제, 접근 불가, 중복 콘텐츠 보강</td></tr><tr><td>4주차</td><td>신청 전 안정화</td><td>내부 링크, Search Console, 모바일 화면, 업데이트 기록 확인</td></tr></tbody></table>
-    <h3>발행량보다 중요한 기준</h3>
-    <ul><li>각 카테고리에 대표 글과 읽는 순서가 있습니다.</li><li>글마다 독자 문제, 판단 기준, 실행 방법, 확인 항목이 들어갑니다.</li><li>비슷한 글은 병합하고 역할이 다른 글만 분리합니다.</li><li>정책 위험이 있는 주제는 신청 전 공개 범위에서 제외합니다.</li><li>수정한 내용은 업데이트 기록이나 운영 메모로 남깁니다.</li></ul>`
 };
 
 for (const [slug, html] of Object.entries(deepDiveAdditions)) {
@@ -525,7 +521,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
   ${schemaScript(schemas)}
-  <link rel="stylesheet" href="/styles.css?v=20261027-writing">
+  <link rel="stylesheet" href="/styles.css?v=20261027-planning">
 </head>
 <body>
   <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -753,7 +749,7 @@ function categoryPage(key) {
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
   </section>`;
-  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: key === "writing" ? "2026-10-27" : siteUpdatedAt });
+  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["writing", "resources"].includes(key) ? "2026-10-27" : siteUpdatedAt });
 }
 
 function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) {
@@ -781,7 +777,7 @@ rmSync("dist", { recursive: true, force: true });
 mkdirSync("dist", { recursive: true });
 copyPublic();
 mkdirSync("dist/assets/icons", { recursive: true });
-for (const name of ["save", "x", "download", "trash-2", "calculator", "file-input", "rotate-ccw", "pencil", "search", "arrow-right", "arrow-left", "clipboard-list"]) {
+for (const name of ["save", "x", "download", "trash-2", "calculator", "file-input", "rotate-ccw", "pencil", "search", "arrow-right", "arrow-left", "clipboard-list", "plus"]) {
   cpSync(`node_modules/lucide-static/icons/${name}.svg`, `dist/assets/icons/${name}.svg`);
 }
 cpSync("node_modules/lucide-static/LICENSE", "dist/assets/icons/LICENSE.txt");
@@ -931,7 +927,7 @@ const searchableStaticPages = [
   ["/tools/", "콘텐츠·운영 도구", "콘텐츠 작업표, RPM 계산과 운영 계획 도구를 모았습니다.", "도구"],
   ["/tools/approval-score/", "콘텐츠 점검 작업표", "글 URL, 독자의 질문, 확인 근거와 수정 작업을 기록하고 브라우저 저장과 CSV 내보내기를 제공합니다.", "도구"],
   ["/tools/rejection-diagnosis/", "애드센스 거절 사유 진단", "거절 메시지 유형별로 먼저 확인할 항목과 수정 방향을 정리합니다.", "도구"],
-  ["/tools/content-planner/", "30일 글쓰기 계획 도구", "승인 준비 사이트를 한 달 동안 안정적으로 채우는 주차별 계획입니다.", "도구"],
+  ["/tools/content-planner/", "콘텐츠 발행 계획·시간표", "상황별 작업 예시와 직접 편집하는 작업·시간 예산, 계산·CSV 내보내기를 제공합니다. 승인 판정이 아닙니다.", "도구"],
   ["/checklist/", "재검토 전 점검 안내", "근거 점검 절차, URL별 작업표와 계정 확인 자료로 연결합니다. 점수로 준비 완료를 판정하지 않습니다.", "점검 안내"],
   ["/privacy/", "개인정보처리방침", "개인정보 처리와 광고 쿠키 관련 고지입니다.", "정책"],
   ["/cookie-policy/", "쿠키 정책", "광고 쿠키와 맞춤 광고 선택권에 대한 안내입니다.", "정책"],
@@ -967,6 +963,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/content-calendar-30-days/">발행 계획</a>과 <a href="/guides/glossary-for-beginners/">운영 용어집</a>을 재작성했습니다. 가상 시간 예산과 지표별 분모·단위 비교를 추가하고 <a href="/tools/content-planner/#editorial-planner">편집 가능한 시간표</a>를 연결했습니다. 시간표 입력은 저장·전송하지 않으며 승인 판정·자동 발행 기능은 없습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/internal-linking-guide/">내부 링크 편집</a>과 <a href="/guides/evergreen-content-plan/">기존 글 갱신</a>을 재작성했습니다. 실제 허브 연결 변경과 배포 사례, 절 주소 검사와 날짜·관찰 기록 보존을 추가했습니다. 링크 수·고정 갱신 주기를 승인 기준으로 삼지 않습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/topic-selection-for-adsense/">자료 기반 주제 선정</a>과 <a href="/guides/avoid-ai-like-writing/">AI 초안 검증</a>을 재작성했습니다. 확보 자료로 정한 실제 편집 판단, 주장별 근거 대조와 가상 사례 표시를 추가했습니다. AI 문체 숨기기나 승인·수익 예측을 목표로 삼지 않습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/navigation-issue-fix/">메뉴·링크 오류 복구</a>와 <a href="/guides/site-down-unavailable/">사이트 접근 오류 진단</a>을 증상별 재현·근거·복구 절차로 재작성했습니다. 공개 경로와 HTTP 응답의 실제 관찰을 기록하고 보안 전체 완화 안내를 제거했습니다. DNS·보안 설정과 심사 계정은 변경하지 않았습니다.</span></li>
@@ -1003,7 +1000,7 @@ write("tools/index.html", staticPage("콘텐츠·운영 도구", "콘텐츠 수�
   <a href="/tools/approval-score/"><strong>콘텐츠 점검 작업표</strong><span>글별 질문, 근거와 수정 작업을 저장·편집하고 CSV로 내보냅니다.</span></a>
   <a href="/guides/rpm-cpc-basics/#rpm-calculator"><strong>RPM·광고 CTR 계산기</strong><span>수입, 페이지 조회수와 광고 노출수로 계산하고 결과를 내보냅니다.</span></a>
   <a href="/tools/rejection-diagnosis/"><strong>거절 사유 진단</strong><span>거절 메시지 유형을 선택하면 우선 점검할 영역과 관련 가이드를 보여 줍니다.</span></a>
-  <a href="/tools/content-planner/"><strong>30일 글쓰기 계획 도구</strong><span>현재 사이트 상태에 맞춰 일주일 단위 발행 계획을 확인합니다.</span></a>
+  <a href="/tools/content-planner/"><strong>콘텐츠 발행 계획·시간표</strong><span>상황별 작업을 참고하고 내 작업·예상 시간과 가용 시간을 비교합니다.</span></a>
   <a href="/checklist/"><strong>최종 체크리스트</strong><span>신청 직전 필수 페이지와 기술 상태를 다시 확인합니다.</span></a>
 </div>
 <h2>사용 순서</h2>
@@ -1050,8 +1047,8 @@ write("tools/rejection-diagnosis/index.html", staticPage("애드센스 거절 �
 }());
 </script>`, "2026-10-27"));
 
-write("tools/content-planner/index.html", staticPage("30일 글쓰기 계획 도구", "승인 준비 사이트를 한 달 동안 안정적으로 채우기 위한 주차별 글쓰기 계획을 제안합니다.", "/tools/content-planner/", `
-<p>승인 준비용 사이트는 하루에 많은 글을 몰아서 올리는 것보다, 카테고리별 대표 글과 정책 페이지를 균형 있게 갖추는 편이 좋습니다. 현재 상태를 선택하면 우선순위에 맞는 30일 계획을 볼 수 있습니다.</p>
+write("tools/content-planner/index.html", staticPage("콘텐츠 발행 계획·시간표", "상황별 작업 예시와 가용 시간·예상 작업 시간을 비교하는 편집 시간표입니다.", "/tools/content-planner/", `
+<p>발행 계획은 필요한 조사·집필·검증·공개 확인을 나누는 작업입니다. 아래 주차는 조정 가능한 작업 묶음 예시이며 정해진 발행량·준비 기간·승인 상태를 뜻하지 않습니다. <a href="/guides/content-calendar-30-days/#worked-budget">시간 예산의 가상 사례</a></p>
 <div class="tool-panel">
   <label for="site-stage"><strong>현재 상태</strong></label>
   <select id="site-stage">
@@ -1066,11 +1063,11 @@ write("tools/content-planner/index.html", staticPage("30일 글쓰기 계획 도
 <h2>계획을 조정하는 기준</h2>
 <p>이 도구의 30일은 편집 계획 예시이지 Google의 준비·대기 요건이 아닙니다. 30일 계획은 반드시 하루 단위로 지켜야 하는 일정표가 아니라, 승인 준비 사이트가 균형을 잃지 않도록 돕는 기준표입니다. 정책 페이지가 부족하면 글 발행보다 정책 정리를 먼저 하고, 대표 글의 깊이가 부족하면 새 글을 늘리기보다 기존 글을 보강합니다. 거절 후 재신청 단계라면 발행 속도보다 실제 결함 수정·공개 검사·미확인 항목 정리를 우선합니다.</p>
 <h2>계획과 함께 확인할 자료</h2>
-<ul><li><a href="/guides/content-calendar-30-days/">30일 콘텐츠 발행 계획표</a></li><li><a href="/tools/approval-score/">콘텐츠 점검 작업표</a></li><li><a href="/sitemap/">전체 글 목록</a></li></ul>
+<ul><li><a href="/guides/content-calendar-30-days/">가용 시간과 작업으로 발행 계획 세우기</a></li><li><a href="/tools/approval-score/">콘텐츠 점검 작업표</a></li><li><a href="/sitemap/">전체 글 목록</a></li></ul>
 <script>
 (function () {
   const plans = {
-    new: { title: "기초 구축형 30일 계획", goal: "신뢰 페이지와 대표 카테고리를 먼저 만들고, 신청 가능한 기본 구조를 갖춥니다.", weeks: ["1주차: 소개, 문의, 개인정보, 쿠키, 면책 고지, 시작 가이드를 완성합니다.", "2주차: 승인 준비, 글쓰기, 정책 체크 카테고리의 대표 글을 작성합니다.", "3주차: 거절 해결 사례와 체크리스트형 글을 추가합니다.", "4주차: 내부 링크, sitemap, 모바일 화면, 검색 페이지를 점검합니다."], links: [["시작 가이드", "/start-guide/"], ["정책 체크", "/policy/"], ["신청 전 체크리스트", "/checklist/"]] },
+    new: { title: "기본 구성 작업 예시", goal: "현재 운영 정보와 실제 제공할 답·자료를 확인합니다. 주차와 범위는 선행 조건에 따라 조정합니다.", weeks: ["1주차: 운영 주체·문의·실제 수집 정보를 확인하고 현재 운영에 맞게 고지합니다.", "2주차: 독자 질문과 자료를 정하고 기존 글과의 역할을 비교합니다.", "3주차: 확보한 근거로 필요한 본문을 작성하고 정의·계산·사례를 검증합니다.", "4주차: 실제 공개 본문·내부 링크·모바일 화면과 미확인 항목을 점검합니다."], links: [["자료 기반 주제 선정", "/guides/topic-selection-for-adsense/"], ["AI 초안 검증", "/guides/avoid-ai-like-writing/"], ["재검토 전 근거 점검", "/checklist/"]] },
     content: { title: "콘텐츠 보강형 30일 계획", goal: "기존 글의 빠진 답·사실·연결을 근거로 고치고 실제 공개 결과를 확인합니다. 주차는 조정 가능한 작업 묶음입니다.", weeks: ["1주차: 질문과 확보 자료를 비교해 유지·조사·재작성·병합 검토를 나눕니다.", "2주차: 핵심 정의·수치·사례를 검증하고 필요한 부분만 수정합니다.", "3주차: 다음 질문에 맞는 연결 문구와 문서·절 목적지를 확인합니다.", "4주차: 수정일·과거 관찰을 구분하고 공개 배포·모바일·남은 작업을 기록합니다."], links: [["내부 링크 편집", "/guides/internal-linking-guide/"], ["기존 글 갱신", "/guides/evergreen-content-plan/"], ["콘텐츠 점검 작업표", "/tools/approval-score/"]] },
     reject: { title: "거절 후 수정·확인 30일 계획", goal: "거절 안내와 실제 결함을 구분해 수정하고, 공개 반영과 남은 작업을 기록합니다.", weeks: ["1주차: 거절 메시지를 분류하고 수정 대상 글 목록을 만듭니다.", "2주차: 낮은 가치 또는 탐색 문제에 해당하는 글과 메뉴를 먼저 고칩니다.", "3주차: 모바일, HTTPS, sitemap, 정책 문구를 다시 확인합니다.", "4주차: 실제 변경과 재검사 결과를 정리하고 미완료 항목·계정 안내를 확인합니다."], links: [["거절 사유 진단", "/tools/rejection-diagnosis/"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"], ["콘텐츠 점검 작업표", "/tools/approval-score/"]] }
   };
@@ -1083,7 +1080,7 @@ write("tools/content-planner/index.html", staticPage("30일 글쓰기 계획 도
   select.addEventListener("change", render);
   render();
 }());
-</script>`, "2026-10-27"));
+</script>${editorialPlanner}`, "2026-10-27"));
 
 write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적과 콘텐츠 작성 원칙을 안내합니다.", "/about/", `
 <p>Alpha AdSense는 애드센스 승인을 준비하는 초보 사이트 운영자를 위해 만들어진 독립 정보 사이트입니다. 승인 보장을 약속하지 않고, 공식 정책을 기준으로 사이트 구조와 콘텐츠 품질을 점검하는 방법을 정리합니다.</p>
@@ -1122,7 +1119,7 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 <p>Alpha AdSense는 이용자의 개인정보를 임의로 판매하지 않습니다. 다만 사이트 운영, 보안, 통계, 광고 게재를 위해 Google, Cloudflare 등 외부 서비스가 자체 정책에 따라 쿠키나 접속 정보를 처리할 수 있습니다.</p>
 <h2 id="local-tools">작업표와 계산기의 브라우저 처리</h2>
 <p>콘텐츠 점검 작업표의 URL, 질문, 근거, 중복 후보, 수정 작업, 상태와 확인일은 현재 브라우저의 localStorage에 저장합니다. 이 도구의 코드는 해당 입력값을 서버로 전송하지 않으며 다른 기기와 동기화하지 않습니다. 저장이 차단되면 변경이 현재 탭에만 남을 수 있고 그 상태를 표시합니다. 도구의 전체 삭제는 이 작업표의 저장 키만 삭제합니다. 브라우저의 사이트 데이터 삭제로도 지울 수 있습니다.</p>
-<p>RPM 계산기 입력과 결과는 페이지 메모리에서만 처리하고 영구 저장하지 않습니다. CSV 내보내기는 사용자가 실행할 때 기기에 파일을 생성하며 외부 서비스에 업로드하지 않습니다. 내보낸 파일은 이용자가 별도로 관리·삭제해야 합니다. 공용 기기나 같은 출처의 코드에서는 저장 자료에 접근할 수 있으므로 비밀번호, 인증 코드와 민감한 개인정보를 입력하지 마세요. 페이지 요청 시 호스팅·보안 서비스에서 처리하는 접속 기록은 이 도구 입력값과 별개입니다.</p>
+<p>RPM 계산기와 발행 작업 시간표의 입력·결과는 페이지 메모리에서만 처리하고 영구 저장하지 않습니다. 시간표는 새로고침하면 사라집니다. CSV 내보내기는 사용자가 실행할 때 기기에 파일을 생성하며 외부 서비스에 업로드하지 않습니다. 내보낸 파일은 이용자가 별도로 관리·삭제해야 합니다. 공용 기기나 같은 출처의 코드에서는 저장 자료에 접근할 수 있으므로 비밀번호, 인증 코드와 민감한 개인정보를 입력하지 마세요. 페이지 요청 시 호스팅·보안 서비스에서 처리하는 접속 기록은 이 도구 입력값과 별개입니다.</p>
 <h2>이용자 권리</h2>
 <p>이용자는 본인이 제공한 개인정보에 대해 열람, 정정, 삭제, 처리 중지를 요청할 수 있습니다. 요청이 접수되면 합리적인 범위에서 확인 후 처리합니다.</p>
 <h2>문의</h2>
@@ -1133,7 +1130,7 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 write("cookie-policy/index.html", staticPage("쿠키 정책", "Alpha AdSense에서 사용할 수 있는 쿠키와 광고 기술, 맞춤 광고 선택권을 안내합니다.", "/cookie-policy/", `
 <p>Alpha AdSense는 사이트 품질 개선, 기본 보안, 검색 유입 분석, 광고 게재를 위해 쿠키 또는 유사 기술을 사용할 수 있습니다.</p>
 <h2>쿠키의 역할</h2>
-<p>콘텐츠 점검 작업표는 쿠키가 아닌 localStorage를 사용해 이 브라우저에 입력 기록을 남깁니다. RPM 계산기 입력은 저장하지 않습니다. <a href="/privacy/#local-tools">브라우저 저장과 삭제 범위</a>에서 확인할 수 있습니다.</p>
+<p>콘텐츠 점검 작업표는 쿠키가 아닌 localStorage를 사용해 이 브라우저에 입력 기록을 남깁니다. RPM 계산기와 발행 작업 시간표 입력은 저장하지 않습니다. <a href="/privacy/#local-tools">브라우저 저장과 삭제 범위</a>에서 확인할 수 있습니다.</p>
 <p>쿠키는 방문자의 브라우저에 저장되는 작은 정보로, 사이트가 정상적으로 동작하도록 돕거나 방문 흐름을 이해하는 데 사용될 수 있습니다. Alpha AdSense는 로그인 기반 서비스를 제공하지 않지만, 보안, 통계, 광고 게재 과정에서 외부 서비스의 쿠키가 사용될 수 있습니다.</p>
 <h2>사용될 수 있는 쿠키 유형</h2>
 <table><thead><tr><th>유형</th><th>목적</th><th>비고</th></tr></thead><tbody><tr><td>필수 쿠키</td><td>보안, 네트워크 안정성, 기본 페이지 제공</td><td>Cloudflare 등 인프라 서비스에서 사용할 수 있습니다.</td></tr><tr><td>분석 쿠키</td><td>방문 흐름, 인기 페이지, 오류 확인</td><td>향후 통계 도구 적용 시 사용될 수 있습니다.</td></tr><tr><td>광고 쿠키</td><td>광고 게재, 빈도 조절, 맞춤 광고</td><td>Google AdSense 적용 시 Google 및 파트너가 사용할 수 있습니다.</td></tr></tbody></table>
@@ -1459,6 +1456,7 @@ p { margin: 0 0 16px; }
 ${toolStyles}
 ${homeStyles}
 ${searchStyles}
+${planningStyles}
 .read-order { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; counter-reset: order; }
 .read-order li { border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px; background: white; counter-increment: order; }
 .read-order li::before { content: counter(order); display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; margin-right: 8px; border-radius: 50%; background: var(--blue); color: white; font-weight: 800; font-size: 13px; }

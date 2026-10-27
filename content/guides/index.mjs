@@ -18,6 +18,8 @@ import topicSelection from "./topic-selection-for-adsense.mjs";
 import draftVerification from "./avoid-ai-like-writing.mjs";
 import internalLinks from "./internal-linking-guide.mjs";
 import contentMaintenance from "./evergreen-content-plan.mjs";
+import contentCalendar from "./content-calendar-30-days.mjs";
+import glossary from "./glossary-for-beginners.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -39,5 +41,7 @@ export default {
   "topic-selection-for-adsense": topicSelection,
   "avoid-ai-like-writing": draftVerification,
   "internal-linking-guide": internalLinks,
-  "evergreen-content-plan": contentMaintenance
+  "evergreen-content-plan": contentMaintenance,
+  "content-calendar-30-days": contentCalendar,
+  "glossary-for-beginners": glossary
 };

@@ -202,6 +202,41 @@ test("newly revised documents lead the latest list by their real modification da
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
 });
 
+test("calendar separates hypothetical time budgets from production and approval outcomes", () => {
+  const html = read("guides/content-calendar-30-days/index.html");
+  for (const marker of ['id="worked-budget"', 'id="editable-plan"', "6 × 4 − 4 = 20시간", "작업 합계는 24시간으로 4시간 초과", "실측 생산성·승인 성공 기록이 아닙니다", "실제 소요 시간을 자동 예측하지 않습니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("glossary distinguishes units, denominators and search from approval", () => {
+  const html = read("guides/glossary-for-beginners/index.html");
+  for (const marker of ['id="counts-and-units"', 'id="metrics"', 'id="worked-numbers"', 'id="search-terms"', "페이지 CTR", "0.5%", "크롤링됐다고 항상 색인되는 것은 아니며", "설명용 가상 데이터", "무효 트래픽", "설정을 일괄 변경하지 않습니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("planning tool exposes safe initial states, ephemeral disclosure and assets", () => {
+  const html = read("tools/content-planner/index.html");
+  for (const marker of ['id="editorial-planner"', 'id="plan-fields" class="tool-fields" disabled', 'id="plan-export" disabled', 'id="plan-error" class="tool-error" role="alert" tabindex="-1" hidden', '/assets/editorial-planner.mjs', '/assets/icons/plus.svg', "새로고침하면 사라집니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(read("privacy/index.html").includes("RPM 계산기와 발행 작업 시간표"));
+  assert.ok(read("cookie-policy/index.html").includes("발행 작업 시간표 입력은 저장하지 않습니다"));
+  assert.ok(read("tools/index.html").includes("콘텐츠 발행 계획·시간표"));
+});
+
+test("calendar and glossary retain table semantics, valid fragments and resource dates", () => {
+  for (const slug of ["content-calendar-30-days", "glossary-for-beginners"]) {
+    const html = read(`guides/${slug}/index.html`);
+    for (const [, table] of html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker));
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/guides/${slug}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${slug}: ${href}`);
+    }
+  }
+  const graph = JSON.parse(read("resources/index.html").match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
+});
+
 test("internal links use real editorial changes and separate targets from arbitrary quotas", () => {
   const html = read("guides/internal-linking-guide/index.html");
   for (const marker of ['id="next-question"', 'id="actual-link-edit"', 'id="section-address"', 'id="maintenance-check"', "변경 전 생성 소스와 개정 결과를 비교한 기록", "방문자가 이 순서로 행동하거나 작업 시간이 줄었다는 통계는 확인하지 않았습니다", "관련 문서가 이동하면", "실제 URL 삭제·병합·리디렉션 규칙을 추가하지 않았습니다"]) assert.ok(html.includes(marker), marker);
@@ -280,7 +315,7 @@ test("writing hub routes through topic evidence and verification with an accurat
 
 test("wrapped search result titles retain a continuous link area", () => {
   assert.ok(read("styles.css").includes('.search-interface .search-result h2 a { display: block; }'));
-  assert.ok(read("search/index.html").includes('href="/styles.css?v=20261027-writing"'));
+  assert.ok(read("search/index.html").includes('href="/styles.css?v=20261027-planning"'));
 });
 
 test("navigation repair separates observed working paths from hypothetical failures", () => {
@@ -348,7 +383,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 20);
+  assert.equal(Object.keys(revisedGuides).length, 22);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {
