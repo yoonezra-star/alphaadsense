@@ -227,7 +227,41 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 10);
+  assert.equal(Object.keys(revisedGuides).length, 12);
+});
+
+test("number guidance scopes its evidence and distinguishes search from advertising review", () => {
+  const html = read("guides/minimum-content-myth/index.html");
+  for (const marker of ['id="classify-claims"', 'id="number-claims"', "숫자 합격선을 확인하지 못했습니다", "호스트 파트너", "광고 심사의 콘텐츠·운영 조건은 AdSense 원문으로 따로 확인", "작업 현황이지 Google이 요구하는 글 수나 준비 완료 비율이 아닙니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("pre-review procedure replaces quotas with evidence and known unknowns", () => {
+  const html = read("guides/pre-apply-checklist/index.html");
+  for (const marker of ['id="evidence-states"', 'id="hold-or-review"', "Google 계정의 심사 상태 이름이 아닙니다", "나머지 22개", "계정에 로그인해 확인 버튼을 누르거나 연결값을 바꾸지 않았습니다", "검토 요청을 실행하지 않았습니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["대표 글 5개", "20분 점검", "주요 글이 검색엔진에 색인되어 있습니다", "<h2>자가 진단 표</h2>", 'src="/assets/seven-day-checklist.png"', "data-points"]) assert.ok(!html.includes(old), old);
+  assert.ok(html.includes('src="/assets/review-evidence-workbench-20261027.jpg"'));
+});
+
+test("checklist entry links to one procedure and a record tool without an automatic readiness claim", () => {
+  const html = read("checklist/index.html");
+  for (const marker of ['href="/guides/pre-apply-checklist/"', 'href="/tools/approval-score/"', 'href="/guides/minimum-content-myth/"', "미완료·미확인", "이 페이지에서는 검토 요청을 실행하지 않습니다"]) assert.ok(html.includes(marker));
+  assert.ok(!html.includes("카테고리별 대표 글이 고르게 있습니다"));
+  const index = JSON.parse(read("search-index.json"));
+  assert.equal(index.find((item) => item.url === "/checklist/").title, "재검토 전 점검 안내");
+  assert.equal(index.find((item) => item.url === "/guides/pre-apply-checklist/").title, "재검토 전 근거 점검: 완료·미완료·미확인 구분");
+});
+
+test("evidence and numbers guides keep accessible table headings and dated source boundaries", () => {
+  for (const slug of ["minimum-content-myth", "pre-apply-checklist"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) {
+      for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker));
+    }
+    assert.ok(html.includes("공식 자료 확인일:"));
+  }
 });
 
 test("structure checklist is a reproducible inspection rather than arbitrary approval thresholds", () => {
