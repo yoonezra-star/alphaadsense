@@ -197,9 +197,49 @@ test("newly revised documents lead the latest list by their real modification da
   assert.deepEqual(dates, [...dates].sort().reverse());
   assert.ok(slugs.includes("site-structure-before-apply"));
   assert.ok(slugs.includes("homepage-for-review"));
-  assert.ok(slugs.includes("duplicate-content-cleanup"));
+  assert.ok(slugs.includes("navigation-issue-fix"));
   assert.ok(slugs.includes("indexing-before-adsense"));
   assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
+});
+
+test("navigation repair separates observed working paths from hypothetical failures", () => {
+  const html = read("guides/navigation-issue-fix/index.html");
+  for (const marker of ['id="classify-symptom"', 'id="reproduction-record"', 'id="worked-failure"', 'id="public-path-check"', "가상 고장 사례이며 실제 사이트에서 발생한 장애 기록이 아닙니다", "초점 대상 id도 site-audit", "이메일 발송·문의 응답은 시험하지 않음", "출발 URL", "공통 원본"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["대표 글까지 2번 안에", "카테고리로 1번 안에", "관련 글이 2~3개 이상", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+});
+
+test("access repair labels real observations without claiming Google crawl or disabling protection", () => {
+  const html = read("guides/site-down-unavailable/index.html");
+  for (const marker of ['id="public-response-record"', 'id="security-evidence"', "12:47:24~27", "301 → https://alphaadsense.com/ → 200", "/__alpha-access-check-20261027__/", "www 리디렉션을 적용하지 않음", "일반 요청이며 Google 크롤러의 실제 접근 기록이나 승인 결과가 아닙니다", "cf-mitigated: challenge", "Ray ID", "HEAD 요청", "GET 요청"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["방화벽 규칙을 완화합니다", "보안 규칙은 신청 전 최소화합니다", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+  assert.ok(!existsSync(join(dist, "_redirects")));
+});
+
+test("navigation and access tables and code retain accessible structures and searchable sections", () => {
+  const entries = JSON.parse(read("search-index.json"));
+  for (const slug of ["navigation-issue-fix", "site-down-unavailable"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) {
+      for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), marker);
+    }
+    const entry = entries.find(item => item.url === `/guides/${slug}/`);
+    for (const section of revisedGuides[slug].sections) {
+      assert.ok(entry.description.includes(section.title));
+      assert.ok(html.includes(`id="${section.id}" tabindex="-1"`));
+    }
+  }
+  assert.ok(read("guides/site-down-unavailable/index.html").includes('aria-label="Windows 읽기 전용 접근 확인 명령" tabindex="0"'));
+});
+
+test("rejection tool aligns nav and access evidence without broad security weakening", () => {
+  const html = read("tools/rejection-diagnosis/index.html");
+  for (const marker of ["실패 경로 재현과 목적지 확인", "예상·실제 목적지", "오류 계층과 실패 요청 확인", "보안 이벤트를 대조하며 보안 전체를 해제하지 않습니다", "일반 요청은 Google 접근 증거와 구분합니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("봇 접근을 막는 보안 규칙을 최소화합니다"));
+  assert.ok(html.includes('<option value="unknown">원인 미확인·복합 문제</option>'));
+  assert.ok(read("styles.css").includes('.tool-panel select { min-width: 0; width: 100%; max-width: 100%;'));
+  assert.ok(read("updates/index.html").includes("공개 경로와 HTTP 응답의 실제 관찰"));
 });
 
 test("duplicate cleanup separates editorial decisions from unapplied URL moves", () => {
@@ -227,7 +267,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 14);
+  assert.equal(Object.keys(revisedGuides).length, 16);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {

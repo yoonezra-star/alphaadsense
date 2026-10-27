@@ -12,6 +12,8 @@ import minimumMyth from "./minimum-content-myth.mjs";
 import preApply from "./pre-apply-checklist.mjs";
 import roadmap from "./adsense-approval-roadmap.mjs";
 import observationLog from "./seven-day-pre-apply-log-example.mjs";
+import navigationRepair from "./navigation-issue-fix.mjs";
+import accessRepair from "./site-down-unavailable.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -27,5 +29,7 @@ export default {
   "minimum-content-myth": minimumMyth,
   "pre-apply-checklist": preApply,
   "adsense-approval-roadmap": roadmap,
-  "seven-day-pre-apply-log-example": observationLog
+  "seven-day-pre-apply-log-example": observationLog,
+  "navigation-issue-fix": navigationRepair,
+  "site-down-unavailable": accessRepair
 };

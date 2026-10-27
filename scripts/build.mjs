@@ -83,8 +83,8 @@ const articles = [
   ["approval", "homepage-for-review", "Alpha AdSense 홈 개편 사례: 반복 안내를 줄인 과정", "실제 개편 전후 화면으로 페이지 수 강조와 중복 허브 안내를 줄인 이유, 질문·자료·도구 배치와 모바일 관찰을 설명합니다.", ["개편 전 화면과 중복 경로를 기준선으로 보관합니다.", "구역별 유지·삭제·이동 이유를 정합니다.", "문제별 입구·실제 개정 자료·도구의 역할을 나눕니다.", "관찰한 탐색 결과와 미확인 사용자 반응을 구분합니다."]],
   ["approval", "domain-and-trust", "새 도메인에서 신뢰 신호를 만드는 방법", "새 도메인이라도 운영 목적, 문의 경로, 정책 페이지, 일관된 콘텐츠로 신뢰를 보강할 수 있습니다.", ["도메인 주제와 사이트명이 자연스럽게 연결되어야 합니다.", "운영자 소개는 거창하지 않아도 실제 운영 목적이 분명해야 합니다.", "연락 가능한 이메일과 문의 페이지를 공개합니다.", "주제와 무관한 글을 섞지 않아 전문성을 흐리지 않습니다."]],
   ["rejection", "low-value-content-fix", "가치가 낮은 콘텐츠 거절 사유 해결법", "실제 사이트의 반복 본문 분석을 바탕으로 글별 유지·재작성·병합 판단, 수정 전후 예시와 재검토 전 확인 방법을 설명합니다.", ["검색 결과를 다시 말하는 글은 독자에게 새 도움을 주기 어렵습니다.", "글마다 상황, 판단 기준, 예시, 체크리스트를 넣어 실사용 가치를 높입니다.", "비슷한 제목의 글이 많다면 통합하거나 관점을 분리합니다.", "재신청 전에는 대표 글을 먼저 보강하고 얇은 글은 비공개 또는 병합합니다."]],
-  ["rejection", "navigation-issue-fix", "탐색 문제로 거절될 때 확인할 항목", "메뉴, 링크, 카테고리, 모바일 탐색에서 생기는 문제를 점검하는 가이드입니다.", ["상단 메뉴와 하단 링크가 서로 모순되지 않아야 합니다.", "카테고리 페이지가 빈 목록으로 보이면 품질 신호가 약해집니다.", "모바일에서 메뉴 버튼, 링크 간격, 글자 크기를 확인합니다.", "광고처럼 보이는 버튼을 메뉴 근처에 두지 않습니다."]],
-  ["rejection", "site-down-unavailable", "사이트 다운 또는 접근 불가 문제 해결", "심사 중 사이트 접근이 막히는 상황을 줄이기 위한 DNS, HTTPS, 리다이렉트 점검입니다.", ["도메인 루트와 www 주소가 모두 정상 접속되는지 확인합니다.", "HTTPS 인증서가 발급되기 전 신청하지 않습니다.", "Cloudflare Pages 배포 후 커스텀 도메인 상태가 Active인지 봅니다.", "국가나 봇 접근을 차단하는 보안 규칙은 신청 전 최소화합니다."]],
+  ["rejection", "navigation-issue-fix", "메뉴·링크 오류 재현과 복구: 목적지·목차·모바일", "반응 없는 링크, 잘못된 목적지, 가려진 목차와 모바일 오류를 나누고 실제 경로 검사와 가상 복구 사례를 설명합니다.", ["출발 URL, 누른 문구, 예상 목적지와 실제 결과를 기록합니다.", "주소·목차·입력 방식·배포 문제를 구분합니다.", "공통 원본을 고친 뒤 공개 경로에서 다시 검사합니다.", "실제 관찰과 미확인 이용 환경을 구분합니다."]],
+  ["rejection", "site-down-unavailable", "사이트 접근 오류 진단: DNS·HTTPS·응답·보안", "도메인·인증서·리디렉션·HTTP 오류를 구분하고 실제 공개 응답과 요청별 보안 근거로 안전하게 복구하는 절차입니다.", ["정확한 주소와 오류 단계·시각을 먼저 남깁니다.", "DNS·TLS·HTTP·보안 중 실패 계층을 좁힙니다.", "보안 전체 해제 대신 실패 요청과 이벤트를 대조합니다.", "공개 응답 성공을 Google 접근·색인·승인과 구분합니다."]],
   ["rejection", "duplicate-content-cleanup", "중복 콘텐츠 정리: 역할 비교와 URL 병합 절차", "본문 반복과 URL 변형을 구분하고 재작성·병합·canonical 선택, 내용 이관과 Cloudflare Pages 이전 검사를 설명합니다.", ["공통 화면 요소와 질문·본문 중복, URL 변형을 구분합니다.", "고유한 답과 기존 유입을 확인해 재작성 또는 병합을 결정합니다.", "내용을 먼저 이관한 뒤 의미가 맞는 최종 URL로 연결합니다.", "실제 응답·내부 링크·canonical·사이트맵을 함께 검증합니다."]],
   ["rejection", "thin-category-pages", "빈 카테고리와 얇은 허브 페이지 보강법", "카테고리 페이지가 단순 목록에 그치지 않도록 소개문, 추천 순서, 관련 글을 보강합니다.", ["허브 페이지에는 해당 주제를 읽는 순서를 안내합니다.", "각 글 카드에는 단순 제목보다 해결하는 문제를 함께 적습니다.", "대표 글, 최신 글, 체크리스트를 함께 배치하면 페이지 가치가 올라갑니다.", "글이 부족한 카테고리는 신청 전 메뉴에서 빼는 것도 방법입니다."]],
   ["writing", "approval-friendly-article-format", "정보 글 편집 실제 사례: RPM 설명을 고친 과정", "이 사이트의 RPM 문서를 대상으로 독자 질문, 원문 결함, 편집 전후 판단과 계산 검증을 구체적으로 기록했습니다.", ["독자가 해결할 질문을 먼저 정합니다.", "실제 원문의 정의 오류와 주제에 맞지 않는 본문을 구분합니다.", "판단 근거와 계산 예시를 제공하고 사실·화면 검사를 나눕니다.", "승인 성공이나 수익 증가를 편집 결과로 주장하지 않습니다."]],
@@ -130,11 +130,6 @@ const deepDives = {
     title: "낮은 가치 콘텐츠 개선 예시",
     html: `<p>낮은 가치 콘텐츠로 보이는 글은 보통 검색 결과를 다시 말하거나, 실제 판단 기준 없이 일반론만 반복합니다. 예를 들어 “애드센스 승인을 받으려면 좋은 글을 쓰세요”에서 끝나는 글은 약합니다. 반대로 거절 메시지, 점검 순서, 수정 전후 예시, 재신청 전 확인표가 있으면 독자가 실제로 문제를 해결할 수 있습니다.</p>
     <table><thead><tr><th>수정 전</th><th>수정 후</th></tr></thead><tbody><tr><td>글을 많이 작성하면 승인에 좋습니다.</td><td>카테고리별 대표 글 3개 이상, 각 글에 문제 정의와 해결 순서를 넣습니다.</td></tr><tr><td>개인정보처리방침을 만드세요.</td><td>광고 쿠키, 맞춤 광고 선택 해제, 문의 이메일 항목을 포함했는지 확인합니다.</td></tr><tr><td>거절되면 다시 신청하세요.</td><td>거절 메시지별로 콘텐츠, 탐색, 접근성, 정책 문제를 나누어 수정합니다.</td></tr></tbody></table>`
-  },
-  "navigation-issue-fix": {
-    title: "탐색 문제 재현 테스트",
-    html: `<p>탐색 문제는 운영자가 보기에는 사소하지만 심사자에게는 사이트 품질 문제로 보일 수 있습니다. 직접 모바일 화면에서 홈에서 대표 글까지 2번 안에 이동되는지, 글 상세에서 정책 페이지와 관련 글로 갈 수 있는지 확인해 보세요.</p>
-    <table><thead><tr><th>테스트</th><th>통과 기준</th></tr></thead><tbody><tr><td>홈에서 카테고리 이동</td><td>스크롤 없이 주요 카테고리를 찾을 수 있음</td></tr><tr><td>카테고리에서 글 이동</td><td>각 글의 주제와 해결 문제가 카드에 보임</td></tr><tr><td>글에서 정책 페이지 이동</td><td>하단에서 개인정보, 쿠키, 문의 페이지 접근 가능</td></tr></tbody></table>`
   },
   "approval-friendly-article-format": {
     title: "본문 템플릿 예시",
@@ -205,16 +200,6 @@ const deepDiveAdditions = {
     <table><thead><tr><th>페이지</th><th>핵심 질문</th><th>보강 포인트</th></tr></thead><tbody><tr><td>개인정보처리방침</td><td>어떤 정보를 왜 처리하는가?</td><td>문의 이메일, 보관 기준, 이용자 권리, 책임자 정보</td></tr><tr><td>쿠키 정책</td><td>광고와 분석 쿠키가 사용될 수 있는가?</td><td>광고 쿠키, 맞춤 광고 선택 해제, 외부 서비스 가능성</td></tr><tr><td>면책 고지</td><td>승인과 수익을 보장하지 않는가?</td><td>정보 제공 목적, 정책 변경 가능성, 외부 링크 책임 범위</td></tr><tr><td>운영 원칙</td><td>콘텐츠를 어떤 기준으로 작성하는가?</td><td>공식 자료 우선, 클릭 유도 금지, 수정 요청 경로</td></tr></tbody></table>
     <h3>신청 전 정책 페이지 체크</h3>
     <ul><li>푸터에서 모든 정책 페이지에 접근할 수 있습니다.</li><li>문의 이메일과 사업자 정보가 소개, 문의, 개인정보 페이지에 일관되게 표시됩니다.</li><li>쿠키와 광고 관련 문구가 애드센스 적용 예정 상태와 모순되지 않습니다.</li><li>승인 보장이나 수익 보장처럼 오해를 부르는 표현이 없습니다.</li><li>출처 페이지와 운영 원칙이 실제 글 작성 방식과 연결됩니다.</li></ul>`,
-  "navigation-issue-fix": `<h3>탐색 문제 실제 진단 순서</h3>
-    <p>탐색 문제는 메뉴가 없다는 뜻만은 아닙니다. 심사자나 독자가 홈에서 카테고리, 대표 글, 정책 페이지, 문의 페이지까지 자연스럽게 이동할 수 없을 때 발생합니다. 특히 모바일에서 메뉴가 접히거나 표가 화면 밖으로 밀릴 때도 사이트 품질이 낮아 보일 수 있습니다.</p>
-    <table><thead><tr><th>점검 위치</th><th>문제 신호</th><th>수정 방법</th></tr></thead><tbody><tr><td>홈</td><td>최신 글만 있고 주제별 입구가 없음</td><td>대표 허브, 상황별 다음 단계, 카테고리 바로가기를 배치합니다.</td></tr><tr><td>카테고리</td><td>제목 목록만 있고 읽는 순서가 없음</td><td>추천 읽기 순서와 핵심 확인 표를 추가합니다.</td></tr><tr><td>글 상세</td><td>관련 글이나 다음 행동이 없음</td><td>같은 주제 글, 체크리스트, 공식 자료 링크를 연결합니다.</td></tr><tr><td>푸터</td><td>정책 페이지와 문의를 찾기 어려움</td><td>개인정보, 쿠키, 약관, 면책, 문의 링크를 반복 노출합니다.</td></tr></tbody></table>
-    <h3>재신청 전 탐색 체크리스트</h3>
-    <ul><li>홈에서 주요 카테고리로 1번 안에 이동할 수 있습니다.</li><li>카테고리 페이지에는 대표 글과 읽는 순서가 있습니다.</li><li>글 상세 하단에는 관련 글이 2~3개 이상 연결됩니다.</li><li>모바일에서 메뉴, 버튼, 표, 이미지가 겹치지 않습니다.</li><li>정책 페이지와 문의 페이지가 모든 화면 하단에서 접근 가능합니다.</li></ul>`,
-  "site-down-unavailable": `<h3>접근 불가 문제를 나누어 보는 법</h3>
-    <p>사이트 접근 불가는 콘텐츠 문제가 아니라 기술 문제처럼 보이지만, 애드센스 심사에서는 사이트 전체를 볼 수 없게 만드는 치명적인 리스크입니다. 도메인 루트, www 주소, HTTPS, 리다이렉트, 보안 규칙, 404 페이지를 순서대로 확인해야 합니다.</p>
-    <table><thead><tr><th>확인 항목</th><th>정상 상태</th><th>문제일 때 조치</th></tr></thead><tbody><tr><td>루트 도메인</td><td>https://alphaadsense.com 이 홈으로 열림</td><td>Cloudflare Pages 커스텀 도메인 연결을 확인합니다.</td></tr><tr><td>www 주소</td><td>www 주소도 정상 페이지 또는 대표 주소로 이동</td><td>DNS 레코드와 리다이렉트 설정을 정리합니다.</td></tr><tr><td>HTTPS</td><td>인증서 오류 없이 페이지 표시</td><td>SSL 상태가 Active가 될 때까지 신청을 미룹니다.</td></tr><tr><td>보안 규칙</td><td>일반 방문자와 검색 봇 접근 가능</td><td>국가 차단, 과도한 봇 차단, 방화벽 규칙을 완화합니다.</td></tr></tbody></table>
-    <h3>심사 전 기술 기록</h3>
-    <p>신청 직전에는 루트 주소, 대표 카테고리, 대표 글, 개인정보처리방침, 문의 페이지를 직접 열어 보고 정상 접속 여부를 기록해 두는 것이 좋습니다. 접근 문제가 반복되면 새 글을 추가하기보다 배포와 DNS 안정화를 먼저 처리해야 합니다.</p>`,
   "duplicate-content-cleanup": `<h3>중복 콘텐츠 정리 기준</h3>
     <p>중복 콘텐츠는 같은 문장을 복사한 경우만 의미하지 않습니다. 제목만 다르고 같은 질문에 같은 답을 반복하거나, 검색 결과를 비슷하게 재구성한 글이 여러 개 있을 때도 낮은 가치 신호로 보일 수 있습니다. 승인 전에는 글을 늘리기보다 역할을 분리하는 것이 중요합니다.</p>
     <table><thead><tr><th>상태</th><th>판단</th><th>정리 방법</th></tr></thead><tbody><tr><td>같은 주제를 여러 글이 반복</td><td>병합 우선</td><td>종합 가이드 1개와 세부 글 2~3개로 나눕니다.</td></tr><tr><td>제목만 다르고 본문 흐름이 같음</td><td>리라이팅 필요</td><td>대상 독자, 상황, 실행 순서를 다르게 설계합니다.</td></tr><tr><td>짧은 글이 카테고리에 흩어짐</td><td>허브 보강 필요</td><td>카테고리 허브에서 읽는 순서와 대표 글을 정리합니다.</td></tr><tr><td>정책 위험 주제가 섞임</td><td>비공개 검토</td><td>승인 전에는 안전한 대표 글 중심으로 공개합니다.</td></tr></tbody></table>
@@ -1001,6 +986,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/navigation-issue-fix/">메뉴·링크 오류 복구</a>와 <a href="/guides/site-down-unavailable/">사이트 접근 오류 진단</a>을 증상별 재현·근거·복구 절차로 재작성했습니다. 공개 경로와 HTTP 응답의 실제 관찰을 기록하고 보안 전체 완화 안내를 제거했습니다. DNS·보안 설정과 심사 계정은 변경하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/adsense-approval-roadmap/">준비 작업 순서</a>와 <a href="/guides/seven-day-pre-apply-log-example/">수정 후 관찰 기록</a>을 재작성했습니다. 고정 준비 기간을 선행 조건·병행 작업·재검사 조건으로 바꾸고, 실제 변경과 가상 해석 사례를 구분했습니다. 기존 주소를 유지하며 실제 재검토 요청은 실행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/minimum-content-myth/">글 수·분량 기준의 오해</a>와 <a href="/guides/pre-apply-checklist/">재검토 전 근거 점검</a>을 재작성했습니다. <a href="/checklist/">점검 안내</a>는 상세 절차와 기록 도구의 입구로 정리하고, 대표 글 수·점검 시간·색인을 합격선으로 사용하지 않습니다. 실제 검토 요청은 실행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/site-structure-before-apply/">구조 검사 절차</a>와 <a href="/guides/homepage-for-review/">홈 개편 실제 사례</a>를 각각 재작성했습니다. 전자는 링크·키보드·모바일 검사, 후자는 실제 화면과 편집 판단으로 역할을 나눴습니다. 기존 주소를 유지하며 메뉴·글 수를 승인 합격선으로 제시하지 않습니다.</span></li>
@@ -1048,10 +1034,10 @@ write("tools/rejection-diagnosis/index.html", staticPage("애드센스 거절 �
   <label for="reject-type"><strong>거절 유형 선택</strong></label>
   <select id="reject-type">
     <option value="low">가치가 낮은 콘텐츠</option>
-    <option value="nav">탐색 문제 또는 사이트 구조 문제</option>
-    <option value="access">사이트 접근 불가 또는 다운</option>
-    <option value="policy">정책 위반 가능성</option>
-    <option value="unknown">메시지가 모호하거나 여러 문제가 의심됨</option>
+    <option value="nav">탐색·구조 문제</option>
+    <option value="access">접근 불가·다운</option>
+    <option value="policy">정책 위반 의심</option>
+    <option value="unknown">원인 미확인·복합 문제</option>
   </select>
 </div>
 <div class="diagnosis-result" id="diagnosis-result"></div>
@@ -1065,8 +1051,8 @@ write("tools/rejection-diagnosis/index.html", staticPage("애드센스 거절 �
 (function () {
   const data = {
     low: { title: "가치가 낮은 콘텐츠", priority: "대표 글 깊이 보강", evidence: "수정 전후 글 목록, 추가한 표와 예시, 병합한 중복 글을 기록합니다.", points: ["대표 글의 깊이와 중복성을 먼저 봅니다.", "문제 상황, 판단 기준, 수정 예시, 체크리스트를 추가합니다.", "검색 결과 요약처럼 보이는 일반론을 줄입니다."], links: [["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["승인 친화적 글 구성", "/guides/approval-friendly-article-format/"]] },
-    nav: { title: "탐색 문제", priority: "메뉴와 허브 재정리", evidence: "상단 메뉴, 하단 링크, 카테고리 허브, 깨진 링크 검사 결과를 기록합니다.", points: ["상단 메뉴와 하단 링크가 같은 기준으로 연결되는지 봅니다.", "빈 카테고리와 깨진 링크를 제거합니다.", "카테고리 페이지에 읽는 순서를 추가합니다."], links: [["사이트 구조 점검", "/guides/site-structure-audit-example/"], ["탐색 문제 해결", "/guides/navigation-issue-fix/"]] },
-    access: { title: "접근 불가", priority: "도메인과 HTTPS 안정화", evidence: "루트, www, sitemap, robots, Cloudflare Pages 상태와 확인 날짜를 기록합니다.", points: ["루트 도메인과 www 주소가 모두 열리는지 확인합니다.", "HTTPS 인증서와 Cloudflare Pages 커스텀 도메인 상태를 봅니다.", "봇 접근을 막는 보안 규칙을 최소화합니다."], links: [["사이트 접근 문제 해결", "/guides/site-down-unavailable/"], ["Cloudflare 등록 예시", "/guides/cloudflare-search-console-example/"]] },
+    nav: { title: "탐색 문제", priority: "실패 경로 재현과 목적지 확인", evidence: "출발 URL, 누른 문구, 예상·실제 목적지, 입력 방식과 화면 폭을 기록합니다.", points: ["같은 링크를 마우스·키보드·모바일에서 나누어 재현합니다.", "주소 오타, 목차 id, 가려짐과 배포 미반영을 구분합니다.", "원본을 고친 뒤 공개 화면의 같은 경로에서 재검사합니다."], links: [["탐색 오류 재현과 복구", "/guides/navigation-issue-fix/"], ["사이트 구조 검사 절차", "/guides/site-structure-before-apply/"]] },
+    access: { title: "접근 불가", priority: "오류 계층과 실패 요청 확인", evidence: "정확한 URL, 오류 문구·응답 상태, 시간대와 확인 환경을 기록합니다. 일반 요청은 Google 접근 증거와 구분합니다.", points: ["DNS·인증서·리디렉션·HTTP 오류를 먼저 구분합니다.", "차단 의심 시 실패 요청과 보안 이벤트를 대조하며 보안 전체를 해제하지 않습니다.", "변경 범위를 기록하고 원래 실패한 주소의 응답과 본문을 재검사합니다."], links: [["사이트 접근 오류 진단", "/guides/site-down-unavailable/"], ["가비아·Cloudflare 연결", "/guides/cloudflare-gabia-domain-guide/"]] },
     policy: { title: "정책 위험", priority: "위험 문구와 필수 고지 정리", evidence: "삭제한 표현, 보강한 정책 페이지, 공식 자료 확인일을 기록합니다.", points: ["금지 콘텐츠, 클릭 유도, 승인 보장 표현을 제거합니다.", "개인정보처리방침과 쿠키 정책의 광고 관련 문구를 확인합니다.", "수익 보장과 과장된 표현을 면책 고지 기준으로 낮춥니다."], links: [["금지 콘텐츠 점검", "/guides/prohibited-content-check/"], ["정책 페이지 예시", "/guides/privacy-cookie-page-example/"]] },
     unknown: { title: "복합 문제", priority: "전체 흐름 재점검", evidence: "홈, 대표 글, 정책 페이지, 색인 상태를 같은 표로 묶어 기록합니다.", points: ["홈, 카테고리, 대표 글, 정책 페이지를 같은 흐름으로 점검합니다.", "Search Console에서 발견된 주요 URL과 실제 공개 URL을 비교합니다.", "변경 후 공개 결과를 재검사하고 미확인 항목을 구분합니다."], links: [["승인 준비 허브", "/approval-hub/"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"]] }
   };
@@ -1387,7 +1373,7 @@ p { margin: 0 0 16px; }
 .tool-panel label { display: grid; gap: 6px; margin: 8px 0; }
 .tool-panel label:has(input[type="checkbox"]) { grid-template-columns: auto 1fr; align-items: start; }
 .tool-panel input[type="checkbox"] { margin-top: 7px; }
-.tool-panel select { min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; background: white; }
+.tool-panel select { min-width: 0; width: 100%; max-width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; font: inherit; background: white; }
 .score-output, .diagnosis-result, .planner-output { border: 1px solid var(--line); border-radius: 8px; padding: 18px; margin: 18px 0 28px; background: white; box-shadow: 0 6px 18px rgba(21,32,51,.04); }
 .score-output strong { display: block; font-size: 34px; line-height: 1; margin-bottom: 8px; color: var(--blue); }
 .score-output span { color: var(--muted); }
