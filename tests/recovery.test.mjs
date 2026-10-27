@@ -227,7 +227,45 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 12);
+  assert.equal(Object.keys(revisedGuides).length, 14);
+});
+
+test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {
+  const html = read("guides/adsense-approval-roadmap/index.html");
+  for (const marker of ['id="choose-start"', 'id="dependencies"', 'id="publish-boundary"', "병행", "14개를 개별 본문으로 바꿨고 20개", "Google이 보장하는 승인 경로나 고정 준비 기간이 아닙니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["30일 준비 예시", "한 달 정도의 준비 기간", "<h2>자가 진단 표</h2>"]) assert.ok(!html.includes(old), old);
+  assert.ok(html.includes('href="/guides/seven-day-pre-apply-log-example/#actual-observations"'));
+});
+
+test("observation case labels real dates separately from hypothetical diagnosis and missing outcomes", () => {
+  const html = read("guides/seven-day-pre-apply-log-example/index.html");
+  for (const marker of ['id="actual-observations"', 'id="retest-triggers"', "고정 7일 대기를 요구하지 않습니다", "관찰하지 않은 나머지 날짜", "가상 상황이며 실제 장애 보고가 아닙니다", "df18381", "9c9148b", "1e661a4", "77d8df7", "자동 감시·예약·알림을 실행하지 않습니다"]) assert.ok(html.includes(marker), marker);
+  for (const old of ["신청 직전 7일은 새 글을", "6~7일차", "<h2>자가 진단 표</h2>", 'src="/assets/seven-day-checklist.png"']) assert.ok(!html.includes(old), old);
+  assert.ok(html.includes("한국시간 기준"));
+});
+
+test("linked hubs and tools no longer use a week as completion or automatic readiness evidence", () => {
+  for (const path of ["approval-hub/index.html", "next-steps/index.html", "tools/rejection-diagnosis/index.html", "tools/content-planner/index.html"]) {
+    const html = read(path);
+    for (const old of ["7일 안정화 기록", "신청 전 7일 기록", "수정 기록과 7일 점검 로그", "일주일 점검표로 안정화", "4주차: 7일 점검 기록"]) assert.ok(!html.includes(old), `${path}: ${old}`);
+    assert.ok(html.includes('/guides/seven-day-pre-apply-log-example/'));
+    const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    assert.equal(graph.find((item) => item["@type"] === "WebPage").dateModified, "2026-10-27");
+  }
+  assert.ok(read("tools/content-planner/index.html").includes("편집 계획 예시이지 Google의 준비·대기 요건이 아닙니다"));
+  assert.ok(!read("next-steps/index.html").includes("각 카테고리에 대표 글을 1개 이상"));
+});
+
+test("roadmap and observation tables retain explicit accessible relationships and dated sources", () => {
+  for (const slug of ["adsense-approval-roadmap", "seven-day-pre-apply-log-example"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0);
+    for (const [, table] of tables) {
+      for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker));
+    }
+    assert.ok(html.includes("공식 자료 확인일:"));
+  }
 });
 
 test("number guidance scopes its evidence and distinguishes search from advertising review", () => {

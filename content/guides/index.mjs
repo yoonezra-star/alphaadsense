@@ -10,6 +10,8 @@ import structureChecklist from "./site-structure-before-apply.mjs";
 import homeCase from "./homepage-for-review.mjs";
 import minimumMyth from "./minimum-content-myth.mjs";
 import preApply from "./pre-apply-checklist.mjs";
+import roadmap from "./adsense-approval-roadmap.mjs";
+import observationLog from "./seven-day-pre-apply-log-example.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -23,5 +25,7 @@ export default {
   "site-structure-before-apply": structureChecklist,
   "homepage-for-review": homeCase,
   "minimum-content-myth": minimumMyth,
-  "pre-apply-checklist": preApply
+  "pre-apply-checklist": preApply,
+  "adsense-approval-roadmap": roadmap,
+  "seven-day-pre-apply-log-example": observationLog
 };
