@@ -68,7 +68,7 @@ const categoryActions = {
   },
   policy: {
     use: "정책 위반·광고 제한·미확인을 구분한 뒤 실제 운영의 개인정보 처리와 동의 요구를 확인합니다. 정책 문서의 존재나 면책 문구만으로 준수가 인증되지는 않습니다.",
-    links: [["콘텐츠 정책 분류", "/guides/prohibited-content-check/#policy-classes"], ["개인정보 정책 작성", "/guides/privacy-policy-for-adsense/"], ["쿠키 고지 기본", "/guides/cookie-notice-basics/"]]
+    links: [["콘텐츠 정책 분류", "/guides/prohibited-content-check/#policy-classes"], ["실제 처리 흐름 확인", "/guides/privacy-policy-for-adsense/#processing-inventory"], ["동의 상태별 검사", "/guides/cookie-notice-basics/#consent-test-paths"]]
   },
   resources: {
     use: "자료실은 공식 문서, 점검표, 콘텐츠 계획을 실제 운영 기록으로 바꾸는 곳입니다.",
@@ -97,8 +97,8 @@ const articles = [
   ["monetization", "rpm-cpc-basics", "RPM·CPC·CTR 계산과 보고서 해석", "페이지 조회수와 광고 노출수를 구분하고, 가상 데이터 계산과 기간 합산 예시로 수익 지표를 검산합니다.", ["페이지 RPM은 예상 수입을 페이지 조회수로 나누고 1,000을 곱합니다.", "광고 RPM은 광고 노출수, 광고 CTR은 광고 클릭수와 노출수의 비율로 계산합니다.", "통화, 기간과 보고서 범위가 다른 수치를 섞지 않습니다.", "CPC와 CTR은 승인 점수나 다음 달 수익을 보장하는 지표가 아닙니다."]],
   ["monetization", "ad-placement-principles", "광고 배치 검사: 콘텐츠 구분·우발 클릭·도구 이용", "정책 위험별 판단과 비상호작용 가상 배치도, 실제 도구의 조작 지점과 모바일·키보드·상태 변화 검사를 설명합니다.", ["광고가 기능·콘텐츠로 오해되는지 확인합니다.", "광고 개수·간격 대신 조작과 페이지 전체 결과를 검사합니다.", "가상 개념도와 실제 광고 운영 검사를 구분합니다.", "수정 전후 기록과 수익·이용 효과 측정을 분리합니다."]],
   ["monetization", "traffic-quality", "광고 트래픽 품질: 근거·유입 비교·게재 제한 구분", "유입 변화와 무효 광고 트래픽을 구분하고 비교 조건·가상 수치·근거별 대응과 계정 안내의 한계를 정리합니다.", ["유입 경로 이름이나 CTR 하나로 정상·위반을 단정하지 않습니다.", "실제 안내와 비교 범위를 기록하되 민감한 로그는 공개하지 않습니다.", "근거에 맞는 범위를 조사하고 광고를 직접 클릭하지 않습니다.", "조사·변경 기록과 제한 해제·승인 결과를 구분합니다."]],
-  ["policy", "privacy-policy-for-adsense", "애드센스용 개인정보처리방침에 넣을 항목", "구글 광고 쿠키, 맞춤 광고, 제3자 공급업체 고지를 개인정보처리방침에 반영하는 방법입니다.", ["구글을 포함한 제3자 공급업체가 쿠키를 사용할 수 있음을 알려야 합니다.", "맞춤 광고 선택 해제 경로를 안내합니다.", "문의 이메일과 개인정보 관련 요청 방법을 명확히 적습니다.", "정책 문구는 사이트 운영 방식에 맞게 작성하고 정기적으로 검토합니다."]],
-  ["policy", "cookie-notice-basics", "쿠키 고지와 동의 안내 기본", "방문자에게 쿠키와 광고 기술 사용을 알리는 기본 원칙을 정리했습니다.", ["쿠키 고지는 숨겨진 페이지가 아니라 쉽게 찾을 수 있어야 합니다.", "지역별 법률 요구가 다를 수 있으므로 방문자 범위를 고려합니다.", "애드센스의 Privacy & messaging 도구도 검토할 수 있습니다.", "초기에는 복잡한 추적 도구를 많이 붙이지 않는 것이 관리에 유리합니다."]],
+  ["policy", "privacy-policy-for-adsense", "개인정보 안내 작성: 실제 처리·저장·삭제 범위", "이 사이트의 작업표·계산기·검색·이메일·호스팅 사례로 현재 처리와 향후 광고 계획, 삭제 범위와 남은 확인을 나눕니다.", ["현재 저장·전송과 향후 도입 계획을 구분합니다.", "브라우저 처리와 요청 URL·메일·호스팅 처리를 따로 확인합니다.", "저장 위치별 삭제와 남는 사본을 설명합니다.", "미확인 보관 기간·계약을 임의로 채우거나 준수 인증하지 않습니다."]],
+  ["policy", "cookie-notice-basics", "쿠키 고지와 동의: 적용 조건·거부·철회 검사", "고지·동의·광고 개인화 선택·저장 삭제를 나누고 공식 CMP 조건과 광고 도입 전후의 검사 경로를 정리합니다.", ["고지 페이지와 실제 동의 관리를 같은 것으로 보지 않습니다.", "지역·제품·처리 목적별 공식 조건을 확인합니다.", "비맞춤 광고·localStorage라는 이름만으로 검토를 생략하지 않습니다.", "선택 전·거부·허용·철회·오류의 실제 동작을 구분합니다."]],
   ["policy", "prohibited-content-check", "콘텐츠 정책 검토: 위반·광고 제한·미확인 분류", "게시자 정책과 제한사항을 구분하고 페이지 문맥·권리 근거·가상 사례·수정 기록을 검토합니다. 심사 때만 숨기는 방식은 해결이 아닙니다.", ["정책 위반과 광고 제한, 추가 확인이 필요한 상태를 구분합니다.", "제목만이 아니라 본문·이미지·링크·제공 행위와 권리를 확인합니다.", "실제 요소와 공식 조항을 연결해 수정하고 근거를 기록합니다.", "면책 문구나 승인 후 복구를 정책 문제의 해결책으로 삼지 않습니다."]],
   ["policy", "disclaimer-page-guide", "면책 고지 페이지 작성 기준", "정보 사이트가 제공하는 내용의 범위와 한계를 독자에게 설명하는 방법입니다.", ["정보 제공 목적임을 분명히 하되 책임 회피 문구만 길게 쓰지 않습니다.", "정책과 수익 관련 정보는 시간이 지나면 바뀔 수 있음을 안내합니다.", "공식 판단은 구글 애드센스의 최신 정책을 따라야 한다고 연결합니다.", "문의 경로를 함께 제공하면 신뢰가 높아집니다."]],
   ["resources", "pre-apply-checklist", "재검토 전 근거 점검: 완료·미완료·미확인 구분", "공개 범위와 수정 근거, 실제 배포와 계정 확인을 나누고 재검토를 보류할 결함과 미확인 항목을 기록하는 절차입니다.", ["검토할 공개 주소와 남은 작업을 구분합니다.", "영역별 근거와 그 근거의 한계를 적습니다.", "공개 배포·계정 연결·검색 색인을 따로 확인합니다.", "고정 점수나 대기 일수로 신청을 자동 결정하지 않습니다."]],
@@ -136,11 +136,6 @@ const deepDives = {
     title: "본문 템플릿 예시",
     html: `<p>승인 준비용 정보 글은 문제를 넓게 소개한 뒤, 독자가 바로 실행할 수 있는 순서로 좁혀 가는 것이 좋습니다. 한 글 안에는 문제 정의, 판단 기준, 실행 순서, 예외 상황, 관련 정책, 체크리스트가 들어가면 안정적입니다.</p>
     <table><thead><tr><th>문단</th><th>역할</th><th>예시</th></tr></thead><tbody><tr><td>도입</td><td>누구의 어떤 문제인지 정의</td><td>승인 전 색인이 안 잡히는 초보 운영자</td></tr><tr><td>기준</td><td>좋은 상태와 나쁜 상태 구분</td><td>색인됨, 발견됨, 제외됨 상태 비교</td></tr><tr><td>실행</td><td>수정 순서 제시</td><td>내부 링크 추가, 본문 보강, URL 검사 요청</td></tr><tr><td>점검</td><td>신청 전 확인 항목</td><td>모바일, 링크, 정책 페이지, 사이트맵 확인</td></tr></tbody></table>`
-  },
-  "privacy-policy-for-adsense": {
-    title: "개인정보 페이지 점검 항목",
-    html: `<p>개인정보처리방침은 단순히 페이지가 있다는 사실보다 광고 쿠키와 제3자 공급업체 고지가 포함되어 있는지가 중요합니다. 특히 Google AdSense 적용 예정 사이트라면 맞춤 광고 선택 해제 경로와 문의 이메일을 명확히 적어 두는 것이 좋습니다.</p>
-    <table><thead><tr><th>항목</th><th>포함 여부</th></tr></thead><tbody><tr><td>문의 시 수집 정보</td><td>이메일 주소와 문의 내용</td></tr><tr><td>광고 쿠키 고지</td><td>Google과 제3자 공급업체의 쿠키 사용 가능성</td></tr><tr><td>맞춤 광고 선택권</td><td>Google 광고 설정에서 선택 해제 가능</td></tr><tr><td>개인정보 문의</td><td>운영자 이메일 공개</td></tr></tbody></table>`
   },
   "cloudflare-gabia-domain-guide": {
     title: "연결 후 확인 순서",
@@ -211,11 +206,6 @@ const deepDiveAdditions = {
     <table><thead><tr><th>지표</th><th>의미</th><th>초보자가 주의할 점</th></tr></thead><tbody><tr><td>RPM</td><td>방문 1,000회당 예상 수익</td><td>짧은 기간의 숫자로 사이트 가치를 단정하지 않습니다.</td></tr><tr><td>CPC</td><td>클릭 1회당 수익</td><td>클릭을 유도하면 정책 위험이 커집니다.</td></tr><tr><td>CTR</td><td>광고 노출 대비 클릭 비율</td><td>비정상적으로 높으면 무효 트래픽을 의심해야 합니다.</td></tr><tr><td>페이지 RPM</td><td>페이지별 수익 효율</td><td>광고 위치보다 글 주제와 방문자 의도를 함께 봅니다.</td></tr></tbody></table>
     <h3>승인 후 첫 달 운영 기준</h3>
     <ul><li>광고 수를 급하게 늘리기보다 모바일 가독성을 먼저 확인합니다.</li><li>본인 클릭, 지인 클릭 요청, 클릭 교환은 절대 하지 않습니다.</li><li>수익이 낮은 글을 바로 삭제하지 않고 방문자 의도와 체류 시간을 함께 봅니다.</li><li>정책 알림과 제한 알림을 매주 확인합니다.</li></ul>`,
-  "cookie-notice-basics": `<h3>쿠키 고지를 점검하는 기준</h3>
-    <p>쿠키 고지는 단순히 문구를 넣는 일이 아니라 방문자가 광고 기술과 선택권을 이해할 수 있게 만드는 안내입니다. 애드센스 적용 예정 사이트라면 Google과 제3자 공급업체의 쿠키 사용 가능성, 맞춤 광고 선택 해제, 문의 경로가 함께 보여야 합니다.</p>
-    <table><thead><tr><th>항목</th><th>포함할 내용</th><th>확인 위치</th></tr></thead><tbody><tr><td>광고 쿠키</td><td>Google 및 제3자 공급업체가 쿠키를 사용할 수 있음</td><td>쿠키 정책, 개인정보처리방침</td></tr><tr><td>맞춤 광고</td><td>사용자가 광고 설정에서 선택을 조정할 수 있음</td><td>쿠키 정책 본문</td></tr><tr><td>운영 기준</td><td>광고를 메뉴나 버튼처럼 오해하게 만들지 않음</td><td>쿠키 정책, 면책 고지</td></tr><tr><td>문의 경로</td><td>쿠키와 개인정보 관련 요청 이메일</td><td>문의, 개인정보처리방침, 푸터</td></tr></tbody></table>
-    <h3>초기 사이트에서 피할 점</h3>
-    <ul><li>실제로 사용하지 않는 분석 도구를 쓰는 것처럼 고지하지 않습니다.</li><li>광고 쿠키 고지를 개인정보처리방침 안에만 숨기지 않습니다.</li><li>지역별 법률 요구가 다른 부분은 단정하지 않고 운영 범위에 맞게 안내합니다.</li><li>광고 클릭을 유도하는 문구와 쿠키 고지를 섞지 않습니다.</li></ul>`,
   "disclaimer-page-guide": `<h3>면책 고지가 필요한 이유</h3>
     <p>정보 사이트의 면책 고지는 책임 회피용 문구만 길게 쓰는 페이지가 아닙니다. 독자가 이 사이트의 정보가 일반적인 참고 자료이며, 애드센스 승인이나 수익을 보장하지 않는다는 점을 이해하도록 돕는 신뢰 페이지입니다.</p>
     <table><thead><tr><th>구분</th><th>명시할 내용</th><th>좋은 표현</th></tr></thead><tbody><tr><td>승인</td><td>승인 결과는 Google 심사와 정책에 따름</td><td>이 글은 승인 보장이 아니라 신청 전 점검 기준입니다.</td></tr><tr><td>수익</td><td>수익 지표는 사이트와 방문자에 따라 달라짐</td><td>RPM/CPC 정보는 일반적인 운영 참고 자료입니다.</td></tr><tr><td>정책</td><td>정책과 관리자 화면은 바뀔 수 있음</td><td>중요한 설정 전 공식 도움말을 다시 확인해야 합니다.</td></tr><tr><td>외부 링크</td><td>외부 사이트 운영은 해당 운영자 책임</td><td>공식 자료는 최신성을 확인한 뒤 적용합니다.</td></tr></tbody></table>
@@ -255,15 +245,15 @@ const requiredPageMeta = {
   },
   "/privacy/": {
     label: "개인정보 고지",
-    purpose: "문의 응답, 사이트 보안, 쿠키와 광고 기술 사용 가능성을 방문자에게 알립니다.",
+    purpose: "현재 도구·검색·문의·호스팅 처리와 향후 광고 계획을 나누어 알립니다.",
     review: "광고, 분석 도구, 문의 처리 방식이 바뀔 때 검토합니다.",
-    checks: ["수집 가능한 항목과 이용 목적을 표로 구분합니다.", "Google AdSense 적용 시 광고 쿠키와 제3자 공급업체 가능성을 안내합니다.", "개인정보 관련 요청을 보낼 이메일을 명확히 둡니다."]
+    checks: ["실제 저장·전송·삭제 범위를 기능별로 확인합니다.", "광고 계획을 현재 처리 사실처럼 쓰지 않습니다.", "미확인 보관·계약 조건은 별도로 확인하고 개인정보 요청 경로를 둡니다."]
   },
   "/cookie-policy/": {
     label: "쿠키 안내",
-    purpose: "필수 쿠키, 분석 쿠키, 광고 쿠키의 역할과 방문자의 선택권을 설명합니다.",
+    purpose: "쿠키·브라우저 저장의 현재 범위와 광고 적용 시 필요한 선택권을 구분합니다.",
     review: "광고 또는 분석 도구를 새로 붙일 때 쿠키 유형과 안내 문구를 다시 봅니다.",
-    checks: ["광고 쿠키가 사용될 수 있음을 숨기지 않습니다.", "맞춤 광고 선택 해제와 브라우저 쿠키 관리 가능성을 안내합니다.", "광고가 콘텐츠와 구분되도록 운영한다는 기준을 함께 적습니다."]
+    checks: ["활성 제품을 확인하지 않고 모든 보안 쿠키를 실제 목록으로 적지 않습니다.", "광고 개인화 설정·브라우저 삭제·사이트 동의 기능의 차이를 알립니다.", "현재 제공하지 않는 동의·철회 기능을 있는 것처럼 표시하지 않습니다."]
   },
   "/terms/": {
     label: "이용 기준",
@@ -511,7 +501,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
   ${schemaScript(schemas)}
-  <link rel="stylesheet" href="/styles.css?v=20261027-ad-review">
+  <link rel="stylesheet" href="/styles.css?v=20261027-privacy-notice">
 </head>
 <body>
   <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -964,6 +954,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/privacy-policy-for-adsense/">개인정보 처리 흐름</a>과 <a href="/guides/cookie-notice-basics/">쿠키·동의 검사</a>를 개별 본문으로 재작성했습니다. 실제 저장·검색 URL·이메일·호스팅과 삭제 범위를 나누고 공개 개인정보·쿠키 안내를 맞췄습니다. 검색에 민감정보 주의 안내를 추가했습니다. 광고·CMP는 설치하지 않았으며 보관·계약·법률 확인 과제와 실제 계정 상태는 별개입니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/traffic-quality/">광고 트래픽 근거 조사</a>와 <a href="/guides/prohibited-content-check/">콘텐츠 정책 분류</a>를 재작성했습니다. 유입 변화·무효 트래픽·게재 제한과 정책 위반·게시자 제한사항·미확인을 구분했습니다. 정책 허브와 거절 진단도 연결하고 승인 때만 숨기는 안내를 제거했습니다. 실제 계정 조회·광고 클릭·유입 차단·재검토 요청은 수행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/after-approval-first-settings/">승인 후 점검</a>과 <a href="/guides/ad-placement-principles/">광고 배치 검사</a>를 재작성했습니다. 상태·미리보기·복구를 나누고 실제 광고가 아닌 가상 배치도와 도구 이용 검사를 추가했습니다. 실제 승인·계정 설정·광고 활성화는 수행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/content-calendar-30-days/">발행 계획</a>과 <a href="/guides/glossary-for-beginners/">운영 용어집</a>을 재작성했습니다. 가상 시간 예산과 지표별 분모·단위 비교를 추가하고 <a href="/tools/content-planner/#editorial-planner">편집 가능한 시간표</a>를 연결했습니다. 시간표 입력은 저장·전송하지 않으며 승인 판정·자동 발행 기능은 없습니다.</span></li>
@@ -1111,18 +1102,22 @@ write("contact/index.html", staticPage("문의", "사이트 내용 오류, 수�
 <table><tbody><tr><th>상호</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`));
 
 write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSense의 개인정보 처리와 쿠키, 광고 관련 고지 사항입니다.", "/privacy/", `
-<p>${site.company}는 Alpha AdSense 운영 과정에서 이용자가 직접 제공한 개인정보를 필요한 범위 안에서 처리합니다. 이 방침은 사이트 문의, 오류 제보, 수정 요청, 향후 광고 운영 과정에서 발생할 수 있는 개인정보 처리 기준을 설명합니다.</p>
-<h2>처리하는 개인정보</h2>
-<table><thead><tr><th>구분</th><th>항목</th><th>이용 목적</th></tr></thead><tbody><tr><td>문의</td><td>이메일 주소, 문의 내용, 첨부 정보</td><td>문의 확인, 답변, 오류 수정</td></tr><tr><td>사이트 이용</td><td>접속 기록, 브라우저 정보, 기기 정보, 쿠키</td><td>보안, 통계, 서비스 품질 개선</td></tr><tr><td>광고 적용 시</td><td>광고 쿠키, 관심 기반 광고 식별 정보</td><td>Google AdSense 광고 게재 및 맞춤 광고 제공 가능성</td></tr></tbody></table>
+<p>${site.company}가 운영하는 Alpha AdSense의 현재 도구·검색·이메일 문의·호스팅 처리와 향후 광고 계획을 나누어 안내합니다. 현재 사이트 자체 코드에 광고·분석 SDK를 추가하지 않았습니다. 페이지를 제공하는 호스팅·보안 서비스의 처리는 도구 입력값 처리와 별개입니다.</p>
+<h2 id="current-processing" tabindex="-1">현재 기능과 처리 범위</h2>
+<div class="article-table-scroll" role="region" aria-label="현재 기능과 개인정보 처리 범위" tabindex="0"><table><caption>현재 처리와 계획을 구분합니다</caption><thead><tr><th scope="col">구분</th><th scope="col">항목과 경로</th><th scope="col">목적·범위</th></tr></thead><tbody><tr><th scope="row">문의</th><td>사용자가 이메일로 보낸 주소·내용·첨부</td><td>문의 확인·답변·수정 요청. 메일 링크를 누르는 것과 실제 발송은 다릅니다.</td></tr><tr><th scope="row">작업표</th><td>직접 입력한 URL·질문·근거·작업·상태·확인일 등</td><td>이 브라우저의 점검 기록 저장. 도구 코드에서 입력값을 서버로 보내지 않습니다.</td></tr><tr><th scope="row">계산기·시간표</th><td>직접 입력한 수치·작업과 결과</td><td>페이지 메모리에서 처리. 영구 저장·입력 전송 기능이 없습니다.</td></tr><tr><th scope="row">검색</th><td>검색어·페이지를 URL에 표시</td><td>공개 문서 자료의 브라우저 검색. 주소·방문 기록과 요청 범위는 아래 안내 참조.</td></tr><tr><th scope="row">호스팅·보안</th><td>Cloudflare를 통한 페이지·자료 요청</td><td>페이지 제공·보안 처리. 요청 정보의 처리 범위는 활성 서비스·계약에 따라 확인이 필요합니다.</td></tr></tbody></table></div>
+<h2 id="search-requests" tabindex="-1">검색어와 요청 주소</h2>
+<p>검색은 공개 검색 자료를 받아 브라우저에서 수행하고 검색어를 주소의 q 값과 방문 기록에 남깁니다. 주소 변경 자체가 항상 새 요청을 보내는 것은 아니지만 해당 주소의 새로고침·직접 접속·공유 시 검색어가 요청 URL에 포함될 수 있습니다. 검색어에 비밀번호·인증 코드·개인정보를 입력하지 마세요. 사이트 검색을 비밀 보관함으로 사용하지 마세요.</p>
 <h2>보관 기간</h2>
-<p>문의 내용은 처리 목적이 달성된 뒤 불필요하게 장기간 보관하지 않습니다. 다만 분쟁 대응, 오류 재확인, 법령상 보관이 필요한 경우에는 필요한 기간 동안 보관할 수 있습니다.</p>
-<h2>쿠키와 광고</h2>
-<p>향후 Google AdSense가 적용될 경우 Google을 포함한 제3자 공급업체가 쿠키를 사용해 사용자의 이전 방문 기록을 기반으로 광고를 게재할 수 있습니다. 사용자는 Google 광고 설정에서 맞춤 광고를 선택 해제할 수 있습니다.</p>
+<p>2026-10-27 현재 문의 이메일의 구체적인 보관 기한과 정기 삭제 기준은 미정입니다. 일정 기간 뒤 자동 삭제된다고 안내하지 않습니다. 실제 보관 사유·기간·삭제 방법과 메일·백업 처리 범위를 확정해 이 안내를 갱신해야 하는 운영 과제로 남아 있습니다. 개인정보 관련 문의나 삭제 요청은 아래 고객센터로 보낼 수 있습니다.</p>
+<h2 id="advertising-plan" tabindex="-1">광고 적용 계획과 선택권</h2>
+<p>향후 Google AdSense를 적용한다면 Google과 제3자 공급업체의 광고 쿠키·방문 기록 기반 광고, 실제 공급업체와 필요한 선택·동의 절차를 적용 전에 확인하고 이 안내를 갱신합니다. 현재 이 페이지는 광고 적용 완료나 동의 수집 완료를 표시하지 않습니다. <a href="https://myadcenter.google.com/">Google 내 광고 센터</a>의 개인 맞춤 광고 설정은 이 사이트의 모든 저장·처리를 끄거나 삭제하는 기능이 아닙니다. <a href="/cookie-policy/#advertising-consent">광고·동의 안내</a>에서 차이를 확인할 수 있습니다.</p>
 <h2>제3자 제공과 외부 서비스</h2>
-<p>Alpha AdSense는 이용자의 개인정보를 임의로 판매하지 않습니다. 다만 사이트 운영, 보안, 통계, 광고 게재를 위해 Google, Cloudflare 등 외부 서비스가 자체 정책에 따라 쿠키나 접속 정보를 처리할 수 있습니다.</p>
-<h2 id="local-tools">작업표와 계산기의 브라우저 처리</h2>
+<p>Alpha AdSense는 이용자의 개인정보를 임의로 판매하지 않습니다. 페이지는 Cloudflare를 통해 제공하며 이메일 문의는 이용자가 선택한 메일 서비스와 수신 메일 서비스에서 처리합니다. <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare 개인정보 안내</a>와 <a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/">제품별 쿠키 안내</a>를 참고할 수 있습니다. 공급업체의 전체 기능이 이 사이트에 활성화됐다는 뜻은 아닙니다.</p>
+<p>현재 Cloudflare 계정의 활성 보안·분석 기능, 구체적인 로그 보관·계약상 처리 범위는 별도 확인이 필요합니다. 외부 서비스가 있다는 이유만으로 위탁·제공·국외 처리의 법적 분류가 모두 확인됐다고 표시하지 않습니다. 새 외부 서비스를 적용할 때 실제 처리와 필요한 고지를 검토합니다.</p>
+<h2 id="local-tools" tabindex="-1">작업표와 계산기의 브라우저 처리</h2>
 <p>콘텐츠 점검 작업표의 URL, 질문, 근거, 중복 후보, 수정 작업, 상태와 확인일은 현재 브라우저의 localStorage에 저장합니다. 이 도구의 코드는 해당 입력값을 서버로 전송하지 않으며 다른 기기와 동기화하지 않습니다. 저장이 차단되면 변경이 현재 탭에만 남을 수 있고 그 상태를 표시합니다. 도구의 전체 삭제는 이 작업표의 저장 키만 삭제합니다. 브라우저의 사이트 데이터 삭제로도 지울 수 있습니다.</p>
 <p>RPM 계산기와 발행 작업 시간표의 입력·결과는 페이지 메모리에서만 처리하고 영구 저장하지 않습니다. 시간표는 새로고침하면 사라집니다. CSV 내보내기는 사용자가 실행할 때 기기에 파일을 생성하며 외부 서비스에 업로드하지 않습니다. 내보낸 파일은 이용자가 별도로 관리·삭제해야 합니다. 공용 기기나 같은 출처의 코드에서는 저장 자료에 접근할 수 있으므로 비밀번호, 인증 코드와 민감한 개인정보를 입력하지 마세요. 페이지 요청 시 호스팅·보안 서비스에서 처리하는 접속 기록은 이 도구 입력값과 별개입니다.</p>
+<p>작업표 저장 키는 <code>alphaadsense.content-audit.v1</code>이며 도구가 고정 자동 만료일을 설정하지는 않습니다. 작업표 삭제는 다른 기기·내려받은 CSV·공유본·메일함·호스팅 기록을 지우지 않습니다. 저장 실패 시 성공한 것처럼 표시하지 않으며 브라우저 설정·다른 탭 변경의 영향을 받을 수 있습니다.</p>
 <h2>이용자 권리</h2>
 <p>이용자는 본인이 제공한 개인정보에 대해 열람, 정정, 삭제, 처리 중지를 요청할 수 있습니다. 요청이 접수되면 합리적인 범위에서 확인 후 처리합니다.</p>
 <h2>문의</h2>
@@ -1130,19 +1125,20 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 <h2>사업자 정보</h2>
 <p>${site.company} · 사업자등록번호 ${site.businessNumber} · ${site.address}</p>`, "2026-10-27"));
 
-write("cookie-policy/index.html", staticPage("쿠키 정책", "Alpha AdSense에서 사용할 수 있는 쿠키와 광고 기술, 맞춤 광고 선택권을 안내합니다.", "/cookie-policy/", `
-<p>Alpha AdSense는 사이트 품질 개선, 기본 보안, 검색 유입 분석, 광고 게재를 위해 쿠키 또는 유사 기술을 사용할 수 있습니다.</p>
+write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우저 저장·호스팅 처리와 향후 광고의 고지·동의·선택·삭제 범위를 구분합니다.", "/cookie-policy/", `
+<p>현재의 브라우저 저장과 호스팅·보안 처리, 향후 광고·분석 도입 시 필요한 검토를 구분합니다. 현재 사이트 자체 코드에는 광고·분석 SDK나 별도 동의 관리 플랫폼(CMP)을 추가하지 않았습니다. 안내 페이지가 있다는 사실은 동의를 수집했거나 필요한 요청 제어를 구현했다는 뜻이 아닙니다.</p>
 <h2>쿠키의 역할</h2>
 <p>콘텐츠 점검 작업표는 쿠키가 아닌 localStorage를 사용해 이 브라우저에 입력 기록을 남깁니다. RPM 계산기와 발행 작업 시간표 입력은 저장하지 않습니다. <a href="/privacy/#local-tools">브라우저 저장과 삭제 범위</a>에서 확인할 수 있습니다.</p>
-<p>쿠키는 방문자의 브라우저에 저장되는 작은 정보로, 사이트가 정상적으로 동작하도록 돕거나 방문 흐름을 이해하는 데 사용될 수 있습니다. Alpha AdSense는 로그인 기반 서비스를 제공하지 않지만, 보안, 통계, 광고 게재 과정에서 외부 서비스의 쿠키가 사용될 수 있습니다.</p>
-<h2>사용될 수 있는 쿠키 유형</h2>
-<table><thead><tr><th>유형</th><th>목적</th><th>비고</th></tr></thead><tbody><tr><td>필수 쿠키</td><td>보안, 네트워크 안정성, 기본 페이지 제공</td><td>Cloudflare 등 인프라 서비스에서 사용할 수 있습니다.</td></tr><tr><td>분석 쿠키</td><td>방문 흐름, 인기 페이지, 오류 확인</td><td>향후 통계 도구 적용 시 사용될 수 있습니다.</td></tr><tr><td>광고 쿠키</td><td>광고 게재, 빈도 조절, 맞춤 광고</td><td>Google AdSense 적용 시 Google 및 파트너가 사용할 수 있습니다.</td></tr></tbody></table>
-<h2>광고 쿠키</h2>
-<p>Google AdSense가 적용될 경우 Google과 제3자 광고 공급업체는 쿠키를 사용해 방문자의 이전 방문 기록을 기반으로 광고를 게재할 수 있습니다. Google의 광고 쿠키는 방문자가 이 사이트와 다른 사이트를 방문한 정보를 바탕으로 맞춤 광고를 제공하는 데 사용될 수 있습니다.</p>
-<h2>맞춤 광고 선택 해제</h2>
-<p>방문자는 Google 광고 설정에서 맞춤 광고를 선택 해제할 수 있습니다. 또한 브라우저 설정에서 쿠키 저장을 제한하거나 기존 쿠키를 삭제할 수 있습니다.</p>
+<p>쿠키와 localStorage는 서로 다른 저장 기술입니다. 쿠키가 아니라고 필요한 고지·동의 검토가 자동으로 없어지는 것은 아닙니다. 현재 작업표 저장 목적·항목과 호스팅 처리를 나누어 확인해야 합니다.</p>
+<h2 id="storage-scope" tabindex="-1">현재 저장·처리와 향후 계획</h2>
+<div class="article-table-scroll" role="region" aria-label="브라우저 저장과 광고 도입 상태" tabindex="0"><table><caption>향후 계획을 현재 사용 목록으로 적지 않습니다</caption><thead><tr><th scope="col">범위</th><th scope="col">현재 상태</th><th scope="col">관리·확인</th></tr></thead><tbody><tr><th scope="row">작업표 localStorage</th><td>이 브라우저의 입력 기록 저장, 고정 자동 만료일 없음</td><td>작업표 삭제는 해당 키만 대상. 기기의 CSV 사본은 별도 관리</td></tr><tr><th scope="row">계산기·시간표</th><td>페이지 메모리 처리, 입력 영구 저장 없음</td><td>새로고침으로 사라지며 내보낸 파일은 별도 관리</td></tr><tr><th scope="row">Cloudflare 호스팅·보안</th><td>페이지 요청 처리, 활성 제품에 따라 쿠키 사용 가능</td><td>전체 제품의 쿠키를 현재 목록으로 단정하지 않음. 계정별 실제 설정은 별도 확인 필요</td></tr><tr><th scope="row">광고·분석 SDK·CMP</th><td>현재 사이트 자체 코드에 추가하지 않음</td><td>도입 전 실제 제공자·목적·지역·고지·동의와 구현 검사 필요</td></tr></tbody></table></div>
+<h2 id="advertising-consent" tabindex="-1">광고 쿠키·동의·개인화 선택</h2>
+<p>향후 Google AdSense 적용 시 Google과 광고 파트너가 이 사이트 및 다른 사이트의 방문 기록을 바탕으로 광고를 제공하는 데 쿠키를 사용할 수 있습니다. 실제 공급업체와 필요한 고지·동의·철회 절차를 확인해 안내를 갱신합니다. EEA·영국·스위스 이용자에게 개인 맞춤 광고를 제공할 때는 현재 공식 인증 CMP·TCF 요구를 확인해야 합니다. 인증은 모든 법률 준수의 보증이 아닙니다.</p>
+<p>개인 맞춤이 아닌 광고도 목적에 따라 쿠키와 필요한 동의 검토가 관련될 수 있습니다. <a href="https://myadcenter.google.com/">Google 내 광고 센터</a>는 Google 광고 개인화 선택을 위한 외부 경로이며 이 사이트 전체의 동의 철회·저장 삭제 버튼은 아닙니다. 현재 이 사이트가 별도 광고 동의·철회 기능을 제공한다고 표시하지 않습니다.</p>
+<p><a href="/guides/cookie-notice-basics/#consent-test-paths">동의 상태별 검사 안내</a>는 도입 시의 검사 계획이며 이번에 광고·CMP를 설치하고 검증한 결과가 아닙니다. 사이트 방문이나 스크롤을 필요한 동의의 대체로 취급하지 않습니다.</p>
 <h2>브라우저별 관리 방법</h2>
 <p>대부분의 브라우저는 설정 메뉴에서 쿠키 저장 허용, 차단, 삭제를 관리할 수 있습니다. 쿠키를 차단하면 일부 외부 서비스, 보안 확인, 광고 표시 방식이 달라질 수 있습니다. 중요한 설정을 변경하기 전에는 사용 중인 브라우저의 공식 도움말을 확인하는 것이 좋습니다.</p>
+<p>브라우저 사이트 데이터 삭제는 이 기기의 저장을 관리하는 방법이며 메일함·호스팅 기록·다른 기기·내려받은 CSV 사본을 원격 삭제하지 않습니다. 저장 제한 때문에 작업표 저장이 실패할 수 있습니다. 구체적인 범위는 <a href="/privacy/#local-tools">개인정보처리방침의 브라우저 처리</a>와 <a href="/privacy/#search-requests">검색어·요청 주소 안내</a>를 참고하세요.</p>
 <h2>운영 기준</h2>
 <p>이 사이트는 광고 클릭을 유도하거나 광고를 메뉴, 다운로드, 다음 단계 버튼처럼 오해하게 만드는 방식을 사용하지 않습니다. 광고와 콘텐츠는 독자가 구분할 수 있도록 배치하는 것을 원칙으로 합니다.</p>
 <h2>정책 업데이트</h2>
@@ -1453,8 +1449,8 @@ p { margin: 0 0 16px; }
 .article-toc ol { margin: 0; padding: 0; list-style: none; }
 .article-toc li { margin: 0; }
 .article-toc a { display: block; padding: 10px 0; min-height: 44px; overflow-wrap: anywhere; }
-.article-section h2 { scroll-margin-top: 150px; }
-.article-toc a:focus-visible, .article-section h2:focus-visible, .article-table-scroll:focus-visible, .article-code:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.article-section h2, .article > h2[id] { scroll-margin-top: 150px; }
+.article-toc a:focus-visible, .article-section h2:focus-visible, .article > h2[id]:focus-visible, .article-table-scroll:focus-visible, .article-code:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
 .article-section p, .article-section li, .article-revision { overflow-wrap: anywhere; }
 .article blockquote { margin: 20px 0; border-left: 3px solid var(--green); padding: 4px 0 4px 20px; }
 .article blockquote p { margin: 8px 0; }
@@ -1500,7 +1496,7 @@ ${planningStyles}
   .header-inner { padding-block: 12px; gap: 8px; }
   .nav { gap: 0 4px; }
   .nav a { padding: 0 6px; }
-  .article-section h2, .metric-tool, .workbench { scroll-margin-top: 180px; }
+  .article-section h2, .article > h2[id], .metric-tool, .workbench { scroll-margin-top: 180px; }
   .search-box div { grid-template-columns: 1fr; }
   .article table, .summary-table { display: block; overflow-x: auto; white-space: normal; }
 }

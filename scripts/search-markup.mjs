@@ -3,6 +3,7 @@ export const searchPage = `<div class="search-interface">
   <label for="site-search">검색어</label>
   <div><input id="site-search" name="q" type="search" maxlength="120" placeholder="예: 인증, 낮은 가치, RPM" autocomplete="off" aria-controls="search-results"><button id="search-submit" class="button primary" type="submit" disabled><img src="/assets/icons/search.svg" alt="" width="18" height="18">검색</button></div>
 </form>
+<p class="search-alternatives">검색어는 주소·방문 기록에 남습니다. 비밀번호·인증 코드·개인정보는 입력하지 마세요. <a href="/privacy/#search-requests">검색어 처리 범위</a></p>
 <nav class="search-topics" aria-label="주요 검색어"><a href="/search/?q=%EC%9D%B8%EC%A6%9D">인증</a><a href="/search/?q=%EB%82%AE%EC%9D%80+%EA%B0%80%EC%B9%98">낮은 가치</a><a href="/search/?q=RPM">RPM</a></nav>
 <p id="search-summary" class="search-status" role="status" aria-live="polite" tabindex="-1">문서를 불러오는 중입니다.</p>
 <p id="search-error" class="search-error" role="alert" hidden></p>

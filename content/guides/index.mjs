@@ -24,6 +24,8 @@ import afterApproval from "./after-approval-first-settings.mjs";
 import adPlacement from "./ad-placement-principles.mjs";
 import trafficQuality from "./traffic-quality.mjs";
 import contentPolicy from "./prohibited-content-check.mjs";
+import privacyNotice from "./privacy-policy-for-adsense.mjs";
+import cookieNotice from "./cookie-notice-basics.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -51,5 +53,7 @@ export default {
   "after-approval-first-settings": afterApproval,
   "ad-placement-principles": adPlacement,
   "traffic-quality": trafficQuality,
-  "prohibited-content-check": contentPolicy
+  "prohibited-content-check": contentPolicy,
+  "privacy-policy-for-adsense": privacyNotice,
+  "cookie-notice-basics": cookieNotice
 };
