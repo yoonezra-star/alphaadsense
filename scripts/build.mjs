@@ -45,7 +45,7 @@ const categoryFocus = {
   rejection: ["원인", "거절 메시지를 콘텐츠, 탐색, 접근, 정책 문제로 나누어 수정 순서를 정합니다.", "재신청 전 수정 근거 정리"],
   writing: ["질문과 근거", "독자가 해결할 질문에 필요한 자료를 확보하고 사실·예시·판단의 범위를 구분합니다.", "기획, 초안 검증과 실제 편집 사례 연결"],
   monetization: ["상태와 이용", "사이트·ads.txt·정책 안내를 나누고 배치가 본문·도구 이용을 방해하는지 확인합니다.", "변경 기록·화면 검사·같은 범위의 지표 비교"],
-  policy: ["신뢰", "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 독자가 확인할 수 있게 정리합니다.", "하단 필수 링크와 공식 기준 점검"],
+  policy: ["근거와 분류", "정책 위반·광고 제한·미확인을 구분하고 실제 콘텐츠와 처리 정보를 대조합니다.", "문서가 있다는 사실과 실제 준수 여부를 구분"],
   resources: ["실행", "체크리스트, 계획표, 용어 정리로 운영자가 바로 적용할 수 있는 자료를 제공합니다.", "신청 전 기록과 반복 점검"]
 };
 
@@ -67,8 +67,8 @@ const categoryActions = {
     links: [["승인 후 상태·설정 확인", "/guides/after-approval-first-settings/"], ["광고 배치 검사", "/guides/ad-placement-principles/"], ["지표 비교 조건", "/guides/rpm-cpc-basics/#comparison-checks"]]
   },
   policy: {
-    use: "정책 허브는 개인정보, 쿠키, 금지 콘텐츠, 면책 문구를 신청 전에 한 번 더 확인하는 안전장치입니다.",
-    links: [["개인정보 정책 작성", "/guides/privacy-policy-for-adsense/"], ["쿠키 고지 기본", "/guides/cookie-notice-basics/"], ["금지 콘텐츠 점검", "/guides/prohibited-content-check/"]]
+    use: "정책 위반·광고 제한·미확인을 구분한 뒤 실제 운영의 개인정보 처리와 동의 요구를 확인합니다. 정책 문서의 존재나 면책 문구만으로 준수가 인증되지는 않습니다.",
+    links: [["콘텐츠 정책 분류", "/guides/prohibited-content-check/#policy-classes"], ["개인정보 정책 작성", "/guides/privacy-policy-for-adsense/"], ["쿠키 고지 기본", "/guides/cookie-notice-basics/"]]
   },
   resources: {
     use: "자료실은 공식 문서, 점검표, 콘텐츠 계획을 실제 운영 기록으로 바꾸는 곳입니다.",
@@ -96,10 +96,10 @@ const articles = [
   ["monetization", "after-approval-first-settings", "애드센스 승인 후 점검: 상태·설정·미리보기·복구", "사이트·ads.txt·정책·동의 상태를 구분하고 변경 전 기록, 공식 미리보기와 실제 적용·공개 검사·복구 절차를 설명합니다.", ["사이트 승인과 ads.txt·정책 상태를 따로 확인합니다.", "설정 전 기준선과 목적·복구 범위를 남깁니다.", "미리보기·적용·공개 결과를 별도로 검사합니다.", "계정 미확인과 가상 변경 사례를 실제 성과와 구분합니다."]],
   ["monetization", "rpm-cpc-basics", "RPM·CPC·CTR 계산과 보고서 해석", "페이지 조회수와 광고 노출수를 구분하고, 가상 데이터 계산과 기간 합산 예시로 수익 지표를 검산합니다.", ["페이지 RPM은 예상 수입을 페이지 조회수로 나누고 1,000을 곱합니다.", "광고 RPM은 광고 노출수, 광고 CTR은 광고 클릭수와 노출수의 비율로 계산합니다.", "통화, 기간과 보고서 범위가 다른 수치를 섞지 않습니다.", "CPC와 CTR은 승인 점수나 다음 달 수익을 보장하는 지표가 아닙니다."]],
   ["monetization", "ad-placement-principles", "광고 배치 검사: 콘텐츠 구분·우발 클릭·도구 이용", "정책 위험별 판단과 비상호작용 가상 배치도, 실제 도구의 조작 지점과 모바일·키보드·상태 변화 검사를 설명합니다.", ["광고가 기능·콘텐츠로 오해되는지 확인합니다.", "광고 개수·간격 대신 조작과 페이지 전체 결과를 검사합니다.", "가상 개념도와 실제 광고 운영 검사를 구분합니다.", "수정 전후 기록과 수익·이용 효과 측정을 분리합니다."]],
-  ["monetization", "traffic-quality", "애드센스에서 트래픽 품질이 중요한 이유", "수익을 높이기 전에 무효 트래픽과 저품질 유입을 피해야 하는 이유를 설명합니다.", ["본인 클릭, 지인 클릭 요청, 클릭 교환은 절대 피해야 합니다.", "광고성 대량 유입은 체류 시간과 정책 위험을 함께 악화시킬 수 있습니다.", "검색 유입은 느리지만 장기적으로 가장 안정적인 기반입니다.", "SNS 유입은 글 주제와 기대치가 맞을 때만 품질이 좋아집니다."]],
+  ["monetization", "traffic-quality", "광고 트래픽 품질: 근거·유입 비교·게재 제한 구분", "유입 변화와 무효 광고 트래픽을 구분하고 비교 조건·가상 수치·근거별 대응과 계정 안내의 한계를 정리합니다.", ["유입 경로 이름이나 CTR 하나로 정상·위반을 단정하지 않습니다.", "실제 안내와 비교 범위를 기록하되 민감한 로그는 공개하지 않습니다.", "근거에 맞는 범위를 조사하고 광고를 직접 클릭하지 않습니다.", "조사·변경 기록과 제한 해제·승인 결과를 구분합니다."]],
   ["policy", "privacy-policy-for-adsense", "애드센스용 개인정보처리방침에 넣을 항목", "구글 광고 쿠키, 맞춤 광고, 제3자 공급업체 고지를 개인정보처리방침에 반영하는 방법입니다.", ["구글을 포함한 제3자 공급업체가 쿠키를 사용할 수 있음을 알려야 합니다.", "맞춤 광고 선택 해제 경로를 안내합니다.", "문의 이메일과 개인정보 관련 요청 방법을 명확히 적습니다.", "정책 문구는 사이트 운영 방식에 맞게 작성하고 정기적으로 검토합니다."]],
   ["policy", "cookie-notice-basics", "쿠키 고지와 동의 안내 기본", "방문자에게 쿠키와 광고 기술 사용을 알리는 기본 원칙을 정리했습니다.", ["쿠키 고지는 숨겨진 페이지가 아니라 쉽게 찾을 수 있어야 합니다.", "지역별 법률 요구가 다를 수 있으므로 방문자 범위를 고려합니다.", "애드센스의 Privacy & messaging 도구도 검토할 수 있습니다.", "초기에는 복잡한 추적 도구를 많이 붙이지 않는 것이 관리에 유리합니다."]],
-  ["policy", "prohibited-content-check", "애드센스 금지 콘텐츠 사전 점검", "승인 전 피해야 할 콘텐츠 유형과 애매한 주제를 다루는 방법입니다.", ["성인, 불법, 폭력, 혐오, 사기성 내용은 광고 정책 위험이 큽니다.", "의료, 금융, 법률 정보는 단정적 조언을 피하고 출처를 명확히 합니다.", "수익 보장, 클릭 유도, 시스템 우회 표현은 사용하지 않습니다.", "애매하면 해당 글을 신청 이후로 미루는 편이 안전합니다."]],
+  ["policy", "prohibited-content-check", "콘텐츠 정책 검토: 위반·광고 제한·미확인 분류", "게시자 정책과 제한사항을 구분하고 페이지 문맥·권리 근거·가상 사례·수정 기록을 검토합니다. 심사 때만 숨기는 방식은 해결이 아닙니다.", ["정책 위반과 광고 제한, 추가 확인이 필요한 상태를 구분합니다.", "제목만이 아니라 본문·이미지·링크·제공 행위와 권리를 확인합니다.", "실제 요소와 공식 조항을 연결해 수정하고 근거를 기록합니다.", "면책 문구나 승인 후 복구를 정책 문제의 해결책으로 삼지 않습니다."]],
   ["policy", "disclaimer-page-guide", "면책 고지 페이지 작성 기준", "정보 사이트가 제공하는 내용의 범위와 한계를 독자에게 설명하는 방법입니다.", ["정보 제공 목적임을 분명히 하되 책임 회피 문구만 길게 쓰지 않습니다.", "정책과 수익 관련 정보는 시간이 지나면 바뀔 수 있음을 안내합니다.", "공식 판단은 구글 애드센스의 최신 정책을 따라야 한다고 연결합니다.", "문의 경로를 함께 제공하면 신뢰가 높아집니다."]],
   ["resources", "pre-apply-checklist", "재검토 전 근거 점검: 완료·미완료·미확인 구분", "공개 범위와 수정 근거, 실제 배포와 계정 확인을 나누고 재검토를 보류할 결함과 미확인 항목을 기록하는 절차입니다.", ["검토할 공개 주소와 남은 작업을 구분합니다.", "영역별 근거와 그 근거의 한계를 적습니다.", "공개 배포·계정 연결·검색 색인을 따로 확인합니다.", "고정 점수나 대기 일수로 신청을 자동 결정하지 않습니다."]],
   ["resources", "content-calendar-30-days", "콘텐츠 발행 계획: 가용 시간·작업·검증 예산", "조사·집필·검증·공개 확인의 시간 예산을 세우고 가상 초과 사례와 편집 가능한 작업 시간표로 계획을 조정합니다.", ["글 수 대신 완료할 작업과 필요한 근거를 적습니다.", "가용 시간에서 예비 시간을 뺀 뒤 예상 작업 시간을 비교합니다.", "근거 부족·범위 변경·시간 초과에 따라 계획을 조정합니다.", "시간표를 채운 것과 실제 검증·재검토 준비를 구분합니다."]],
@@ -141,11 +141,6 @@ const deepDives = {
     title: "개인정보 페이지 점검 항목",
     html: `<p>개인정보처리방침은 단순히 페이지가 있다는 사실보다 광고 쿠키와 제3자 공급업체 고지가 포함되어 있는지가 중요합니다. 특히 Google AdSense 적용 예정 사이트라면 맞춤 광고 선택 해제 경로와 문의 이메일을 명확히 적어 두는 것이 좋습니다.</p>
     <table><thead><tr><th>항목</th><th>포함 여부</th></tr></thead><tbody><tr><td>문의 시 수집 정보</td><td>이메일 주소와 문의 내용</td></tr><tr><td>광고 쿠키 고지</td><td>Google과 제3자 공급업체의 쿠키 사용 가능성</td></tr><tr><td>맞춤 광고 선택권</td><td>Google 광고 설정에서 선택 해제 가능</td></tr><tr><td>개인정보 문의</td><td>운영자 이메일 공개</td></tr></tbody></table>`
-  },
-  "prohibited-content-check": {
-    title: "신청 전 제외할 콘텐츠",
-    html: `<p>애드센스 신청 전에는 정책상 애매한 글을 굳이 함께 제출할 필요가 없습니다. 사이트 전체 품질을 보여 주는 단계에서는 가장 안전하고 완성도 높은 글을 중심으로 공개하고, 민감한 주제는 공식 정책을 더 확인한 뒤 다루는 편이 좋습니다.</p>
-    <table><thead><tr><th>위험 유형</th><th>대응</th></tr></thead><tbody><tr><td>클릭 유도</td><td>광고 클릭, 수익 보장, 우회 표현 삭제</td></tr><tr><td>민감 주제</td><td>의료, 금융, 법률 정보는 출처와 한계를 명확히 표시</td></tr><tr><td>금지 콘텐츠</td><td>성인, 불법, 혐오, 폭력, 사기성 주제는 제외</td></tr></tbody></table>`
   },
   "cloudflare-gabia-domain-guide": {
     title: "연결 후 확인 순서",
@@ -221,11 +216,6 @@ const deepDiveAdditions = {
     <table><thead><tr><th>항목</th><th>포함할 내용</th><th>확인 위치</th></tr></thead><tbody><tr><td>광고 쿠키</td><td>Google 및 제3자 공급업체가 쿠키를 사용할 수 있음</td><td>쿠키 정책, 개인정보처리방침</td></tr><tr><td>맞춤 광고</td><td>사용자가 광고 설정에서 선택을 조정할 수 있음</td><td>쿠키 정책 본문</td></tr><tr><td>운영 기준</td><td>광고를 메뉴나 버튼처럼 오해하게 만들지 않음</td><td>쿠키 정책, 면책 고지</td></tr><tr><td>문의 경로</td><td>쿠키와 개인정보 관련 요청 이메일</td><td>문의, 개인정보처리방침, 푸터</td></tr></tbody></table>
     <h3>초기 사이트에서 피할 점</h3>
     <ul><li>실제로 사용하지 않는 분석 도구를 쓰는 것처럼 고지하지 않습니다.</li><li>광고 쿠키 고지를 개인정보처리방침 안에만 숨기지 않습니다.</li><li>지역별 법률 요구가 다른 부분은 단정하지 않고 운영 범위에 맞게 안내합니다.</li><li>광고 클릭을 유도하는 문구와 쿠키 고지를 섞지 않습니다.</li></ul>`,
-  "prohibited-content-check": `<h3>정책 위험을 낮추는 사전 분류</h3>
-    <p>승인 전에는 애매한 글을 모두 공개해 사이트를 크게 보이게 만드는 것보다, 안전하고 완성도 높은 글을 중심으로 공개하는 편이 좋습니다. 금지 콘텐츠와 민감 주제는 공식 정책을 다시 확인하고, 판단이 어려우면 신청 이후 별도 검토 대상으로 미루는 것이 안전합니다.</p>
-    <table><thead><tr><th>분류</th><th>위험 신호</th><th>신청 전 조치</th></tr></thead><tbody><tr><td>클릭 유도</td><td>광고 클릭, 수익 보장, 클릭하면 도움 된다는 표현</td><td>문구 삭제 및 면책 고지 보강</td></tr><tr><td>민감 정보</td><td>의료, 금융, 법률 조언을 단정적으로 제시</td><td>출처, 한계, 전문가 상담 필요성을 명시</td></tr><tr><td>금지 주제</td><td>성인, 불법, 폭력, 혐오, 사기성 내용</td><td>공개 제외 또는 주제 변경</td></tr><tr><td>정책 우회</td><td>심사 우회, 계정 제한 회피, 무효 트래픽 유도</td><td>전체 문단 삭제 및 관련 내부 링크 제거</td></tr></tbody></table>
-    <h3>검토 기록으로 남길 것</h3>
-    <ul><li>정책 위험으로 수정하거나 제외한 페이지 URL</li><li>삭제한 표현과 대체한 표현</li><li>확인한 공식 도움말 또는 정책 문서</li><li>재검토가 필요한 민감 주제 목록</li></ul>`,
   "disclaimer-page-guide": `<h3>면책 고지가 필요한 이유</h3>
     <p>정보 사이트의 면책 고지는 책임 회피용 문구만 길게 쓰는 페이지가 아닙니다. 독자가 이 사이트의 정보가 일반적인 참고 자료이며, 애드센스 승인이나 수익을 보장하지 않는다는 점을 이해하도록 돕는 신뢰 페이지입니다.</p>
     <table><thead><tr><th>구분</th><th>명시할 내용</th><th>좋은 표현</th></tr></thead><tbody><tr><td>승인</td><td>승인 결과는 Google 심사와 정책에 따름</td><td>이 글은 승인 보장이 아니라 신청 전 점검 기준입니다.</td></tr><tr><td>수익</td><td>수익 지표는 사이트와 방문자에 따라 달라짐</td><td>RPM/CPC 정보는 일반적인 운영 참고 자료입니다.</td></tr><tr><td>정책</td><td>정책과 관리자 화면은 바뀔 수 있음</td><td>중요한 설정 전 공식 도움말을 다시 확인해야 합니다.</td></tr><tr><td>외부 링크</td><td>외부 사이트 운영은 해당 운영자 책임</td><td>공식 자료는 최신성을 확인한 뒤 적용합니다.</td></tr></tbody></table>
@@ -601,6 +591,10 @@ function categoryPriorityMatrix(key) {
     ["먼저", "계정 상태", "승인·ads.txt·정책 안내와 실제 변경 범위를 구분합니다.", actions.links[0]],
     ["다음", "배치와 조작", "광고를 클릭하지 않고 본문·도구·모바일 이용을 검사합니다.", actions.links[1]],
     ["참고", "지표 해석", "기간·통화·분모·형식이 같은 값인지 확인하고 인과관계를 단정하지 않습니다.", actions.links[2]]
+  ] : key === "policy" ? [
+    ["먼저", "콘텐츠 분류", "실제 요소와 공식 조항을 대조해 위반·제한·미확인을 구분합니다.", actions.links[0]],
+    ["다음", "실제 처리", "수집·저장·전송·문의 처리와 고지 내용이 일치하는지 확인합니다.", actions.links[1]],
+    ["참고", "동의 조건", "광고 기술·운영 지역에 필요한 선택권과 동의 요구를 확인합니다.", actions.links[2]]
   ] : [
     ["먼저", profile.focus, profile.good, actions.links[0]],
     ["다음", "보강 기준", profile.action, actions.links[1]],
@@ -715,7 +709,8 @@ function categoryPage(key) {
   const items = articles.filter((article) => article[0] === key);
   const preferredOrder = {
     writing: ["topic-selection-for-adsense", "avoid-ai-like-writing", "approval-friendly-article-format", "internal-linking-guide"],
-    monetization: ["after-approval-first-settings", "ad-placement-principles", "rpm-cpc-basics", "traffic-quality"]
+    monetization: ["after-approval-first-settings", "ad-placement-principles", "rpm-cpc-basics", "traffic-quality"],
+    policy: ["prohibited-content-check", "privacy-policy-for-adsense", "cookie-notice-basics", "disclaimer-page-guide"]
   }[key];
   const firstItems = preferredOrder ? preferredOrder.map(slug => items.find(item => item[1] === slug)) : items.slice(0, 4);
   const focus = categoryFocus[key];
@@ -755,7 +750,7 @@ function categoryPage(key) {
   <section class="wrap section">
     <div class="grid three">${items.map(articleCard).join("")}</div>
   </section>`;
-  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["writing", "resources", "monetization"].includes(key) ? "2026-10-27" : siteUpdatedAt });
+  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["writing", "resources", "monetization", "policy"].includes(key) ? "2026-10-27" : siteUpdatedAt });
 }
 
 function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) {
@@ -969,6 +964,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-27</strong><span><a href="/guides/traffic-quality/">광고 트래픽 근거 조사</a>와 <a href="/guides/prohibited-content-check/">콘텐츠 정책 분류</a>를 재작성했습니다. 유입 변화·무효 트래픽·게재 제한과 정책 위반·게시자 제한사항·미확인을 구분했습니다. 정책 허브와 거절 진단도 연결하고 승인 때만 숨기는 안내를 제거했습니다. 실제 계정 조회·광고 클릭·유입 차단·재검토 요청은 수행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/after-approval-first-settings/">승인 후 점검</a>과 <a href="/guides/ad-placement-principles/">광고 배치 검사</a>를 재작성했습니다. 상태·미리보기·복구를 나누고 실제 광고가 아닌 가상 배치도와 도구 이용 검사를 추가했습니다. 실제 승인·계정 설정·광고 활성화는 수행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/content-calendar-30-days/">발행 계획</a>과 <a href="/guides/glossary-for-beginners/">운영 용어집</a>을 재작성했습니다. 가상 시간 예산과 지표별 분모·단위 비교를 추가하고 <a href="/tools/content-planner/#editorial-planner">편집 가능한 시간표</a>를 연결했습니다. 시간표 입력은 저장·전송하지 않으며 승인 판정·자동 발행 기능은 없습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/internal-linking-guide/">내부 링크 편집</a>과 <a href="/guides/evergreen-content-plan/">기존 글 갱신</a>을 재작성했습니다. 실제 허브 연결 변경과 배포 사례, 절 주소 검사와 날짜·관찰 기록 보존을 추가했습니다. 링크 수·고정 갱신 주기를 승인 기준으로 삼지 않습니다.</span></li>
@@ -1040,7 +1036,7 @@ write("tools/rejection-diagnosis/index.html", staticPage("애드센스 거절 �
     low: { title: "가치가 낮은 콘텐츠", priority: "대표 글 깊이 보강", evidence: "수정 전후 글 목록, 추가한 표와 예시, 병합한 중복 글을 기록합니다.", points: ["대표 글의 깊이와 중복성을 먼저 봅니다.", "문제 상황, 판단 기준, 수정 예시, 체크리스트를 추가합니다.", "검색 결과 요약처럼 보이는 일반론을 줄입니다."], links: [["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["승인 친화적 글 구성", "/guides/approval-friendly-article-format/"]] },
     nav: { title: "탐색 문제", priority: "실패 경로 재현과 목적지 확인", evidence: "출발 URL, 누른 문구, 예상·실제 목적지, 입력 방식과 화면 폭을 기록합니다.", points: ["같은 링크를 마우스·키보드·모바일에서 나누어 재현합니다.", "주소 오타, 목차 id, 가려짐과 배포 미반영을 구분합니다.", "원본을 고친 뒤 공개 화면의 같은 경로에서 재검사합니다."], links: [["탐색 오류 재현과 복구", "/guides/navigation-issue-fix/"], ["사이트 구조 검사 절차", "/guides/site-structure-before-apply/"]] },
     access: { title: "접근 불가", priority: "오류 계층과 실패 요청 확인", evidence: "정확한 URL, 오류 문구·응답 상태, 시간대와 확인 환경을 기록합니다. 일반 요청은 Google 접근 증거와 구분합니다.", points: ["DNS·인증서·리디렉션·HTTP 오류를 먼저 구분합니다.", "차단 의심 시 실패 요청과 보안 이벤트를 대조하며 보안 전체를 해제하지 않습니다.", "변경 범위를 기록하고 원래 실패한 주소의 응답과 본문을 재검사합니다."], links: [["사이트 접근 오류 진단", "/guides/site-down-unavailable/"], ["가비아·Cloudflare 연결", "/guides/cloudflare-gabia-domain-guide/"]] },
-    policy: { title: "정책 위험", priority: "위험 문구와 필수 고지 정리", evidence: "삭제한 표현, 보강한 정책 페이지, 공식 자료 확인일을 기록합니다.", points: ["금지 콘텐츠, 클릭 유도, 승인 보장 표현을 제거합니다.", "개인정보처리방침과 쿠키 정책의 광고 관련 문구를 확인합니다.", "수익 보장과 과장된 표현을 면책 고지 기준으로 낮춥니다."], links: [["금지 콘텐츠 점검", "/guides/prohibited-content-check/"], ["정책 페이지 예시", "/guides/privacy-cookie-page-example/"]] },
+    policy: { title: "정책 위험", priority: "위반·광고 제한·미확인을 근거로 구분", evidence: "URL·실제 요소·공식 조항·확인일과 계정 안내 유형, 미확인 범위를 기록합니다.", points: ["제목만으로 판정하지 않고 페이지 전체 문맥과 권리 근거를 확인합니다.", "정책 위반과 게시자 제한사항, 계정 게재 제한 안내를 구분합니다.", "허위 보장·클릭 유도 등 실제 문제를 수정합니다. 면책 문구나 심사 때만 숨기는 방식은 해결이 아닙니다."], links: [["콘텐츠 정책 분류", "/guides/prohibited-content-check/#policy-classes"], ["계정 상태 구분", "/guides/after-approval-first-settings/#status-boundaries"]] },
     unknown: { title: "복합 문제", priority: "전체 흐름 재점검", evidence: "홈, 대표 글, 정책 페이지, 색인 상태를 같은 표로 묶어 기록합니다.", points: ["홈, 카테고리, 대표 글, 정책 페이지를 같은 흐름으로 점검합니다.", "Search Console에서 발견된 주요 URL과 실제 공개 URL을 비교합니다.", "변경 후 공개 결과를 재검사하고 미확인 항목을 구분합니다."], links: [["승인 준비 허브", "/approval-hub/"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"]] }
   };
   const select = document.getElementById("reject-type");

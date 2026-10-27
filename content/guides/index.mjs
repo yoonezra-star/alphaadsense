@@ -22,6 +22,8 @@ import contentCalendar from "./content-calendar-30-days.mjs";
 import glossary from "./glossary-for-beginners.mjs";
 import afterApproval from "./after-approval-first-settings.mjs";
 import adPlacement from "./ad-placement-principles.mjs";
+import trafficQuality from "./traffic-quality.mjs";
+import contentPolicy from "./prohibited-content-check.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -47,5 +49,7 @@ export default {
   "content-calendar-30-days": contentCalendar,
   "glossary-for-beginners": glossary,
   "after-approval-first-settings": afterApproval,
-  "ad-placement-principles": adPlacement
+  "ad-placement-principles": adPlacement,
+  "traffic-quality": trafficQuality,
+  "prohibited-content-check": contentPolicy
 };

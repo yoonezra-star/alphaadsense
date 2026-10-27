@@ -83,7 +83,7 @@ test("visible and structured modification dates agree without changing publicati
 });
 
 test("an untouched guide keeps its previous modification date", () => {
-  const html = read("guides/traffic-quality/index.html");
+  const html = read("guides/privacy-policy-for-adsense/index.html");
   const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   assert.equal(schema["@graph"].find((entry) => entry["@type"] === "Article").dateModified, "2026-07-13");
   assert.ok(html.includes("업데이트: 2026-07-13"));
@@ -243,6 +243,51 @@ test("monetization hub follows status, placement and comparable metrics rather t
   const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
   assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
   assert.ok(read("updates/index.html").includes("실제 광고가 아닌 가상 배치도"));
+});
+
+test("traffic review distinguishes observations from invalidity and account outcomes", () => {
+  const html = read("guides/traffic-quality/index.html");
+  for (const marker of ['id="distinguish-signals"', 'id="hypothetical-comparison"', 'id="targeted-response"', 'id="account-notice"', "검색·SNS·직접 방문·유료 홍보라는 유입 경로 이름만으로", "설명용 가상 데이터", "10,000", "1,000", "0.5%", "1.5%", "광고를 직접 눌러 목적지를 확인하는 시험도 하지 않습니다", "특정 일수 뒤 반드시 해제", "자동 감시·유입 수집·차단·광고 클릭·계정 제출을 실행하지 않습니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("검색 유입은 느리지만 장기적으로 가장 안정적인 기반"));
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("content policy review distinguishes restrictions and rejects review-only concealment", () => {
+  const html = read("guides/prohibited-content-check/index.html");
+  for (const marker of ['id="policy-classes"', 'id="page-context"', 'id="hypothetical-cases"', 'id="before-and-after-review"', "출처를 적는 것과 사용 허락은 다릅니다", "작은 면책으로 유지하지 않음", "심사 기간에만 문제 내용을 숨기거나 승인 뒤 원래 상태로 되돌릴 계획은 실질적인 개선이 아닙니다", "실제 위반 사례·승인 성공 기록이 아닙니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("신청 이후 별도 검토 대상으로 미루는 것이 안전합니다"));
+  assert.ok(!html.includes("<h2>자가 진단 표</h2>"));
+});
+
+test("traffic and policy tables and fragments remain accessible and valid", () => {
+  for (const slug of ["traffic-quality", "prohibited-content-check"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length >= 2);
+    for (const [, table] of tables) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), `${slug}: ${marker}`);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/guides/${slug}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${slug}: ${href}`);
+    }
+    assert.ok(html.includes("공식 자료 확인일:"));
+    assert.ok(!/adsbygoogle|ca-pub-|data-ad-slot=|<iframe/.test(html));
+  }
+});
+
+test("policy hub and diagnosis use evidence-based classification without disclaimer workarounds", () => {
+  const html = read("policy/index.html");
+  const order = html.split('<ol class="read-order">')[1].split('</ol>')[0];
+  assert.deepEqual([...order.matchAll(/href="\/guides\/([^/]+)\//g)].map(match => match[1]), ["prohibited-content-check", "privacy-policy-for-adsense", "cookie-notice-basics", "disclaimer-page-guide"]);
+  for (const marker of ["문서의 존재나 면책 문구만으로 준수가 인증되지는 않습니다", "실제 처리", "동의 조건", 'href="/guides/prohibited-content-check/#policy-classes"']) assert.ok(html.includes(marker), marker);
+  const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
+  const diagnosis = read("tools/rejection-diagnosis/index.html");
+  assert.ok(diagnosis.includes("위반·광고 제한·미확인을 근거로 구분"));
+  assert.ok(diagnosis.includes("공식 조항·확인일과 계정 안내 유형"));
+  assert.ok(!diagnosis.includes("면책 고지 기준으로 낮춥니다"));
+  assert.ok(read("updates/index.html").includes("승인 때만 숨기는 안내를 제거"));
 });
 
 test("calendar separates hypothetical time budgets from production and approval outcomes", () => {
@@ -426,7 +471,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 24);
+  assert.equal(Object.keys(revisedGuides).length, 26);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {
