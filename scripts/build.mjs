@@ -40,14 +40,6 @@ const categories = {
   resources: { title: "자료실", description: "사이트 운영자가 바로 사용할 수 있는 점검표, 작성표, 용어 정리, 제출 전 확인 자료입니다." }
 };
 
-const categoryFocus = {
-  approval: ["목적과 근거", "운영 주체·고유한 답·구조와 남은 작업을 실제 자료로 확인합니다.", "공개 반영과 계정 확인을 구분"],
-  rejection: ["원인", "거절 메시지를 콘텐츠, 탐색, 접근, 정책 문제로 나누어 수정 순서를 정합니다.", "재신청 전 수정 근거 정리"],
-  writing: ["질문과 근거", "독자가 해결할 질문에 필요한 자료를 확보하고 사실·예시·판단의 범위를 구분합니다.", "기획, 초안 검증과 실제 편집 사례 연결"],
-  monetization: ["상태와 이용", "사이트·ads.txt·정책 안내를 나누고 배치가 본문·도구 이용을 방해하는지 확인합니다.", "변경 기록·화면 검사·같은 범위의 지표 비교"],
-  policy: ["근거와 분류", "정책 위반·광고 제한·미확인을 구분하고 실제 콘텐츠와 처리 정보를 대조합니다.", "문서가 있다는 사실과 실제 준수 여부를 구분"],
-  resources: ["실행", "체크리스트, 계획표, 용어 정리로 운영자가 바로 적용할 수 있는 자료를 제공합니다.", "신청 전 기록과 반복 점검"]
-};
 
 const categoryActions = {
   approval: {
@@ -59,15 +51,15 @@ const categoryActions = {
     links: [["거절 사유 진단", "/tools/rejection-diagnosis/"], ["허브 유지·통합 판단", "/guides/thin-category-pages/#hub-decisions"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"]]
   },
   writing: {
-    use: "먼저 답할 질문과 확보 자료를 정하고 초안의 사실·출처를 검증합니다. 실제 편집 사례를 참고하되 글 수나 문체를 승인 기준으로 삼지 않습니다.",
+    use: "먼저 답할 질문과 확보 자료를 정하고 초안의 사실·출처를 검증합니다. 실제 편집 사례를 참고하되 글 수나 문체를 승인 기준으로 삼지 않습니다. 표 개수로 완료를 판단하지 않습니다.",
     links: [["자료 기반 주제 선정", "/guides/topic-selection-for-adsense/"], ["AI 초안 사실 검증", "/guides/avoid-ai-like-writing/"], ["실제 원문 편집 사례", "/guides/approval-friendly-article-format/"]]
   },
   monetization: {
-    use: "승인 전에는 과한 수익 약속을 피하고, 승인 후 광고 배치와 트래픽 품질을 안정적으로 운영하는 기준을 확인합니다.",
+    use: "승인·ads.txt·정책 안내를 구분하고 광고를 클릭하지 않고 본문·도구·모바일 이용을 검사합니다. 기간·통화·분모·범위가 같은 수치로 비교하며 변화만으로 인과관계를 단정하지 않습니다.",
     links: [["승인 후 상태·설정 확인", "/guides/after-approval-first-settings/"], ["광고 배치 검사", "/guides/ad-placement-principles/"], ["지표 비교 조건", "/guides/rpm-cpc-basics/#comparison-checks"]]
   },
   policy: {
-    use: "정책 위반·광고 제한·미확인을 구분한 뒤 실제 운영의 개인정보 처리와 동의 요구를 확인합니다. 정책 문서의 존재나 면책 문구만으로 준수가 인증되지는 않습니다.",
+    use: "정책 위반·광고 제한·미확인을 구분한 뒤 실제 처리 흐름과 동의 조건을 확인합니다. 정책 문서의 존재나 면책 문구만으로 준수가 인증되지는 않습니다.",
     links: [["콘텐츠 정책 분류", "/guides/prohibited-content-check/#policy-classes"], ["실제 처리 흐름 확인", "/guides/privacy-policy-for-adsense/#processing-inventory"], ["동의 상태별 검사", "/guides/cookie-notice-basics/#consent-test-paths"]]
   },
   resources: {
@@ -185,50 +177,6 @@ const requiredPageMeta = {
   }
 };
 
-const qualityProfiles = {
-  approval: {
-    focus: "승인 준비",
-    good: "필수 페이지, 대표 글, 색인 상태, 모바일 화면이 한 흐름으로 연결되어 있습니다.",
-    risk: "글 수만 늘고 운영자 정보, 정책 페이지, 대표 글의 깊이가 부족합니다.",
-    action: "신청 전 체크리스트와 콘텐츠 점검 작업표로 수정이 필요한 항목을 기록합니다.",
-    proof: ["대표 글 URL과 카테고리 허브 연결 상태", "필수 페이지 하단 링크 노출 여부", "Search Console 색인 확인 날짜", "모바일 화면에서 표와 메뉴가 겹치지 않는지"]
-  },
-  rejection: {
-    focus: "거절 대응",
-    good: "거절 메시지를 원인별로 분류하고 수정 전후 기록을 남깁니다.",
-    risk: "거절 사유를 추측만 하고 같은 글을 조금 바꾼 뒤 바로 재신청합니다.",
-    action: "낮은 가치, 탐색, 접근 불가, 정책 위험을 나눠 수정 순서를 정합니다.",
-    proof: ["수정한 글과 제외한 글 목록", "병합 또는 보강한 중복 글 기록", "깨진 링크와 메뉴 수정 내역", "수정 후 관찰·재검사 기록"]
-  },
-  writing: {
-    focus: "글쓰기 품질",
-    good: "문제 상황, 판단 기준, 예시, 체크리스트, 관련 글 링크가 함께 들어갑니다.",
-    risk: "검색 결과를 다시 말하거나 AI 문장처럼 일반론만 반복합니다.",
-    action: "대표 글을 먼저 정하고 표, 예시, 내부 링크를 추가해 깊이를 보강합니다.",
-    proof: ["본문에 추가한 표와 예시", "독자가 따라 할 수 있는 단계", "관련 글 내부 링크", "오래된 문장 수정 날짜"]
-  },
-  monetization: {
-    focus: "승인 후 운영",
-    good: "광고와 콘텐츠를 구분하고 무효 트래픽 위험을 줄이는 방식으로 운영합니다.",
-    risk: "수익만 강조하거나 클릭 유도, 과도한 광고 배치를 먼저 생각합니다.",
-    action: "광고 배치보다 콘텐츠 가독성, 트래픽 품질, 정책 안정성을 먼저 점검합니다.",
-    proof: ["광고가 콘텐츠를 가리지 않는 화면", "클릭 유도 표현 제거 내역", "트래픽 유입 경로 점검", "승인 후 설정 변경 기록"]
-  },
-  policy: {
-    focus: "정책 안정성",
-    good: "개인정보, 쿠키, 면책, 금지 콘텐츠 기준을 방문자가 쉽게 찾을 수 있습니다.",
-    risk: "정책 페이지는 있지만 광고 쿠키, 맞춤 광고, 문의 경로가 빠져 있습니다.",
-    action: "공식 정책 기준과 실제 운영 방식이 맞는지 페이지별로 확인합니다.",
-    proof: ["개인정보처리방침의 광고 쿠키 문구", "쿠키 정책의 선택권 안내", "면책 고지와 문의 링크", "금지 콘텐츠 사전 점검 기록"]
-  },
-  resources: {
-    focus: "자료 활용",
-    good: "공식 자료를 우선 확인하고, 체크리스트와 기록표로 실행까지 연결합니다.",
-    risk: "출처가 불명확한 팁이나 오래된 화면 안내를 그대로 사용합니다.",
-    action: "공식 도움말, 사이트맵, 점검 도구를 함께 보며 최신성을 확인합니다.",
-    proof: ["참고한 공식 자료 링크", "확인 날짜와 수정 날짜", "점검표 완료 항목", "깨진 링크 정리 결과"]
-  }
-};
 
 function businessSummaryRows() {
   return `<table class="trust-table"><tbody><tr><th>운영 주체</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`;
@@ -404,7 +352,7 @@ function layout({ title, description, path = "/", content, schema = [], updatedA
   <meta property="og:url" content="${url}">
   <meta property="og:image" content="${site.domain}/assets/approval-workflow.png">
   ${schemaScript(schemas)}
-  <link rel="stylesheet" href="/styles.css?v=20261028-trust-hubs">
+  <link rel="stylesheet" href="/styles.css?v=20261028-editorial-hubs">
 </head>
 <body>
   <a class="skip" href="#content">콘텐츠로 건너뛰기</a>
@@ -450,51 +398,6 @@ function articleCard(article) {
   </article>`;
 }
 
-function visualHubCard({ href, src, alt, title, text }) {
-  return `<a class="visual-card" href="${href}">
-    <img src="${src}" alt="${esc(alt)}" loading="lazy" width="700" height="380">
-    <strong>${esc(title)}</strong>
-    <span>${esc(text)}</span>
-  </a>`;
-}
-
-
-function categoryPriorityMatrix(key) {
-  const profile = qualityProfiles[key];
-  const actions = categoryActions[key];
-  if (!profile || !actions) return "";
-  const rows = key === "approval" ? [
-    ["먼저", "공개 운영 정보", "누가 운영하고 어떤 근거로 설명하는지, 표시와 검증의 차이를 확인합니다.", actions.links[0]],
-    ["기록", "실제 수정", "글별 질문·근거·다음 작업과 미확인 항목을 기록합니다.", actions.links[1]],
-    ["확인", "남은 결함", "공개 반영·실제 운영·계정 확인의 완료 범위를 나눕니다.", actions.links[2]]
-  ] : key === "rejection" ? [
-    ["먼저", "안내와 증상", "계정 안내와 실제 재현한 본문·탐색·접속 문제를 구분합니다.", actions.links[0]],
-    ["판단", "허브 역할", "독자의 선택과 목적지의 고유한 답으로 유지·통합·보류를 검토합니다.", actions.links[1]],
-    ["기록", "변경과 관찰", "실제 변경·공개 결과·가설·남은 작업을 구분합니다.", actions.links[2]]
-  ] : key === "writing" ? [
-    ["먼저", "질문과 자료", "답할 질문과 확보 자료, 기존 글과의 차이로 다음 작업을 결정합니다.", actions.links[0]],
-    ["다음", "주장 검증", "정의·정책·계산·실제 경험을 근거와 대조하고 미확인 주장을 보류합니다.", actions.links[1]],
-    ["참고", "실제 편집", "원문의 결함과 수정 판단, 공개 결과를 비교합니다. 표 개수로 완료를 판단하지 않습니다.", actions.links[2]]
-  ] : key === "monetization" ? [
-    ["먼저", "계정 상태", "승인·ads.txt·정책 안내와 실제 변경 범위를 구분합니다.", actions.links[0]],
-    ["다음", "배치와 조작", "광고를 클릭하지 않고 본문·도구·모바일 이용을 검사합니다.", actions.links[1]],
-    ["참고", "지표 해석", "기간·통화·분모·형식이 같은 값인지 확인하고 인과관계를 단정하지 않습니다.", actions.links[2]]
-  ] : key === "policy" ? [
-    ["먼저", "콘텐츠 분류", "실제 요소와 공식 조항을 대조해 위반·제한·미확인을 구분합니다.", actions.links[0]],
-    ["다음", "실제 처리", "수집·저장·전송·문의 처리와 고지 내용이 일치하는지 확인합니다.", actions.links[1]],
-    ["참고", "동의 조건", "광고 기술·운영 지역에 필요한 선택권과 동의 요구를 확인합니다.", actions.links[2]]
-  ] : [
-    ["먼저", profile.focus, profile.good, actions.links[0]],
-    ["다음", "보강 기준", profile.action, actions.links[1]],
-    ["마지막", "신청 전 확인", "수정한 내용이 실제 공개 페이지와 모바일 화면에서 확인되는지 봅니다.", actions.links[2]]
-  ];
-  return `<section class="wrap section tight">
-    <h2>우선순위 매트릭스</h2>
-    <table class="summary-table priority-table"><thead><tr><th>순서</th><th>점검 영역</th><th>판단 기준</th><th>바로가기</th></tr></thead><tbody>
-      ${rows.map(([order, area, standard, link]) => `<tr><td>${order}</td><td>${esc(area)}</td><td>${esc(standard)}</td><td><a href="${link[1]}">${esc(link[0])}</a></td></tr>`).join("")}
-    </tbody></table>
-  </section>`;
-}
 
 function revisedGuideContent(guide) {
   return `${guide.intro}
@@ -572,8 +475,8 @@ function categoryPage(key) {
     policy: ["prohibited-content-check", "privacy-policy-for-adsense", "cookie-notice-basics", "disclaimer-page-guide"]
   }[key];
   const firstItems = preferredOrder ? preferredOrder.map(slug => items.find(item => item[1] === slug)) : items.slice(0, 4);
-  const focus = categoryFocus[key];
   const actions = categoryActions[key];
+  const remainingItems = items.filter(item => !firstItems.includes(item));
   const entryPaths = {
     approval: [
       ["운영 주체 확인", "공개 정보·전문성 근거·정정 경로를 구분합니다.", "/guides/domain-and-trust/#operator-record"],
@@ -594,38 +497,21 @@ function categoryPage(key) {
     <p>${category.description}</p>
   </section>
   ${entryPaths ? `<section class="wrap section tight hub-entry" aria-labelledby="hub-entry-paths"><h2 id="hub-entry-paths" tabindex="-1">상황에 맞는 출발점</h2><div class="home-path-list">${entryPaths.map(([label, description, href]) => `<a href="${href}"><strong>${esc(label)}</strong><span>${esc(description)}</span><img src="/assets/icons/arrow-right.svg" alt="" width="20" height="20"></a>`).join("")}</div></section>` : ""}
-  <section class="wrap section tight">
-    <div class="hub-overview">
-      <div>
-        <p class="eyebrow">주제 안내</p>
-        <h2>이 페이지에서 먼저 판단할 것</h2>
-        <p>${esc(actions.use)}</p>
-      </div>
-      <dl>
-        <div><dt>가이드</dt><dd>${items.length}개</dd></div>
-        <div><dt>대표 경로</dt><dd>${firstItems.length}단계</dd></div>
-        <div><dt>점검 기준</dt><dd>3개</dd></div>
-      </dl>
-    </div>
+  <section class="wrap section tight hub-summary">
+    <h2>이 주제의 판단 기준</h2>
+    <p>${esc(actions.use)}</p>
   </section>
   <section class="wrap section tight">
     <h2>추천 읽기 순서</h2>
-    ${entryPaths ? "<p>추천 문서는 승인 요건이나 고정 준비 일정이 아닙니다.</p>" : ""}
+    <p>필요한 질문부터 골라 읽으세요. 전체를 순서대로 읽거나 정해진 문서 수를 채워야 하는 것은 아닙니다.</p>
     <ol class="read-order">${firstItems.map((item) => `<li><a href="${slugPath(item[1])}">${esc(item[2])}</a><span>${esc(item[3])}</span></li>`).join("")}</ol>
   </section>
-  <section class="wrap section tight">
-    <h2>이 주제에서 확인할 것</h2>
-    <table class="summary-table"><thead><tr><th>핵심</th><th>확인 기준</th><th>활용 방법</th></tr></thead><tbody><tr><td>${esc(focus[0])}</td><td>${esc(focus[1])}</td><td>${esc(focus[2])}</td></tr></tbody></table>
-  </section>
-  ${categoryPriorityMatrix(key)}
-  <section class="wrap section tight">
-    <h2>바로 실행할 수 있는 도구와 글</h2>
-    <div class="action-strip">${actions.links.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join("")}</div>
-  </section>
-  <section class="wrap section">
-    <div class="grid three">${items.map(articleCard).join("")}</div>
+  ${remainingItems.length ? `<section class="wrap section tight" data-guide-list="remaining"><h2>함께 살펴볼 문서</h2><div class="grid three">${remainingItems.map(articleCard).join("")}</div></section>` : ""}
+  <section class="wrap section tight hub-related">
+    <h2>관련 작업과 상세 절</h2>
+    <ul>${actions.links.map(([label, href]) => `<li><a href="${href}">${esc(label)}</a></li>`).join("")}</ul>
   </section>`;
-  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: ["approval", "rejection", "resources"].includes(key) ? "2026-10-28" : ["writing", "monetization", "policy"].includes(key) ? "2026-10-27" : siteUpdatedAt });
+  return layout({ title: category.title, description: category.description, path: `/${key}/`, content: body, updatedAt: "2026-10-28" });
 }
 
 function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) {
@@ -661,42 +547,42 @@ cpSync("node_modules/lucide-static/LICENSE", "dist/assets/icons/LICENSE.txt");
 const latest = [...articles].sort((left, right) => (revisedGuides[right[1]]?.updatedAt || siteUpdatedAt).localeCompare(revisedGuides[left[1]]?.updatedAt || siteUpdatedAt)).slice(0, 8);
 const nextStepPaths = [
   {
-    title: "처음 만드는 운영자",
-    description: "도메인 연결, 메뉴 구성, 필수 페이지, 첫 대표 글 발행 순서가 필요한 단계입니다.",
-    links: [["시작 가이드", "/start-guide/"], ["승인 준비 허브", "/approval-hub/"], ["신청 전 체크리스트", "/checklist/"]]
+    id: "domain-only",
+    title: "도메인만 준비했다면",
+    description: "먼저 누구의 어떤 질문에 답할지와 실제 확보한 자료를 정합니다. 아직 공개할 답이 없는데 메뉴나 유사 글부터 늘리지 않습니다.",
+    label: "독자 질문과 확보 자료로 주제 결정",
+    href: "/guides/topic-selection-for-adsense/",
+    stop: "자료가 부족하면 추가 조사로 돌아갑니다. DNS 변경은 실제 연결 오류를 확인한 뒤 별도 절차로 진행합니다."
   },
   {
-    title: "글은 있지만 승인 준비가 불안한 운영자",
-    description: "홈, 카테고리, 대표 글, 내부 링크, 정책 페이지를 같이 점검해야 하는 단계입니다.",
-    links: [["사이트 구조 점검", "/guides/site-structure-audit-example/"], ["승인 친화적 글 구성", "/guides/approval-friendly-article-format/"], ["콘텐츠 점검 작업표", "/tools/approval-score/"]]
+    id: "existing-content",
+    title: "글은 있지만 답이 겹친다면",
+    description: "겹치는 두 URL의 독자 질문·고유한 자료·실제 답을 나란히 비교합니다. 단순히 짧다는 이유로 삭제하거나 요소를 덧붙이지 않습니다.",
+    label: "문서 역할 비교와 재작성·병합 판단",
+    href: "/guides/duplicate-content-cleanup/",
+    stop: "대체할 답과 기존 연결을 확인하기 전에는 URL을 없애거나 무관한 홈으로 보내지 않습니다."
   },
   {
-    title: "거절을 받은 운영자",
-    description: "거절 메시지를 원인별로 나누고, 재신청 전 수정 기록을 남겨야 하는 단계입니다.",
-    links: [["거절 사유 진단", "/tools/rejection-diagnosis/"], ["낮은 가치 수정 예시", "/guides/low-value-rejection-rewrite-example/"], ["수정 후 관찰 기록", "/guides/seven-day-pre-apply-log-example/"]]
+    id: "rejection-received",
+    title: "거절 안내를 받았다면",
+    description: "받은 원문·대상 사이트·받은 시각과 현재 관찰을 분리합니다. 안내 제목만으로 특정 URL의 원인을 확정하지 않습니다.",
+    label: "받은 안내의 원문·관찰·가설 기록",
+    href: "/guides/rejection-message-map/#notice-record",
+    stop: "원문이나 현재 계정 상태가 없으면 미확인으로 남깁니다. 자료를 확인하지 않고 검토 요청을 반복하지 않습니다."
   },
   {
-    title: "승인 후 수익화를 준비하는 운영자",
-    description: "광고 배치보다 정책 안정성, 트래픽 품질, 사용자 경험을 먼저 확인해야 하는 단계입니다.",
-    links: [["수익화 전략", "/monetization/"], ["광고 배치 원칙", "/guides/ad-placement-principles/"], ["트래픽 품질", "/guides/traffic-quality/"]]
+    id: "after-approval",
+    title: "승인 후 광고 운영을 준비한다면",
+    description: "현재 사이트 심사·ads.txt·정책 알림·실제 광고 노출 상태부터 구분합니다. 곧바로 광고 위치나 개수를 바꾸기 전에 기준선을 남깁니다.",
+    label: "계정 상태와 설정의 역할 구분",
+    href: "/guides/after-approval-first-settings/#status-boundaries",
+    stop: "동의·정책 적용이나 계정 지시가 불명확하면 광고 변경을 보류하고 확인합니다. 본인 광고를 클릭해 시험하지 않습니다."
   }
 ];
 
-function nextStepCard(item) {
-  return `<article class="path-card">
-    <h3>${esc(item.title)}</h3>
-    <p>${esc(item.description)}</p>
-    <div>${item.links.map(([label, href]) => `<a href="${href}">${esc(label)}</a>`).join("")}</div>
-  </article>`;
+function nextStepPath(item) {
+  return `<section class="decision-path" aria-labelledby="${item.id}"><h2 id="${item.id}" tabindex="-1">${esc(item.title)}</h2><p>${esc(item.description)}</p><p><a href="${item.href}">${esc(item.label)}</a></p><p class="decision-stop"><strong>보류할 때:</strong> ${esc(item.stop)}</p></section>`;
 }
-
-
-const approvalReadinessCards = [
-  ["뼈대", "도메인, 홈, 메뉴, 필수 페이지가 먼저 고정되어야 합니다.", "/start-guide/"],
-  ["깊이", "대표 글은 단순 요약보다 예시, 표, 판단 기준이 보여야 합니다.", "/writing/"],
-  ["신뢰", "사업자 정보, 문의 경로, 정책 문서가 반복 접근 가능해야 합니다.", "/about/"],
-  ["안정", "색인, HTTPS, 모바일 화면, 깨진 링크를 신청 전 다시 봅니다.", "/tools/approval-score/"]
-];
 
 const body = homePage({ latest, images: articleImages, guides: revisedGuides, categories, escape: esc });
 
@@ -746,65 +632,65 @@ write("official-resources/index.html", staticPage("공식 자료 활용 안내",
 <h2>편집자가 남겨야 할 기록</h2>
 <p>공식 자료를 참고해 글을 수정했다면 어떤 자료를 확인했고 어떤 문장을 바꿨는지 간단히 기록하는 편이 좋습니다. 특히 정책, 쿠키, 광고 배치, 무효 트래픽처럼 기준이 중요한 주제는 수정일을 남겨야 나중에 재검토하기 쉽습니다. 이 기록은 심사자에게 직접 제출하는 문서는 아니지만, 사이트 운영자가 콘텐츠를 관리하고 있다는 신호가 됩니다.</p>`));
 
-write("approval-hub/index.html", staticPage("애드센스 승인 준비 허브", "도메인 연결부터 글 보강, 정책 페이지, 색인 확인, 신청 직전 점검까지 승인 준비 흐름을 단계별로 모은 허브입니다.", "/approval-hub/", `
-<p>승인 준비는 한두 개의 글만 고치는 작업이 아니라 사이트 전체를 안정화하는 과정입니다. 아래 순서대로 확인하면 현재 사이트가 어느 단계에서 약한지 빠르게 찾을 수 있습니다.</p>
-<div class="visual-grid compact">
-${[
-  { href: "/guides/adsense-approval-roadmap/", src: "/assets/approval-workflow.png", alt: "애드센스 승인 준비 흐름도", title: "전체 승인 로드맵", text: "신청 전 전체 과정을 한 번에 정리합니다." },
-  { href: "/guides/privacy-cookie-page-example/", src: "/assets/policy-pages-map.png", alt: "정책 페이지 역할 지도", title: "정책 페이지 실제 개정", text: "실제 원문과 수정 판단, 공개 결과와 남은 운영 과제를 비교합니다." },
-  { href: "/guides/seven-day-pre-apply-log-example/", src: "/assets/review-evidence-workbench-20261027.jpg", alt: "콘텐츠 점검 작업표의 근거 입력 화면", title: "수정 후 관찰 기록", text: "실제 변경·관찰·미확인을 구분한 사례입니다." }
-].map(visualHubCard).join("")}
-</div>
-<div class="readiness-grid">${approvalReadinessCards.map(([title, text, href]) => `<a href="${href}"><strong>${title}</strong><span>${text}</span></a>`).join("")}</div>
-<h2>단계별 대표 가이드</h2>
-<div class="hub-list">
-  <a href="/guides/domain-and-trust/"><strong>1. 운영 주체·근거 확인</strong><span>공개 운영 정보와 제작 방식·정정 경로의 확인 범위를 나눕니다.</span></a>
-  <a href="/guides/site-structure-audit-example/"><strong>2. 사이트 구조 점검</strong><span>홈, 카테고리, 글 상세, 하단 링크를 하나의 흐름으로 확인합니다.</span></a>
-  <a href="/guides/approval-friendly-article-format/"><strong>3. 승인 친화적 글 구성</strong><span>문제 정의, 판단 기준, 실행 순서, 체크리스트를 담은 글 형식입니다.</span></a>
-  <a href="/guides/privacy-cookie-page-example/"><strong>4. 정책 페이지 실제 사례</strong><span>기능별 처리·검색·삭제 안내를 고친 이유와 남은 과제를 확인합니다.</span></a>
-  <a href="/guides/cloudflare-search-console-example/"><strong>5. 배포와 색인 확인</strong><span>HTTPS, Search Console, sitemap 제출 상태를 점검합니다.</span></a>
-  <a href="/guides/seven-day-pre-apply-log-example/"><strong>6. 수정 후 관찰</strong><span>변경과 관찰·추정·다음 검사 조건을 구분합니다.</span></a>
-</div>
-<h2>현재 사이트 상태를 보는 기준</h2>
-<table><thead><tr><th>좋은 상태</th><th>보강이 필요한 상태</th></tr></thead><tbody><tr><td>카테고리마다 대표 글과 읽는 순서가 있다.</td><td>메뉴는 있지만 빈 페이지나 짧은 글만 있다.</td></tr><tr><td>정책 페이지가 하단에서 항상 접근 가능하다.</td><td>개인정보, 쿠키, 문의 경로가 흩어져 있다.</td></tr><tr><td>공식 자료와 운영자 판단이 함께 보인다.</td><td>검색 결과 요약처럼 일반론만 반복된다.</td></tr><tr><td>모바일에서 표, 이미지, 메뉴가 안정적이다.</td><td>본문보다 장식이나 광고 영역이 더 눈에 띈다.</td></tr></tbody></table>
-<h2>허브 페이지를 쓰는 방법</h2>
-<p>이 허브는 새 글을 발행할 때마다 내부 링크 기준점으로 사용할 수 있습니다. 예를 들어 정책 관련 글은 공식 자료 페이지와 연결하고, 거절 해결 글은 낮은 가치 콘텐츠 수정 예시와 연결합니다. 이렇게 연결하면 사용자는 다음에 읽을 글을 자연스럽게 찾을 수 있고, 검색엔진도 사이트의 주제 구조를 더 쉽게 이해합니다.</p>`, "2026-10-28"));
+write("approval-hub/index.html", staticPage("애드센스 승인 준비 허브", "현재 문제와 확보한 자료에 따라 본문·접근·운영 정보·검토 근거의 상세 절로 연결합니다.", "/approval-hub/", `
+<p>어디부터 확인할지 정했다면 해당 상세 절로 바로 이동하세요. 이 허브는 자료를 고르는 입구이며 모든 문서를 따라 읽는 승인 과정이나 자동 사이트 검사기가 아닙니다.</p>
+<h2 id="review-evidence-routes" tabindex="-1">현재 문제와 확인 자료</h2>
+<div class="article-table-scroll" role="region" aria-label="현재 문제별 확인 자료와 상세 경로" tabindex="0"><table><caption>해당하는 문제만 골라 확인합니다. 표의 행 수는 승인 요건이 아닙니다.</caption><thead><tr><th scope="col">현재 문제</th><th scope="col">먼저 확보할 자료</th><th scope="col">상세 검사</th></tr></thead><tbody>
+<tr><th scope="row">사이트가 열리지 않음</th><td>정확한 URL·오류 문구·응답·발생 시각</td><td><a href="/guides/site-down-unavailable/#symptom-layers">접근 실패 계층 구분</a></td></tr>
+<tr><th scope="row">본문이 반복되거나 답이 없음</th><td>제목의 질문·현재 원문·독자가 얻는 답</td><td><a href="/guides/low-value-content-fix/#site-audit">실제 본문 결함 대조</a></td></tr>
+<tr><th scope="row">누가 만들었는지 불분명함</th><td>운영 주체·제작 방식·확인한 근거·정정 경로</td><td><a href="/guides/domain-and-trust/#operator-record">운영 정보의 확인 범위</a></td></tr>
+<tr><th scope="row">개인정보 안내가 실제 기능과 다름</th><td>저장·전송·검색·문의·광고 도입 현황</td><td><a href="/guides/privacy-policy-for-adsense/#processing-inventory">실제 처리 흐름 대조</a></td></tr>
+<tr><th scope="row">수정한 내용이 공개 화면에 안 보임</th><td>변경 문서·배포 버전·최종 URL과 실제 본문</td><td><a href="/guides/adsense-approval-roadmap/#publish-boundary">소스와 공개 배포 구분</a></td></tr>
+<tr><th scope="row">다 고쳤는지 판단하기 어려움</th><td>확인됨·미완료·미확인과 각 근거</td><td><a href="/guides/pre-apply-checklist/">재검토 전 근거 점검</a></td></tr>
+</tbody></table></div>
+<h2 id="record-not-score" tabindex="-1">기록은 무엇을 바꿨는지 남깁니다</h2>
+<p><a href="/tools/approval-score/">콘텐츠 점검 작업표</a>에 URL·독자 질문·현재 근거·다음 수정과 확인일을 남길 수 있습니다. 사용자 입력을 보관하는 도구이지 본문을 자동 검사하거나 Google에 제출하는 기능이 아닙니다. 비밀번호·계정 ID·인증 코드·민감한 원본 자료는 넣지 마세요.</p>
+<figure class="article-visual"><img src="/assets/review-evidence-workbench-20261027.jpg" alt="URL·질문·근거·수정 작업을 기록하는 실제 작업표의 입력 전 화면" loading="lazy" width="1425" height="976"><figcaption>2026-10-27 구현 당시 빈 작업표 화면입니다. 입력 예시나 체크 수를 승인 점수로 사용하지 않습니다. 현재 화면은 달라질 수 있습니다.</figcaption></figure>
+<h2>과거 기록과 현재 확인을 구분합니다</h2>
+<p><a href="/guides/privacy-cookie-page-example/">정책 페이지 실제 사례</a>는 원문과 수정 판단을, <a href="/guides/seven-day-pre-apply-log-example/#actual-observations">수정 후 관찰 사례</a>는 실제 검사와 미확인을 보여 줍니다. 사례의 검사 날짜를 현재 사이트의 계정 확인일로 옮겨 쓰지 않습니다.</p>
+<p>Search Console 소유권 인증·검색 색인과 AdSense 사이트 연결·심사는 구분합니다. 공식 도움말에는 Search Console 인증을 통한 사이트 연결 방법도 안내하지만, 현재 계정에서 어떤 방법과 상태가 적용되는지는 별도 확인해야 합니다. 공개 메타 태그 하나로 연결 완료나 승인 결과를 판정하지 않습니다.</p>
+<p>공식 자료 확인일: <time datetime="2026-10-28">2026-10-28</time>. <a href="https://support.google.com/adsense/answer/12176698?hl=ko">Google의 사이트 수정·검토 안내</a>를 확인하세요. 이 페이지에서는 계정 상태 조회·설정 변경·검토 요청을 실행하지 않습니다.</p>`, "2026-10-28"));
 
-write("faq/index.html", staticPage("애드센스 초보자 FAQ", "승인 준비 과정에서 자주 묻는 질문을 사이트 구조, 콘텐츠, 정책, 색인, 재신청 기준으로 정리했습니다.", "/faq/", `
-<h2>초보자 FAQ</h2>
-<table><thead><tr><th>질문</th><th>답변</th></tr></thead><tbody><tr><td>글은 몇 개가 있어야 하나요?</td><td>공식 최소 개수보다 중요한 것은 각 카테고리에 실제로 읽을 수 있는 대표 글과 명확한 탐색 구조가 있는지입니다.</td></tr><tr><td>이미지가 꼭 필요한가요?</td><td>필수는 아니지만 흐름도, 표, 자체 제작 설명 이미지는 사용자가 내용을 이해하는 데 도움을 주고 사이트 완성도를 높입니다.</td></tr><tr><td>새 도메인도 승인받을 수 있나요?</td><td>가능합니다. 다만 소개, 문의, 정책 페이지, 일관된 주제, 색인 상태처럼 신뢰 신호를 더 꼼꼼히 준비해야 합니다.</td></tr><tr><td>거절 후 바로 재신청해도 되나요?</td><td>거절 사유를 해석하고 수정한 뒤, 대표 글과 정책 페이지, 접근성을 다시 확인한 다음 재신청하는 편이 안전합니다.</td></tr><tr><td>Search Console 색인이 모두 되어야 하나요?</td><td>모든 URL이 즉시 색인될 필요는 없지만, 주요 페이지가 발견되고 sitemap이 정상 제출된 상태인지 확인하는 것이 좋습니다.</td></tr></tbody></table>
-<h2>자주 헷갈리는 기준</h2>
-<ul><li>승인은 보장할 수 없으며, 최종 판단은 Google AdSense 심사와 정책 기준에 따릅니다.</li><li>수익 글과 승인 준비 글은 역할이 다르므로 신청 전에는 승인 안정성과 콘텐츠 품질을 우선합니다.</li><li>AI로 작성한 문장이라도 운영자 판단, 예시, 수정 기록이 부족하면 일반론처럼 보일 수 있습니다.</li><li>정책 페이지는 만드는 것보다 실제 사이트 운영 방식과 맞게 유지하는 것이 중요합니다.</li></ul>
-<h2>다음에 읽기 좋은 글</h2>
-<ul><li><a href="/start-guide/">애드센스 사이트 시작 가이드</a></li><li><a href="/approval-hub/">애드센스 승인 준비 허브</a></li><li><a href="/guides/low-value-rejection-rewrite-example/">가치가 낮은 콘텐츠 거절 후 수정 예시</a></li><li><a href="/checklist/">애드센스 신청 전 체크리스트</a></li></ul>
-<h2>답변을 업데이트하는 기준</h2>
-<p>FAQ는 승인 과정에서 반복해서 나오는 질문을 기준으로 계속 다듬어야 합니다. 공식 정책이 바뀌거나 Search Console, Cloudflare, AdSense 화면 구성이 달라지면 답변을 고정하지 않고 다시 확인합니다. 특히 승인 보장, 수익 보장, 클릭 유도처럼 오해를 부를 수 있는 표현은 발견 즉시 수정하는 것을 원칙으로 합니다.</p>`));
+write("faq/index.html", staticPage("애드센스 초보자 FAQ", "글 수·이미지·도메인·검색 인증·AI 초안·재검토 시점을 구분하고 상세 근거로 연결합니다.", "/faq/", `
+<p>짧은 답으로 먼저 구분하고 필요한 상세 설명으로 이동하세요. 답변은 이 사이트의 편집 안내이며 개별 사이트의 승인 여부를 대신 결정하지 않습니다.</p>
+<h2 id="faq-article-count" tabindex="-1">글은 몇 개, 몇 자가 있어야 하나요?</h2>
+<p>이 FAQ에서는 임의의 개수·분량을 합격선으로 정하지 않습니다. 공식 안내의 충분한 고유 콘텐츠를 ‘카테고리마다 몇 편’으로 바꾸지 않고 각 문서가 독자의 질문에 실제 답을 제공하는지 확인합니다. <a href="/guides/minimum-content-myth/">공식 요건·내부 목표·개인 사례 구분</a></p>
+<h2 id="faq-images" tabindex="-1">이미지나 표를 넣으면 해결되나요?</h2>
+<p>같은 일반론을 표로 바꾸거나 장식 이미지를 추가한 것만으로 빠진 답이 생기지는 않습니다. 실제 화면·계산·비교를 이해하는 데 필요할 때 사용하고 출처·사용 권리·대체 설명과 작은 화면의 가독성을 확인합니다. <a href="/guides/approval-friendly-article-format/">실제 원문을 문제 해결 글로 고친 사례</a></p>
+<h2 id="faq-domain" tabindex="-1">새 도메인이면 불리한가요?</h2>
+<p>생성일만으로 승인·거절을 판정하거나 임의의 숙성 기간을 제시하지 않습니다. 계정 가입 요건과 대상 사이트·콘텐츠·정책을 확인해야 하며, 도메인 연식이나 사업자 표시를 전문성·광고 승인 인증으로 보지 않습니다. <a href="/guides/domain-and-trust/">운영 정보와 신뢰 근거의 차이</a></p>
+<h2 id="faq-search" tabindex="-1">Search Console 인증과 색인이 승인 조건인가요?</h2>
+<p>소유권 인증, 검색 색인, AdSense 사이트 연결과 심사는 각각 다른 상태입니다. 공식 안내의 Search Console 인증을 통한 연결 방법도 검색 색인 완료가 광고 승인을 뜻한다는 설명은 아닙니다. 현재 계정의 연결 방법·안내는 별도로 확인하세요. <a href="/guides/cloudflare-search-console-example/">DNS·HTML 소유권 인증</a> · <a href="/guides/indexing-before-adsense/">검색 상태와 광고 크롤러 구분</a></p>
+<h2 id="faq-ai" tabindex="-1">AI 초안은 어떻게 검토해야 하나요?</h2>
+<p>문체가 자연스러운지보다 정의·숫자·출처가 맞고 실제 경험과 가상 예시를 정확히 구분했는지 봅니다. 존재하지 않는 사용 경험·작성자·전문가 검수를 만들어 붙이지 않습니다. AI 지원 공개나 출처 링크만으로 정확성과 고유 가치가 검증된 것도 아닙니다. <a href="/guides/avoid-ai-like-writing/">주장별 근거 대조와 초안 검증</a></p>
+<h2 id="faq-review" tabindex="-1">거절 후 며칠 뒤 다시 요청하나요?</h2>
+<p>이 사이트가 정한 고정 대기 일수는 없습니다. 받은 안내에 맞는 실제 결함을 수정하고 공개 반영·남은 미완료·미확인과 현재 계정의 별도 지시를 확인합니다. 수정 직후인지 오래 기다렸는지만으로 재검토 준비를 판단하지 않습니다. <a href="/guides/pre-apply-checklist/">요청을 보류할 조건과 근거 점검</a></p>
+<h2>답변의 근거와 범위</h2>
+<p>공식 자료 확인일: <time datetime="2026-10-28">2026-10-28</time>. <a href="https://support.google.com/adsense/answer/9724?hl=ko">AdSense 자격 요건</a>, <a href="https://support.google.com/adsense/answer/10015918?hl=ko">콘텐츠·사용자 환경</a>, <a href="https://support.google.com/adsense/answer/12176698?hl=ko">사이트 수정·검토 안내</a>를 참고했습니다. 실제 계정의 심사 결과나 모든 지역·상품의 조건을 이 답변으로 확인한 것은 아닙니다.</p>
+<p>Alpha AdSense는 Google 공식 서비스가 아닙니다. 제작 방식과 AI 지원 범위는 <a href="/about/#content-process">운영·제작 안내</a>, 실제 변경은 <a href="/updates/">업데이트 기록</a>에서 확인할 수 있습니다.</p>`, "2026-10-28"));
 
-write("next-steps/index.html", staticPage("상황별 다음 단계", "처음 시작, 승인 준비, 거절 대응, 승인 후 수익화 단계별로 다음에 볼 글과 실행 순서를 안내합니다.", "/next-steps/", `
-<p>Alpha AdSense의 글은 주제별로 나뉘어 있지만, 실제 운영자는 자신의 현재 상황에 맞는 다음 행동이 더 중요합니다. 이 페이지는 방문자가 사이트 안에서 길을 잃지 않도록 상황별 읽기 경로와 실행 순서를 정리한 안내 허브입니다.</p>
-<h2>상황별 추천 경로</h2>
-<div class="path-grid">${nextStepPaths.map(nextStepCard).join("")}</div>
-<h2>단계별 실행 표</h2>
-<table><thead><tr><th>현재 상태</th><th>먼저 할 일</th><th>다음 확인</th><th>완료 신호</th></tr></thead><tbody><tr><td>새 도메인만 준비됨</td><td>시작 가이드로 메뉴와 필수 페이지를 정합니다.</td><td>현재 공개할 질문과 자료가 있는지 확인하고, 비어 있는 경로를 정리합니다.</td><td>홈에서 사이트 목적과 읽는 순서가 보입니다.</td></tr><tr><td>글은 있으나 구조가 약함</td><td>사이트 구조 점검 글로 메뉴, 하단 링크, 내부 링크를 확인합니다.</td><td>승인 친화적 글 구성으로 대표 글을 보강합니다.</td><td>카테고리와 글 상세 사이 이동이 자연스럽습니다.</td></tr><tr><td>거절을 받은 상태</td><td>거절 사유 진단으로 문제 유형을 나눕니다.</td><td>낮은 가치 콘텐츠, 탐색, 접근, 정책 문제를 순서대로 수정합니다.</td><td>수정 근거와 필요한 재검사 결과가 기록되어 있습니다.</td></tr><tr><td>승인 후 운영 준비</td><td>광고 배치보다 정책 안정성과 트래픽 품질을 먼저 봅니다.</td><td>RPM, CPC, 광고 배치 글을 읽고 과도한 광고를 피합니다.</td><td>광고와 콘텐츠가 명확히 구분되고 모바일 화면이 안정적입니다.</td></tr></tbody></table>
-<h2>운영자가 기록할 것</h2>
-<ul><li>수정한 페이지 주소와 수정 날짜</li><li>보강한 글의 핵심 변경 사항</li><li>Search Console에서 확인한 색인 상태</li><li>모바일 화면, 표, 이미지, 내부 링크 점검 결과</li><li>정책상 위험 표현을 삭제하거나 고친 내역</li></ul>
-<h2>다음 보강 기준</h2>
-<p>이 경로를 따라가도 부족해 보이는 영역이 있다면 새 글을 무작정 늘리기보다 허브 페이지, 표, 자체 이미지, 사례형 글을 먼저 보강하는 편이 좋습니다. 특히 승인 준비 사이트는 글 개수보다 독자가 문제를 해결하는 흐름을 찾을 수 있는지가 더 중요합니다.</p>`, "2026-10-27"));
+write("next-steps/index.html", staticPage("상황별 다음 단계", "도메인만 있는 상태·본문 중복·거절 안내·승인 후 운영에서 다음 행동과 보류 조건을 고릅니다.", "/next-steps/", `
+<p>지금 막힌 상황 하나를 고르면 상세 문서로 바로 이동합니다. 아래 항목은 필수 완료 단계나 승인 신호가 아니며 이미 확인한 작업을 처음부터 되풀이할 필요는 없습니다.</p>
+<nav class="article-toc" aria-label="현재 상황 선택"><h2>현재 상황</h2><ul>${nextStepPaths.map(item => `<li><a href="#${item.id}">${esc(item.title)}</a></li>`).join("")}</ul></nav>
+${nextStepPaths.map(nextStepPath).join("")}
+<h2>상태를 모르겠다면</h2>
+<p>현재 확인할 질문과 자료가 부족하면 <a href="/approval-hub/#review-evidence-routes">문제별 확인 자료</a>에서 필요한 정보를 먼저 고릅니다. 기본 운영 목적부터 정해야 한다면 <a href="/start-guide/">시작 안내</a>로 돌아가세요. 이 두 페이지를 모든 문서 앞에서 거쳐야 하는 것은 아닙니다.</p>
+<p>선택·기록·화면 검사만으로 Google의 원인이나 승인 결과를 확정하지 않습니다. 실제 배포·운영 결정·계정 확인을 나눠 남기고, 미확인 상태를 ‘문제없음’으로 채우지 않습니다. 이 페이지는 계정 변경·광고 조작·자동 감시·검토 요청을 실행하지 않습니다.</p>`, "2026-10-28"));
 
 const searchableStaticPages = [
   ["/", "홈", site.description, "시작"],
-  ["/start-guide/", "애드센스 사이트 시작 가이드", "처음 사이트를 만들 때 필요한 도메인, 구조, 필수 페이지, 첫 글 발행 순서입니다.", "시작"],
-  ["/approval-hub/", "애드센스 승인 준비 허브", "승인 준비 흐름을 단계별 대표 가이드로 모은 허브입니다.", "허브"],
-  ["/next-steps/", "상황별 다음 단계", "현재 상태에 맞는 읽기 경로와 실행 순서를 안내하는 허브입니다.", "허브"],
+  ["/start-guide/", "애드센스 사이트 시작 가이드", "운영 주체·독자 질문·확보 자료·허브 역할과 남은 작업을 정하는 시작 안내입니다.", "시작"],
+  ["/approval-hub/", "애드센스 승인 준비 허브", "현재 문제에 필요한 확인 자료를 고르고 본문·접근·운영 정보·검토 근거의 상세 절로 바로 이동합니다.", "허브"],
+  ["/next-steps/", "상황별 다음 단계", "도메인만 있음·본문 중복·거절 안내·승인 후 운영에서 다음 행동과 보류 조건을 고릅니다.", "허브"],
   ["/official-resources/", "공식 자료 활용 안내", "애드센스와 검색, 배포 관련 공식 자료를 확인하는 기준입니다.", "자료"],
-  ["/faq/", "애드센스 초보자 FAQ", "승인 준비 과정에서 자주 묻는 질문과 답변입니다.", "FAQ"],
+  ["/faq/", "애드센스 초보자 FAQ", "글 수·이미지·도메인·검색 인증·AI 초안·재검토 시점을 구분하고 상세 근거로 연결합니다.", "FAQ"],
   ["/tools/", "콘텐츠·운영 도구", "콘텐츠 작업표, RPM 계산과 운영 계획 도구를 모았습니다.", "도구"],
   ["/tools/approval-score/", "콘텐츠 점검 작업표", "글 URL, 독자의 질문, 확인 근거와 수정 작업을 기록하고 브라우저 저장과 CSV 내보내기를 제공합니다.", "도구"],
   ["/tools/rejection-diagnosis/", "애드센스 거절 사유 진단", "거절 메시지 유형별로 먼저 확인할 항목과 수정 방향을 정리합니다.", "도구"],
   ["/tools/content-planner/", "콘텐츠 발행 계획·시간표", "상황별 작업 예시와 직접 편집하는 작업·시간 예산, 계산·CSV 내보내기를 제공합니다. 승인 판정이 아닙니다.", "도구"],
   ["/checklist/", "재검토 전 점검 안내", "근거 점검 절차, URL별 작업표와 계정 확인 자료로 연결합니다. 점수로 준비 완료를 판정하지 않습니다.", "점검 안내"],
-  ["/privacy/", "개인정보처리방침", "개인정보 처리와 광고 쿠키 관련 고지입니다.", "정책"],
-  ["/cookie-policy/", "쿠키 정책", "광고 쿠키와 맞춤 광고 선택권에 대한 안내입니다.", "정책"],
+  ["/privacy/", "개인정보처리방침", "작업표의 브라우저 저장·검색 URL·문의 이메일·호스팅과 삭제 범위, 아직 정하지 않은 보관 기준을 안내합니다.", "정책"],
+  ["/cookie-policy/", "쿠키 정책", "현재 저장 기술과 광고·CMP 미도입 상태, 이용자가 관리할 범위와 도입 전 확인 과제를 안내합니다.", "정책"],
   ["/editorial-policy/", "운영 원칙", "콘텐츠 작성 기준과 정책 준수 원칙입니다.", "운영"],
   ["/sources/", "출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "자료"],
   ["/about/", "소개", "Alpha AdSense의 운영 목적, 리플리더스 운영자 정보와 편집 범위입니다.", "운영"],
@@ -837,6 +723,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-28</strong><span>여섯 카테고리의 반복 경로표·구성 개수 표시를 줄이고 추천 목록과 나머지 문서를 나눴습니다. <a href="/approval-hub/">승인 준비 허브</a>는 문제별 확인 자료, <a href="/next-steps/">상황별 다음 단계</a>는 다음 행동·보류 조건으로 구분했습니다. <a href="/faq/">FAQ</a>의 글 형식·도메인·검색 상태·재검토 설명과 검색 요약을 맞췄습니다. 34개 개별 본문의 기계적 반복 탐색과 일부 역할 비교를 수행했으나 모든 주장·외부 출처·실제 이용 성과를 전수 검증한 것은 아닙니다. URL 병합·계정 변경·재검토 요청은 하지 않았습니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/guides/rejection-message-map/">거절 안내 해석</a>과 <a href="/guides/low-value-rejection-rewrite-example/">실제 허브 글 개정 사례</a>를 재작성했습니다. 원문·관찰·가설·미확인을 나누고 실제 과거 문장·편집 판단·공개 화면을 연결했습니다. 34개 가이드 모두 개별 본문으로 전환해 예전 공통 본문 자동 삽입을 제거했습니다. 개정 수·검사 통과가 전체 개선 완료나 승인 판정은 아니며 실제 운영·계정 확인과 재검토 요청은 별도입니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/guides/domain-and-trust/">도메인·운영자 신뢰 확인</a>과 <a href="/guides/thin-category-pages/">허브 편집 판단</a>을 재작성했습니다. 승인·거절 허브에 상황별 출발점을 추가하고 작성·검토 표시를 실제 AI 지원·제작 방식 안내로 연결했습니다. 시작 안내의 고정 3일 일정을 남은 조건별 작업으로 바꿨습니다. 사업자 외부 조회·메일 수신 검증·URL 병합·계정 변경·재검토 요청은 실행하지 않았습니다.</span></li>
   <li><strong>2026-10-27</strong><span><a href="/guides/disclaimer-page-guide/">면책 안내 편집</a>과 <a href="/guides/privacy-cookie-page-example/">정책 페이지 실제 개정 사례</a>를 개별 본문으로 바꿨습니다. 실제 원문·수정 판단·공개 화면을 연결하고 공통 면책과 열람·동의의 차이를 정리했습니다. 이메일 보관 기준 미정 등 실제 운영 과제는 면책 문구로 해결 처리하지 않습니다. 기존 URL을 유지하며 재검토 요청은 수행하지 않았습니다.</span></li>
@@ -1319,6 +1206,13 @@ p { margin: 0 0 16px; }
 .article-head .meta-line a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .hub-entry h2 { scroll-margin-top: 150px; }
 .hub-entry h2:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.hub-summary p { max-width: 820px; color: var(--muted); margin-bottom: 0; }
+.hub-related ul { margin: 0; padding-left: 20px; }
+.hub-related a { display: inline-flex; align-items: center; min-height: 44px; color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+.decision-path { border-top: 1px solid var(--line); padding: 24px 0 8px; margin-top: 24px; }
+.decision-path h2[id] { font-size: 24px; scroll-margin-top: 150px; margin-top: 0; }
+.decision-path h2[id]:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+.decision-stop { border-left: 3px solid var(--green); padding-left: 16px; color: var(--muted); }
 .article { max-width: 820px; padding-bottom: 34px; }
 .article a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .article h2 { margin-top: 34px; }
@@ -1393,6 +1287,7 @@ ${planningStyles}
   .nav { gap: 0 4px; }
   .nav a { padding: 0 6px; }
   .article-section h2, .article > h2[id], .hub-entry h2, .metric-tool, .workbench { scroll-margin-top: 180px; }
+  .decision-path h2[id] { scroll-margin-top: 180px; }
   .search-box div { grid-template-columns: 1fr; }
   .article table, .summary-table { display: block; overflow-x: auto; white-space: normal; }
 }
