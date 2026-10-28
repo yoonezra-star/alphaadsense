@@ -30,6 +30,8 @@ import disclaimerGuide from "./disclaimer-page-guide.mjs";
 import privacyCase from "./privacy-cookie-page-example.mjs";
 import operatorTrust from "./domain-and-trust.mjs";
 import categoryHubs from "./thin-category-pages.mjs";
+import rejectionMessages from "./rejection-message-map.mjs";
+import rejectionRewrite from "./low-value-rejection-rewrite-example.mjs";
 
 export default {
   "low-value-content-fix": lowValueContent,
@@ -63,5 +65,7 @@ export default {
   "disclaimer-page-guide": disclaimerGuide,
   "privacy-cookie-page-example": privacyCase,
   "domain-and-trust": operatorTrust,
-  "thin-category-pages": categoryHubs
+  "thin-category-pages": categoryHubs,
+  "rejection-message-map": rejectionMessages,
+  "low-value-rejection-rewrite-example": rejectionRewrite
 };

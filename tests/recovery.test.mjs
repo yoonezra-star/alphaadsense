@@ -82,11 +82,15 @@ test("visible and structured modification dates agree without changing publicati
   assert.ok(html.includes(guide.reviewSummary));
 });
 
-test("an untouched guide keeps its previous modification date", () => {
-  const html = read("guides/rejection-message-map/index.html");
-  const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
-  assert.equal(schema["@graph"].find((entry) => entry["@type"] === "Article").dateModified, "2026-07-13");
-  assert.ok(html.includes("업데이트: 2026-07-13"));
+test("all individual guides preserve original publication and genuine earlier revision dates", () => {
+  for (const [slug, guide] of Object.entries(revisedGuides)) {
+    const html = read(`guides/${slug}/index.html`);
+    const schema = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    const article = schema["@graph"].find(entry => entry["@type"] === "Article");
+    assert.equal(article.datePublished, "2026-07-13", slug);
+    assert.equal(article.dateModified, guide.updatedAt, slug);
+  }
+  assert.equal(revisedGuides["low-value-content-fix"].updatedAt, "2026-10-26");
 });
 
 test("the latest list and search index include the revised article", () => {
@@ -198,8 +202,9 @@ test("newly revised documents lead the latest list by their real modification da
   assert.ok(slugs.includes("site-structure-before-apply"));
   assert.ok(slugs.includes("thin-category-pages"));
   assert.ok(slugs.includes("domain-and-trust"));
-  assert.ok(slugs.includes("indexing-before-adsense"));
-  assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="indexing-before-adsense"'));
+  assert.ok(slugs.includes("rejection-message-map"));
+  assert.ok(slugs.includes("low-value-rejection-rewrite-example"));
+  assert.ok(read("index.html").includes('class="home-guide home-guide-text" data-home-guide="domain-and-trust"'));
 });
 
 test("post-approval guide separates account states, consent, previews and hypothetical outcomes", () => {
@@ -434,6 +439,48 @@ test("approval and rejection hubs expose scoped task entries and accurate creati
   assert.ok(read("updates/index.html").includes("작성·검토 표시를 실제 AI 지원·제작 방식 안내로 연결"));
 });
 
+test("rejection interpretation records the real reported heading without inventing causes or dates", () => {
+  const html = read("guides/rejection-message-map/index.html");
+  for (const marker of ['id="notice-record"', 'id="message-boundaries"', 'id="hypothesis-vs-evidence"', 'id="review-hold-conditions"', "가치가 별로 없는 콘텐츠", "이 글의 개정일을 거절 통보일로 쓰지 않습니다", "모든 공식 오류 코드 목록", "가설", "미확인", "검토 요청을 제출하지 않았습니다"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("수정 후 3~7일 동안"));
+  assert.ok(!html.includes('src="/assets/rejection-response-map.png"'));
+});
+
+test("the low-value case uses actual historical edits and a dated public screenshot", () => {
+  const html = read("guides/low-value-rejection-rewrite-example/index.html");
+  for (const marker of ['id="before-source"', 'id="edit-ledger"', 'id="after-answer"', 'id="verification-record"', 'id="open-work"', "글이 부족한 카테고리는 신청 전 메뉴에서 빼는 것도 방법입니다", "개별 거절 원인이었다거나 개정으로 승인이 이뤄졌다고 확인한 사례는 아닙니다", "실제 URL 병합·삭제·재검토 요청은 하지 않았습니다", 'src="/assets/hub-rewrite-after-20261028.jpg"', 'width="1185" height="889"', "이후 본문은 달라질 수 있습니다"]) assert.ok(html.includes(marker), marker);
+  assert.equal(readFileSync(join(dist, "assets/hub-rewrite-after-20261028.jpg")).readUInt16BE(0), 0xffd8);
+  assert.ok(!html.includes("각 글이 800자 안팎의 일반론"));
+});
+
+test("the final two guides retain semantic tables and valid fragment destinations", () => {
+  for (const slug of ["rejection-message-map", "low-value-rejection-rewrite-example"]) {
+    const html = read(`guides/${slug}/index.html`);
+    const tables = [...html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)];
+    assert.ok(tables.length > 0, slug);
+    for (const [, table] of tables) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), `${slug}: ${marker}`);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/guides/${slug}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${slug}: ${href}`);
+    }
+    assert.ok(!/adsbygoogle|ca-pub-|data-ad-slot=|<iframe/.test(html));
+  }
+});
+
+test("all guides require individual content and the diagnosis separates selection from proof", () => {
+  const source = readFileSync(join(root, "scripts/build.mjs"), "utf8");
+  for (const marker of ["const deepDives", "function articleQualityBlocks", "const diagnostics = points.map", "이 글은 애드센스 승인을 준비하는 초보 운영자가 실제로 점검할 수 있도록 작성했습니다."]) assert.ok(!source.includes(marker), marker);
+  assert.ok(source.includes('if (!guide) throw new Error(`Missing individual guide content: ${slug}`)'));
+  for (const slug of readdirSync(join(dist, "guides"))) assert.ok(!read(`guides/${slug}/index.html`).includes("<h2>자가 진단 표</h2>"));
+  const html = read("tools/rejection-diagnosis/index.html");
+  for (const marker of ['id="reject-type" aria-controls="diagnosis-result"', 'id="diagnosis-result" aria-live="polite" aria-atomic="true"', "모든 Google 공식 오류 코드 목록이 아니며 선택만으로 원인을 확정하지 않습니다", "제목의 질문과 실제 답·중복 대조", "받은 안내와 관찰·가설 분리", "/guides/low-value-rejection-rewrite-example/#edit-ledger", "/guides/rejection-message-map/#notice-record"]) assert.ok(html.includes(marker), marker);
+  assert.ok(!html.includes("추가한 표와 예시, 병합한 중복 글을 기록합니다"));
+  assert.ok(read("resources/index.html").includes('href="/guides/rejection-message-map/#notice-record"'));
+  assert.ok(read("updates/index.html").includes("34개 가이드 모두 개별 본문으로 전환"));
+});
+
 test("calendar separates hypothetical time budgets from production and approval outcomes", () => {
   const html = read("guides/content-calendar-30-days/index.html");
   for (const marker of ['id="worked-budget"', 'id="editable-plan"', "6 × 4 − 4 = 20시간", "작업 합계는 24시간으로 4시간 초과", "실측 생산성·승인 성공 기록이 아닙니다", "실제 소요 시간을 자동 예측하지 않습니다"]) assert.ok(html.includes(marker), marker);
@@ -466,7 +513,7 @@ test("calendar and glossary retain table semantics, valid fragments and resource
     }
   }
   const graph = JSON.parse(read("resources/index.html").match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
-  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
+  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-28");
 });
 
 test("internal links use real editorial changes and separate targets from arbitrary quotas", () => {
@@ -615,7 +662,7 @@ test("both new guides have accessible tables and publish no active redirect or r
     assert.ok(html.includes(`<link rel="canonical" href="https://alphaadsense.com/guides/${slug}/"`));
     assert.ok(!/<meta name="robots"[^>]*content="noindex/.test(html));
   }
-  assert.equal(Object.keys(revisedGuides).length, 32);
+  assert.equal(Object.keys(revisedGuides).length, 34);
 });
 
 test("roadmap uses dependencies and separate deployment/account boundaries instead of a monthly threshold", () => {
@@ -638,7 +685,7 @@ test("linked hubs and tools no longer use a week as completion or automatic read
     for (const old of ["7일 안정화 기록", "신청 전 7일 기록", "수정 기록과 7일 점검 로그", "일주일 점검표로 안정화", "4주차: 7일 점검 기록"]) assert.ok(!html.includes(old), `${path}: ${old}`);
     assert.ok(html.includes('/guides/seven-day-pre-apply-log-example/'));
     const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
-    assert.equal(graph.find((item) => item["@type"] === "WebPage").dateModified, path === "approval-hub/index.html" ? "2026-10-28" : "2026-10-27");
+    assert.equal(graph.find((item) => item["@type"] === "WebPage").dateModified, ["approval-hub/index.html", "tools/rejection-diagnosis/index.html"].includes(path) ? "2026-10-28" : "2026-10-27");
   }
   assert.ok(read("tools/content-planner/index.html").includes("편집 계획 예시이지 Google의 준비·대기 요건이 아닙니다"));
   assert.ok(!read("next-steps/index.html").includes("각 카테고리에 대표 글을 1개 이상"));
