@@ -604,7 +604,7 @@ const searchableStaticPages = [
   ["/editorial-policy/", "운영 원칙", "근거 대조·AI 지원·관찰과 가상 예시·수정·광고 도입 전 검토의 편집 원칙입니다.", "운영"],
   ["/sources/", "출처 및 참고자료", "실제 주장·공식 정의·공개 코드·운영자 설명과 확인 한계를 연결한 검증 기록입니다.", "자료"],
   ["/about/", "소개", "Alpha AdSense의 운영 목적, 리플리더스 운영자 정보와 편집 범위입니다.", "운영"],
-  ["/contact/", "문의", "오류 정정과 운영 문의를 보내는 연락처와 필요한 정보입니다.", "운영"]
+  ["/contact/", "문의", "사이트 오류·일반 문의와 정정 요청에 필요한 최소 정보·연락처를 안내합니다.", "운영"]
 ];
 
 const searchIndex = [
@@ -633,6 +633,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-29</strong><span>운영자가 확인한 사이트 오류·일반 문의 용도를 <a href="/contact/">문의</a>와 <a href="/privacy/">개인정보 안내</a>에 반영했습니다. Cloudflare Pages Web Analytics 비활성과 제한된 공개 요청 관찰을 <a href="/privacy/#hosting-check">호스팅 확인 범위</a>·<a href="/cookie-policy/">쿠키 안내</a>에 구분했습니다. 보관·삭제 기준, 전체 보안/로그·적용 계약과 현재 AdSense 상태는 별도 미확인이며 설정 변경·메일 발송/삭제·재검토 요청은 하지 않았습니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/official-resources/">공식 자료 안내</a>는 질문별 원문 선택과 확인 범위로, <a href="/sources/">출처</a>는 실제 주장·근거·한계 기록으로 구분했습니다. 8개 운영·정책 문서의 긴 공통 관리 부록을 제거하고 소개에 사업자 상세, 문의에 정정 경로를 남겼습니다. 개인정보·쿠키·약관·면책의 고유 본문과 보관 미정·처리 범위는 유지했습니다. 운영 원칙의 고정 글 형식·전수 검수 오해도 바로잡았습니다. 이번 정리가 보관 기준 확정·법률 검토·계정 확인·재검토 요청을 뜻하지 않습니다.</span></li>
   <li><strong>2026-10-28</strong><span>여섯 카테고리의 반복 경로표·구성 개수 표시를 줄이고 추천 목록과 나머지 문서를 나눴습니다. <a href="/approval-hub/">승인 준비 허브</a>는 문제별 확인 자료, <a href="/next-steps/">상황별 다음 단계</a>는 다음 행동·보류 조건으로 구분했습니다. <a href="/faq/">FAQ</a>의 글 형식·도메인·검색 상태·재검토 설명과 검색 요약을 맞췄습니다. 34개 개별 본문의 기계적 반복 탐색과 일부 역할 비교를 수행했으나 모든 주장·외부 출처·실제 이용 성과를 전수 검증한 것은 아닙니다. URL 병합·계정 변경·재검토 요청은 하지 않았습니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/guides/rejection-message-map/">거절 안내 해석</a>과 <a href="/guides/low-value-rejection-rewrite-example/">실제 허브 글 개정 사례</a>를 재작성했습니다. 원문·관찰·가설·미확인을 나누고 실제 과거 문장·편집 판단·공개 화면을 연결했습니다. 34개 가이드 모두 개별 본문으로 전환해 예전 공통 본문 자동 삽입을 제거했습니다. 개정 수·검사 통과가 전체 개선 완료나 승인 판정은 아니며 실제 운영·계정 확인과 재검토 요청은 별도입니다.</span></li>
@@ -776,8 +777,8 @@ write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적�
 <p>이 사이트의 목표는 초보 운영자가 신청 전 스스로 점검할 수 있는 기준을 갖도록 돕는 것입니다. 그래서 단순한 요약보다 체크리스트, 사례, 도구, 공식 자료 링크를 함께 제공합니다. 독자는 각 글을 읽고 자신의 사이트에 적용할 항목과 보류할 항목을 구분할 수 있어야 합니다.</p>
 <p>오류나 오래된 설명은 <a href="/contact/#correction-request">문의·정정 안내</a>로 알려 주세요. 실제 저장·검색·문의 처리의 범위는 <a href="/privacy/">개인정보처리방침</a>에서 확인할 수 있습니다.</p>`, "2026-10-28"));
 
-write("contact/index.html", staticPage("문의", "사이트 내용 오류, 수정 요청, 운영 관련 문의를 보낼 수 있습니다.", "/contact/", `
-<p>문의는 이메일로 보내 주세요. 사이트 내용 오류, 오래된 정보, 링크 오류, 정책상 문제가 있을 수 있는 표현, 서비스 제휴 문의를 접수할 수 있습니다.</p>
+write("contact/index.html", staticPage("문의", "사이트 오류·일반 문의와 내용 정정 요청을 이메일로 받습니다.", "/contact/", `
+<p>이 사이트의 이메일 문의는 사이트 오류·일반 문의를 확인하고 답변하기 위한 용도입니다. 내용 오류, 오래된 정보, 링크 문제나 도구 사용 중 발견한 문제를 알려 주세요. 계약·결제 증빙이나 불필요한 개인정보를 보내는 창구로 안내하지 않습니다.</p>
 <p><a href="mailto:${site.email}">${site.email}</a></p>
 <h2>문의 가능 항목</h2>
 <ul><li>글 내용 중 사실관계가 바뀐 부분</li><li>공식 자료 링크 변경 또는 접근 불가 문제</li><li>개인정보, 쿠키, 정책 관련 문구 수정 요청</li><li>도구 페이지의 작동 오류 또는 개선 제안</li><li>리플리더스 서비스와 관련된 일반 문의</li></ul>
@@ -786,12 +787,13 @@ write("contact/index.html", staticPage("문의", "사이트 내용 오류, 수�
 <h2 id="correction-request" tabindex="-1">수정 요청 방법</h2>
 <p>수정 요청을 보낼 때는 문제가 있는 페이지 주소, 수정이 필요한 문장, 참고할 수 있는 공식 자료나 근거를 함께 보내 주세요. 단순 의견보다 확인 가능한 근거가 있을 때 더 빠르게 검토할 수 있습니다.</p>
 <p>비밀번호·인증 코드·계정 접근 정보·민감한 원본 로그는 보내지 마세요. 문의 이메일 보관·삭제 기준은 현재 미정이며 <a href="/privacy/">개인정보처리방침</a>의 처리 범위를 확인할 수 있습니다. 메일 링크를 여는 것과 실제 발송·수신·답변 확인은 서로 다릅니다.</p>
-<p>운영 주체·대표자·사업자등록번호·주소는 <a href="/about/#operator-info">공개 운영자 정보</a>에서 확인할 수 있습니다.</p>`, "2026-10-28"));
+<p>운영 주체·대표자·사업자등록번호·주소는 <a href="/about/#operator-info">공개 운영자 정보</a>에서 확인할 수 있습니다.</p>`, "2026-10-29"));
 
 write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSense의 개인정보 처리와 쿠키, 광고 관련 고지 사항입니다.", "/privacy/", `
 <p>${site.company}가 운영하는 Alpha AdSense의 현재 도구·검색·이메일 문의·호스팅 처리와 향후 광고 계획을 나누어 안내합니다. 현재 사이트 자체 코드에 광고·분석 SDK를 추가하지 않았습니다. 페이지를 제공하는 호스팅·보안 서비스의 처리는 도구 입력값 처리와 별개입니다.</p>
 <h2 id="current-processing" tabindex="-1">현재 기능과 처리 범위</h2>
 <div class="article-table-scroll" role="region" aria-label="현재 기능과 개인정보 처리 범위" tabindex="0"><table><caption>현재 처리와 계획을 구분합니다</caption><thead><tr><th scope="col">구분</th><th scope="col">항목과 경로</th><th scope="col">목적·범위</th></tr></thead><tbody><tr><th scope="row">문의</th><td>사용자가 이메일로 보낸 주소·내용·첨부</td><td>문의 확인·답변·수정 요청. 메일 링크를 누르는 것과 실제 발송은 다릅니다.</td></tr><tr><th scope="row">작업표</th><td>직접 입력한 URL·질문·근거·작업·상태·확인일 등</td><td>이 브라우저의 점검 기록 저장. 도구 코드에서 입력값을 서버로 보내지 않습니다.</td></tr><tr><th scope="row">계산기·시간표</th><td>직접 입력한 수치·작업과 결과</td><td>페이지 메모리에서 처리. 영구 저장·입력 전송 기능이 없습니다.</td></tr><tr><th scope="row">검색</th><td>검색어·페이지를 URL에 표시</td><td>공개 문서 자료의 브라우저 검색. 주소·방문 기록과 요청 범위는 아래 안내 참조.</td></tr><tr><th scope="row">호스팅·보안</th><td>Cloudflare를 통한 페이지·자료 요청</td><td>페이지 제공·보안 처리. 요청 정보의 처리 범위는 활성 서비스·계약에 따라 확인이 필요합니다.</td></tr></tbody></table></div>
+<p>2026-10-29 운영자는 문의 메일의 용도를 사이트 오류·일반 문의로 확인했습니다. 보관·삭제 기준과 실제 메일함·백업의 처리 방법은 별도로 확정해야 하며, 문의 용도를 확인한 것만으로 삭제가 이뤄졌다고 표시하지 않습니다.</p>
 <h2 id="search-requests" tabindex="-1">검색어와 요청 주소</h2>
 <p>검색은 공개 검색 자료를 받아 브라우저에서 수행하고 검색어를 주소의 q 값과 방문 기록에 남깁니다. 주소 변경 자체가 항상 새 요청을 보내는 것은 아니지만 해당 주소의 새로고침·직접 접속·공유 시 검색어가 요청 URL에 포함될 수 있습니다. 검색어에 비밀번호·인증 코드·개인정보를 입력하지 마세요. 사이트 검색을 비밀 보관함으로 사용하지 마세요.</p>
 <h2>보관 기간</h2>
@@ -800,7 +802,10 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 <p>향후 Google AdSense를 적용한다면 Google과 제3자 공급업체의 광고 쿠키·방문 기록 기반 광고, 실제 공급업체와 필요한 선택·동의 절차를 적용 전에 확인하고 이 안내를 갱신합니다. 현재 이 페이지는 광고 적용 완료나 동의 수집 완료를 표시하지 않습니다. <a href="https://myadcenter.google.com/">Google 내 광고 센터</a>의 개인 맞춤 광고 설정은 이 사이트의 모든 저장·처리를 끄거나 삭제하는 기능이 아닙니다. <a href="/cookie-policy/#advertising-consent">광고·동의 안내</a>에서 차이를 확인할 수 있습니다.</p>
 <h2>제3자 제공과 외부 서비스</h2>
 <p>Alpha AdSense는 이용자의 개인정보를 임의로 판매하지 않습니다. 페이지는 Cloudflare를 통해 제공하며 이메일 문의는 이용자가 선택한 메일 서비스와 수신 메일 서비스에서 처리합니다. <a href="https://www.cloudflare.com/privacypolicy/">Cloudflare 개인정보 안내</a>와 <a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/">제품별 쿠키 안내</a>를 참고할 수 있습니다. 공급업체의 전체 기능이 이 사이트에 활성화됐다는 뜻은 아닙니다.</p>
-<p>현재 Cloudflare 계정의 활성 보안·분석 기능, 구체적인 로그 보관·계약상 처리 범위는 별도 확인이 필요합니다. 외부 서비스가 있다는 이유만으로 위탁·제공·국외 처리의 법적 분류가 모두 확인됐다고 표시하지 않습니다. 새 외부 서비스를 적용할 때 실제 처리와 필요한 고지를 검토합니다.</p>
+<h2 id="hosting-check" tabindex="-1">호스팅 설정의 확인 범위</h2>
+<p>2026-10-29 이 사이트의 Cloudflare Pages 프로젝트에서 Web Analytics가 비활성 상태임을 확인했습니다. 도메인의 요청 집계와 호스팅·보안 처리는 별개이므로 분석 기능 하나가 비활성이라는 이유로 접속 정보나 서버 기록이 없다고 안내하지 않습니다.</p>
+<p>일부 공개 주소에 대한 일반 요청에서는 Set-Cookie 응답과 대표적인 광고·분석 태그를 발견하지 못했고 연락처 표시용 이메일 보호 스크립트 경로를 확인했습니다. 이는 모든 지역·시간·보안 상태의 쿠키·요청을 전수 검사한 결과가 아닙니다. 자세한 제품별 설명은 <a href="https://developers.cloudflare.com/web-analytics/about/">Cloudflare Web Analytics 안내</a>를 참고할 수 있습니다.</p>
+<p>Cloudflare 계정의 활성 보안·분석 기능 전체, 구체적인 로그 보관·계약상 처리 범위는 여전히 별도 확인이 필요합니다. <a href="https://www.cloudflare.com/cloudflare-customer-dpa/">공개 데이터 처리 부속 문서</a>를 읽은 것만으로 이 운영자에게 적용되는 계약·위탁·제공·국외 처리의 법적 분류가 모두 확인됐다고 표시하지 않습니다. 새 외부 서비스를 적용할 때 실제 처리와 필요한 고지를 검토합니다.</p>
 <h2 id="local-tools" tabindex="-1">작업표와 계산기의 브라우저 처리</h2>
 <p>콘텐츠 점검 작업표의 URL, 질문, 근거, 중복 후보, 수정 작업, 상태와 확인일은 현재 브라우저의 localStorage에 저장합니다. 이 도구의 코드는 해당 입력값을 서버로 전송하지 않으며 다른 기기와 동기화하지 않습니다. 저장이 차단되면 변경이 현재 탭에만 남을 수 있고 그 상태를 표시합니다. 도구의 전체 삭제는 이 작업표의 저장 키만 삭제합니다. 브라우저의 사이트 데이터 삭제로도 지울 수 있습니다.</p>
 <p>RPM 계산기와 발행 작업 시간표의 입력·결과는 페이지 메모리에서만 처리하고 영구 저장하지 않습니다. 시간표는 새로고침하면 사라집니다. CSV 내보내기는 사용자가 실행할 때 기기에 파일을 생성하며 외부 서비스에 업로드하지 않습니다. 내보낸 파일은 이용자가 별도로 관리·삭제해야 합니다. 공용 기기나 같은 출처의 코드에서는 저장 자료에 접근할 수 있으므로 비밀번호, 인증 코드와 민감한 개인정보를 입력하지 마세요. 페이지 요청 시 호스팅·보안 서비스에서 처리하는 접속 기록은 이 도구 입력값과 별개입니다.</p>
@@ -810,7 +815,7 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 <h2>문의</h2>
 <p>개인정보 관련 요청은 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 개인정보 처리 책임자는 ${site.company} 대표 ${site.representative}입니다.</p>
 <h2>사업자 정보</h2>
-<p>${site.company} · 사업자등록번호 ${site.businessNumber} · ${site.address}</p>`, "2026-10-28"));
+<p>${site.company} · 사업자등록번호 ${site.businessNumber} · ${site.address}</p>`, "2026-10-29"));
 
 write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우저 저장·호스팅 처리와 향후 광고의 고지·동의·선택·삭제 범위를 구분합니다.", "/cookie-policy/", `
 <p>현재의 브라우저 저장과 호스팅·보안 처리, 향후 광고·분석 도입 시 필요한 검토를 구분합니다. 현재 사이트 자체 코드에는 광고·분석 SDK나 별도 동의 관리 플랫폼(CMP)을 추가하지 않았습니다. 안내 페이지가 있다는 사실은 동의를 수집했거나 필요한 요청 제어를 구현했다는 뜻이 아닙니다.</p>
@@ -819,6 +824,7 @@ write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우�
 <p>쿠키와 localStorage는 서로 다른 저장 기술입니다. 쿠키가 아니라고 필요한 고지·동의 검토가 자동으로 없어지는 것은 아닙니다. 현재 작업표 저장 목적·항목과 호스팅 처리를 나누어 확인해야 합니다.</p>
 <h2 id="storage-scope" tabindex="-1">현재 저장·처리와 향후 계획</h2>
 <div class="article-table-scroll" role="region" aria-label="브라우저 저장과 광고 도입 상태" tabindex="0"><table><caption>향후 계획을 현재 사용 목록으로 적지 않습니다</caption><thead><tr><th scope="col">범위</th><th scope="col">현재 상태</th><th scope="col">관리·확인</th></tr></thead><tbody><tr><th scope="row">작업표 localStorage</th><td>이 브라우저의 입력 기록 저장, 고정 자동 만료일 없음</td><td>작업표 삭제는 해당 키만 대상. 기기의 CSV 사본은 별도 관리</td></tr><tr><th scope="row">계산기·시간표</th><td>페이지 메모리 처리, 입력 영구 저장 없음</td><td>새로고침으로 사라지며 내보낸 파일은 별도 관리</td></tr><tr><th scope="row">Cloudflare 호스팅·보안</th><td>페이지 요청 처리, 활성 제품에 따라 쿠키 사용 가능</td><td>전체 제품의 쿠키를 현재 목록으로 단정하지 않음. 계정별 실제 설정은 별도 확인 필요</td></tr><tr><th scope="row">광고·분석 SDK·CMP</th><td>현재 사이트 자체 코드에 추가하지 않음</td><td>도입 전 실제 제공자·목적·지역·고지·동의와 구현 검사 필요</td></tr></tbody></table></div>
+<p>2026-10-29 이 사이트 Pages 프로젝트의 Web Analytics 비활성을 확인했습니다. 이 상태가 Cloudflare 전체의 접속 정보·보안 쿠키·로그 부재를 뜻하지는 않습니다. <a href="/privacy/#hosting-check">호스팅 설정의 확인 범위</a>에 확인한 사실과 남은 로그·계약 검토를 구분했습니다. 이번 확인을 위해 분석·보안 설정을 변경하지 않았습니다.</p>
 <h2 id="advertising-consent" tabindex="-1">광고 쿠키·동의·개인화 선택</h2>
 <p>향후 Google AdSense 적용 시 Google과 광고 파트너가 이 사이트 및 다른 사이트의 방문 기록을 바탕으로 광고를 제공하는 데 쿠키를 사용할 수 있습니다. 실제 공급업체와 필요한 고지·동의·철회 절차를 확인해 안내를 갱신합니다. EEA·영국·스위스 이용자에게 개인 맞춤 광고를 제공할 때는 현재 공식 인증 CMP·TCF 요구를 확인해야 합니다. 인증은 모든 법률 준수의 보증이 아닙니다.</p>
 <p>개인 맞춤이 아닌 광고도 목적에 따라 쿠키와 필요한 동의 검토가 관련될 수 있습니다. <a href="https://myadcenter.google.com/">Google 내 광고 센터</a>는 Google 광고 개인화 선택을 위한 외부 경로이며 이 사이트 전체의 동의 철회·저장 삭제 버튼은 아닙니다. 현재 이 사이트가 별도 광고 동의·철회 기능을 제공한다고 표시하지 않습니다.</p>
@@ -831,7 +837,7 @@ write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우�
 <h2>정책 업데이트</h2>
 <p>광고 플랫폼, 브라우저 정책, 개인정보 관련 법령은 변경될 수 있습니다. 쿠키 정책에 영향을 주는 변경이 있으면 이 페이지와 업데이트 기록을 통해 반영합니다.</p>
 <h2>문의</h2>
-<p>쿠키와 광고 기술 관련 문의는 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 운영자는 ${site.company}입니다.</p>`, "2026-10-28"));
+<p>쿠키와 광고 기술 관련 문의는 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 운영자는 ${site.company}입니다.</p>`, "2026-10-29"));
 
 write("terms/index.html", staticPage("이용약관", "Alpha AdSense 이용 시 적용되는 기본 약관입니다.", "/terms/", `
 <p>이 약관은 ${site.company}가 운영하는 Alpha AdSense 이용에 관한 기본 조건을 안내합니다. <a href="/privacy/">개인정보처리방침</a>, <a href="/cookie-policy/">쿠키 정책</a>, <a href="/disclaimer/">면책 고지</a>는 각각의 처리·설명 범위를 안내합니다. 사이트 방문이나 문서 열람을 별도로 필요한 개인정보·쿠키 동의를 받은 것으로 취급하지 않습니다.</p>

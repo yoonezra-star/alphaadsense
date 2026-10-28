@@ -706,12 +706,45 @@ test("source and policy cleanup retain valid fragment destinations and scoped re
     const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
     const page = graph.find(item => item["@type"] === "WebPage");
     assert.equal(page.datePublished, "2026-07-13");
-    assert.equal(page.dateModified, "2026-10-28");
+    assert.equal(page.dateModified, ["contact", "privacy", "cookie-policy"].includes(path) ? "2026-10-29" : "2026-10-28");
   }
   const index = JSON.parse(read("search-index.json"));
   assert.ok(index.find(item => item.url === "/sources/").description.includes("확인 한계"));
   assert.ok(index.find(item => item.url === "/official-resources/").description.includes("재확인 필요 범위"));
   assert.ok(read("updates/index.html").includes("8개 운영·정책 문서의 긴 공통 관리 부록을 제거"));
+});
+
+test("operator confirmation narrows inquiry purpose without inventing retention or delivery", () => {
+  const contact = read("contact/index.html");
+  const privacy = read("privacy/index.html");
+  for (const marker of ["사이트 오류·일반 문의", "계약·결제 증빙이나 불필요한 개인정보", "보관·삭제 기준은 현재 미정", "실제 발송·수신·답변 확인은 서로 다릅니다"]) assert.ok(contact.includes(marker), marker);
+  assert.ok(!contact.includes("서비스 제휴 문의를 접수"));
+  assert.ok(privacy.includes("2026-10-29 운영자는 문의 메일의 용도를 사이트 오류·일반 문의로 확인했습니다"));
+  assert.ok(privacy.includes("문의 용도를 확인한 것만으로 삭제가 이뤄졌다고 표시하지 않습니다"));
+  const index = JSON.parse(read("search-index.json"));
+  assert.ok(index.find(item => item.url === "/contact/").description.includes("사이트 오류·일반 문의"));
+});
+
+test("hosting observation scopes disabled Pages analytics and preserves unknown logs and contracts", () => {
+  const privacy = read("privacy/index.html");
+  for (const marker of ['id="hosting-check" tabindex="-1"', "Cloudflare Pages 프로젝트에서 Web Analytics가 비활성 상태", "접속 정보나 서버 기록이 없다고 안내하지 않습니다", "모든 지역·시간·보안 상태의 쿠키·요청을 전수 검사한 결과가 아닙니다", "활성 보안·분석 기능 전체", "로그 보관·계약상 처리 범위는 여전히 별도 확인", "공개 데이터 처리 부속 문서"]) assert.ok(privacy.includes(marker), marker);
+  const cookie = read("cookie-policy/index.html");
+  assert.ok(cookie.includes('href="/privacy/#hosting-check"'));
+  assert.ok(cookie.includes("확인을 위해 분석·보안 설정을 변경하지 않았습니다"));
+  assert.ok(!/static\.cloudflareinsights\.com\/beacon|googletagmanager\.com|adsbygoogle|data-ad-client=/.test(privacy + cookie));
+  assert.ok(read("updates/index.html").includes("전체 보안/로그·적용 계약과 현재 AdSense 상태는 별도 미확인"));
+});
+
+test("operational notice changes retain rights storage boundaries and prior guide dates", () => {
+  const privacy = read("privacy/index.html");
+  for (const marker of ["열람, 정정, 삭제, 처리 중지를 요청", "alphaadsense.content-audit.v1", "내려받은 CSV·공유본·메일함·호스팅 기록을 지우지 않습니다", "2026-10-27 현재 문의 이메일의 구체적인 보관 기한과 정기 삭제 기준은 미정입니다"]) assert.ok(privacy.includes(marker), marker);
+  for (const path of ["contact", "privacy", "cookie-policy"]) {
+    const html = read(`${path}/index.html`);
+    const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-29");
+  }
+  assert.equal(revisedGuides["privacy-policy-for-adsense"].updatedAt, "2026-10-27");
+  assert.ok(!read("privacy/index.html").includes("이 페이지를 관리하는 기준"));
 });
 
 test("wrapped search result titles retain a continuous link area", () => {
