@@ -378,7 +378,7 @@ test("published disclaimer and terms distinguish correction, viewing and consent
   assert.ok(terms.includes("사이트 방문이나 문서 열람을 별도로 필요한 개인정보·쿠키 동의를 받은 것으로 취급하지 않습니다"));
   assert.ok(!terms.includes("내용을 확인한 것으로 봅니다"));
   const graph = JSON.parse(terms.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
-  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-27");
+  assert.equal(graph.find(item => item["@type"] === "WebPage").dateModified, "2026-10-28");
   assert.ok(read("approval-hub/index.html").includes("정책 페이지 실제 사례"));
   assert.ok(read("updates/index.html").includes("공통 면책과 열람·동의의 차이"));
 });
@@ -653,6 +653,65 @@ test("editorial entry pages preserve valid fragments dates and truthful search s
   assert.ok(index.find(item => item.url === "/cookie-policy/").description.includes("광고·CMP 미도입"));
   assert.ok(index.find(item => item.url === "/privacy/").description.includes("아직 정하지 않은 보관 기준"));
   assert.ok(read("updates/index.html").includes("모든 주장·외부 출처·실제 이용 성과를 전수 검증한 것은 아닙니다"));
+});
+
+test("operating pages no longer append repeated management and business matrices", () => {
+  for (const path of ["about", "contact", "privacy", "cookie-policy", "terms", "disclaimer", "editorial-policy", "sources"]) {
+    const html = read(`${path}/index.html`);
+    for (const old of ['class="required-page-note"', "이 페이지를 관리하는 기준", "검토 체크포인트", "운영자 확인 정보", "함께 확인할 필수 문서"]) assert.ok(!html.includes(old), `${path}: ${old}`);
+    const footer = html.split('aria-label="운영 및 정책"')[1].split('</nav>')[0];
+    for (const href of ["/about/", "/contact/", "/privacy/", "/cookie-policy/", "/terms/", "/disclaimer/", "/editorial-policy/", "/sources/"]) assert.ok(footer.includes(`href="${href}"`), `${path}: ${href}`);
+    for (const info of ["564-04-03514", "윤용순", "경기도 파주시 책향기로 183, 5층", "replyleaders@naver.com"]) assert.ok(html.includes(info), `${path}: ${info}`);
+  }
+  const build = readFileSync(join(root, "scripts/build.mjs"), "utf8");
+  for (const unused of ["requiredPageAppendix", "requiredPageMeta", "businessSummaryRows", "const officialLinks"]) assert.ok(!build.includes(unused), unused);
+});
+
+test("official resource selection distinguishes reading from current account and legal verification", () => {
+  const html = read("official-resources/index.html");
+  for (const marker of ['id="resource-selection" tabindex="-1"', 'id="read-source-context" tabindex="-1"', 'aria-label="질문별 공식 원문과 확인 범위"', "원문 재확인 미완료", "조회가 시간 초과", "완성 법률 서식이 아닙니다", "링크가 열린다는 사실만으로 주장이 입증된 것은 아닙니다", 'href="/sources/#claim-evidence-records"']) assert.ok(html.includes(marker), marker);
+  const rows = html.split('<tbody>')[1].split('</tbody>')[0];
+  assert.equal([...rows.matchAll(/<tr>/g)].length, 6);
+  assert.ok(!html.includes("사이트 운영자가 콘텐츠를 관리하고 있다는 신호"));
+});
+
+test("source records connect actual claims to primary definitions implementation and unresolved operations", () => {
+  const html = read("sources/index.html");
+  for (const marker of ['id="evidence-kinds"', 'id="claim-evidence-records"', 'id="source-limitations"', 'id="correction-record"', 'href="/assets/tool-engine.mjs"', 'href="/assets/content-audit.mjs"', 'href="/guides/rpm-cpc-basics/#metric-definitions"', "alphaadsense.content-audit.v1", "모든 출처나 모든 정책 요건을 전수 검증했다는 목록은 아닙니다", "원문 조회가 시간 초과", "메일함 삭제·계약 또는 법률 검토를 완료한 것은 아닙니다"]) assert.ok(html.includes(marker), marker);
+  assert.equal([...html.split('<tbody>')[1].split('</tbody>')[0].matchAll(/<tr>/g)].length, 3);
+  assert.ok(read("editorial-policy/index.html").includes("특정 글자 수나 표·이미지·체크리스트 조합을 모든 문서에 강제하지 않습니다"));
+  assert.ok(read("editorial-policy/index.html").includes("자동 정기 검수나 모든 외부 링크의 상시 감시가 구현되어 있다고 주장하지 않습니다"));
+});
+
+test("operator details and correction access remain explicit without duplicate full business tables", () => {
+  const about = read("about/index.html");
+  const operator = about.split('id="operator-info"')[1].split('<h2 id="content-process"')[0];
+  for (const label of ["상호", "대표자", "사업자등록번호", "사업장 주소", "고객센터"]) assert.ok(operator.includes(`<dt>${label}</dt>`), label);
+  assert.ok(read("contact/index.html").includes('href="/about/#operator-info"'));
+  assert.ok(!read("contact/index.html").includes('<th>사업자등록번호</th>'));
+  assert.ok(read("privacy/index.html").includes("이용자는 본인이 제공한 개인정보에 대해 열람, 정정, 삭제, 처리 중지를 요청할 수 있습니다"));
+  assert.ok(read("privacy/index.html").includes("2026-10-27 현재 문의 이메일의 구체적인 보관 기한과 정기 삭제 기준은 미정입니다"));
+});
+
+test("source and policy cleanup retain valid fragment destinations and scoped revision dates", () => {
+  for (const path of ["about", "contact", "privacy", "cookie-policy", "terms", "disclaimer", "editorial-policy", "sources", "official-resources"]) {
+    const html = read(`${path}/index.html`);
+    for (const [, href] of html.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, `https://alphaadsense.com/${path}/`);
+      if (url.origin !== "https://alphaadsense.com" || !url.hash) continue;
+      const target = read(join(decodeURIComponent(url.pathname).replace(/^\//, ""), "index.html"));
+      assert.ok(target.includes(`id="${decodeURIComponent(url.hash.slice(1))}"`), `${path}: ${href}`);
+    }
+    for (const [, table] of html.matchAll(/<div class="article-table-scroll"([\s\S]*?)<\/div>/g)) for (const marker of ['role="region"', 'tabindex="0"', '<caption>', 'scope="col"', 'scope="row"']) assert.ok(table.includes(marker), `${path}: ${marker}`);
+    const graph = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])["@graph"];
+    const page = graph.find(item => item["@type"] === "WebPage");
+    assert.equal(page.datePublished, "2026-07-13");
+    assert.equal(page.dateModified, "2026-10-28");
+  }
+  const index = JSON.parse(read("search-index.json"));
+  assert.ok(index.find(item => item.url === "/sources/").description.includes("확인 한계"));
+  assert.ok(index.find(item => item.url === "/official-resources/").description.includes("재확인 필요 범위"));
+  assert.ok(read("updates/index.html").includes("8개 운영·정책 문서의 긴 공통 관리 부록을 제거"));
 });
 
 test("wrapped search result titles retain a continuous link area", () => {

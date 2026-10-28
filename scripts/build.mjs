@@ -105,13 +105,6 @@ const articles = [
   ["resources", "seven-day-pre-apply-log-example", "수정 후 관찰 기록: 실제 사례와 재검사 조건", "실제 변경·공개 검사 기록을 바탕으로 관찰과 추정을 나누고, 다음 검사 조건과 미확인 범위를 남기는 방법입니다.", ["변경과 실제 관찰·원인 가설을 구분합니다.", "저장소 변경일과 공개 검사 시점을 같다고 가정하지 않습니다.", "관찰하지 않은 날짜와 계정 결과를 채워 넣지 않습니다.", "고정 대기 일수 대신 변경·자료·증상에 맞춰 재검사합니다."]]
 ];
 
-const officialLinks = [
-  ["AdSense eligibility requirements", "https://support.google.com/adsense/answer/9724?hl=ko"],
-  ["Make sure your site's pages are ready for AdSense", "https://support.google.com/adsense/answer/7299563?hl=ko"],
-  ["AdSense Program policies", "https://support.google.com/adsense/answer/48182?hl=ko"],
-  ["Required content for privacy policy", "https://support.google.com/adsense/answer/1348695?hl=ko"],
-  ["How AdSense uses cookies", "https://support.google.com/adsense/answer/7549925?hl=ko"]
-];
 
 
 function esc(value) {
@@ -126,96 +119,6 @@ function slugPath(slug) {
   return `/guides/${slug}/`;
 }
 
-const requiredPageMeta = {
-  "/about/": {
-    label: "운영 소개",
-    purpose: "사이트의 운영 주체, 작성 범위, 독자에게 제공하는 가치를 설명합니다.",
-    review: "운영자 정보, 사이트 목적, 다루는 주제 범위가 변경될 때 즉시 갱신합니다.",
-    checks: ["사업자 정보와 문의 이메일이 일치하는지 확인합니다.", "승인 보장이나 수익 보장처럼 오해될 수 있는 표현을 쓰지 않습니다.", "운영 목적과 주요 카테고리가 실제 공개 글과 연결되는지 봅니다."]
-  },
-  "/contact/": {
-    label: "문의 창구",
-    purpose: "오류 제보, 수정 요청, 개인정보 관련 요청, 운영 문의를 받을 수 있는 경로를 제공합니다.",
-    review: "문의 이메일과 사업자 정보가 바뀌면 같은 날 수정합니다.",
-    checks: ["문의 가능한 항목을 구체적으로 안내합니다.", "수정 요청 시 필요한 URL과 근거를 안내합니다.", "개별 승인 보장이나 수익 예측 문의에는 답하지 않는 기준을 밝힙니다."]
-  },
-  "/privacy/": {
-    label: "개인정보 고지",
-    purpose: "현재 도구·검색·문의·호스팅 처리와 향후 광고 계획을 나누어 알립니다.",
-    review: "광고, 분석 도구, 문의 처리 방식이 바뀔 때 검토합니다.",
-    checks: ["실제 저장·전송·삭제 범위를 기능별로 확인합니다.", "광고 계획을 현재 처리 사실처럼 쓰지 않습니다.", "미확인 보관·계약 조건은 별도로 확인하고 개인정보 요청 경로를 둡니다."]
-  },
-  "/cookie-policy/": {
-    label: "쿠키 안내",
-    purpose: "쿠키·브라우저 저장의 현재 범위와 광고 적용 시 필요한 선택권을 구분합니다.",
-    review: "광고 또는 분석 도구를 새로 붙일 때 쿠키 유형과 안내 문구를 다시 봅니다.",
-    checks: ["활성 제품을 확인하지 않고 모든 보안 쿠키를 실제 목록으로 적지 않습니다.", "광고 개인화 설정·브라우저 삭제·사이트 동의 기능의 차이를 알립니다.", "현재 제공하지 않는 동의·철회 기능을 있는 것처럼 표시하지 않습니다."]
-  },
-  "/terms/": {
-    label: "이용 기준",
-    purpose: "콘텐츠 이용 범위, 금지 행위, 서비스 변경 가능성을 방문자에게 안내합니다.",
-    review: "사이트 기능, 콘텐츠 제공 방식, 운영 정책이 달라질 때 보강합니다.",
-    checks: ["무단 복제와 오해 유발 재배포를 제한합니다.", "제공 정보가 일반 참고자료임을 설명합니다.", "관련 정책 페이지와 함께 읽을 수 있도록 연결합니다."]
-  },
-  "/disclaimer/": {
-    label: "면책 안내",
-    purpose: "독립 정보 사이트의 설명 범위·판단 한계·정정 경로를 분명히 합니다.",
-    review: "정책 변경 가능성이 큰 주제나 수익 관련 글을 보강할 때 함께 확인합니다.",
-    checks: ["가상 예시·사용자 기록·실제 관찰을 구분합니다.", "본문 오류나 미완료 운영 결정을 면책 문구로 대체하지 않습니다.", "정정 요청 경로와 필요한 최소 제보 정보를 안내합니다."]
-  },
-  "/editorial-policy/": {
-    label: "편집 기준",
-    purpose: "글 작성, 검토, 수정, 출처 표기, 광고 운영 기준을 공개합니다.",
-    review: "새 카테고리 추가, 정책 변경, 오래된 정보 발견 시 업데이트합니다.",
-    checks: ["공식 자료 우선 확인 원칙을 밝힙니다.", "AI 문장 반복이나 출처 없는 복제를 피하는 기준을 적습니다.", "광고와 콘텐츠를 명확히 구분한다는 원칙을 둡니다."]
-  },
-  "/sources/": {
-    label: "출처 관리",
-    purpose: "콘텐츠 작성 시 우선 확인하는 공식 자료와 외부 참고 기준을 정리합니다.",
-    review: "공식 도움말 URL, 정책 문서, 관리 화면 안내가 바뀌면 갱신합니다.",
-    checks: ["공식 자료를 개인 경험보다 우선합니다.", "오래된 링크나 깨진 링크를 정기적으로 확인합니다.", "출처가 불명확한 주장은 본문에 남기지 않습니다."]
-  }
-};
-
-
-function businessSummaryRows() {
-  return `<table class="trust-table"><tbody><tr><th>운영 주체</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`;
-}
-
-function requiredPageAppendix(path) {
-  const meta = requiredPageMeta[path];
-  if (!meta) return "";
-  const related = [
-    ["/about/", "소개"],
-    ["/contact/", "문의"],
-    ["/privacy/", "개인정보처리방침"],
-    ["/cookie-policy/", "쿠키 정책"],
-    ["/terms/", "이용약관"],
-    ["/disclaimer/", "면책 고지"],
-    ["/editorial-policy/", "운영 원칙"],
-    ["/sources/", "출처"]
-  ].filter(([href]) => href !== path);
-  return `<section class="required-page-note">
-    <p class="eyebrow">${meta.label}</p>
-    <h2>이 페이지를 관리하는 기준</h2>
-    <div class="trust-matrix">
-      <article>
-        <h3>페이지 목적</h3>
-        <p>${meta.purpose}</p>
-      </article>
-      <article>
-        <h3>검토 주기</h3>
-        <p>${meta.review}</p>
-      </article>
-    </div>
-    <h3>검토 체크포인트</h3>
-    <ul>${meta.checks.map((item) => `<li>${item}</li>`).join("")}</ul>
-    <h3>운영자 확인 정보</h3>
-    ${businessSummaryRows()}
-    <h3>함께 확인할 필수 문서</h3>
-    <div class="mini-links">${related.map(([href, label]) => `<a href="${href}">${label}</a>`).join("")}</div>
-  </section>`;
-}
 
 function schemaScript(items) {
   const graph = Array.isArray(items) ? items : [items];
@@ -520,7 +423,7 @@ function staticPage(title, description, path, inner, updatedAt = siteUpdatedAt) 
     description,
     path,
     updatedAt,
-    content: `<section class="page-hero wrap"><h1>${esc(title)}</h1><p>${esc(description)}</p></section><section class="wrap article">${inner}${requiredPageAppendix(path)}</section>`
+    content: `<section class="page-hero wrap"><h1>${esc(title)}</h1><p>${esc(description)}</p></section><section class="wrap article">${inner}</section>`
   });
 }
 
@@ -621,16 +524,23 @@ write("start-guide/index.html", staticPage("애드센스 사이트 시작 가이
 <h2>기간보다 먼저 확인할 조건</h2>
 <p>핵심 자료가 없으면 집필보다 조사가, 잘못된 연결이 있으면 메뉴 확대보다 목적지 수정이 먼저일 수 있습니다. 수정한 원본과 공개 배포, 실제 운영 결정과 계정 상태를 구분해 <a href="/guides/pre-apply-checklist/">남은 작업과 미확인</a>을 기록합니다. 이 안내에서는 정해진 일수 뒤 재검토를 자동 결정하거나 검토 요청을 실행하지 않습니다.</p>`, "2026-10-28"));
 
-write("official-resources/index.html", staticPage("공식 자료 활용 안내", "애드센스 승인 준비 글을 작성할 때 우선 확인해야 할 공식 자료와 편집 기준을 정리했습니다.", "/official-resources/", `
-<p>승인 준비 사이트는 경험담만으로 구성하면 기준이 흔들리기 쉽습니다. Alpha AdSense는 Google AdSense 도움말, 프로그램 정책, Google Search Central, Cloudflare 문서처럼 공개적으로 확인 가능한 자료를 먼저 참고하고, 실제 운영자가 이해하기 쉬운 실행 순서로 다시 정리합니다.</p>
-<h2>우선 확인하는 주요 자료</h2>
-<table><thead><tr><th>자료</th><th>확인하는 내용</th><th>사용 방식</th></tr></thead><tbody><tr><td>Google AdSense 도움말</td><td>신청, 사이트 검토, 계정 설정, 광고 운영 기본</td><td>승인 준비 글의 최종 기준으로 확인</td></tr><tr><td>AdSense 프로그램 정책</td><td>금지 콘텐츠, 무효 트래픽, 광고 배치 원칙</td><td>정책 체크와 면책 문구 작성 기준</td></tr><tr><td>Google Search Central</td><td>색인, 사이트맵, 검색 노출 기본</td><td>Search Console 점검 글의 참고 기준</td></tr><tr><td>Cloudflare Pages 문서</td><td>배포, 커스텀 도메인, HTTPS</td><td>도메인 연결과 기술 점검 설명에 활용</td></tr></tbody></table>
-<h2>자료를 읽을 때 주의할 점</h2>
-<ul><li>공식 자료에 없는 최소 글 개수나 승인 기간을 단정하지 않습니다.</li><li>정책이 바뀔 수 있는 내용은 작성일과 수정일을 함께 관리합니다.</li><li>개별 사례를 모든 사이트에 적용되는 절대 기준처럼 설명하지 않습니다.</li><li>수익, 클릭률, RPM 관련 내용은 승인 이후 운영 주제로 분리합니다.</li></ul>
-<h2>함께 확인하면 좋은 내부 자료</h2>
-<ul><li><a href="/sources/">출처 및 참고자료</a></li><li><a href="/editorial-policy/">운영 원칙</a></li><li><a href="/guides/cloudflare-gabia-domain-guide/">가비아 도메인을 Cloudflare Pages에 연결하는 순서</a></li><li><a href="/guides/indexing-before-adsense/">애드센스 신청 전 색인 확인 방법</a></li></ul>
-<h2>편집자가 남겨야 할 기록</h2>
-<p>공식 자료를 참고해 글을 수정했다면 어떤 자료를 확인했고 어떤 문장을 바꿨는지 간단히 기록하는 편이 좋습니다. 특히 정책, 쿠키, 광고 배치, 무효 트래픽처럼 기준이 중요한 주제는 수정일을 남겨야 나중에 재검토하기 쉽습니다. 이 기록은 심사자에게 직접 제출하는 문서는 아니지만, 사이트 운영자가 콘텐츠를 관리하고 있다는 신호가 됩니다.</p>`));
+write("official-resources/index.html", staticPage("공식 자료 활용 안내", "본문 품질·정책·개인정보·수익 지표·인증·배포 문제에 맞는 공식 원문과 확인 범위를 고릅니다.", "/official-resources/", `
+<p>먼저 확인할 질문을 정한 뒤 그 질문에 맞는 원문으로 이동하세요. 공식 자료가 모든 사이트의 승인 여부를 판정해 주지는 않습니다. 이 페이지는 원문을 찾는 안내이고, 실제 주장과 근거의 대조 기록은 <a href="/sources/#claim-evidence-records">출처 및 검증 기록</a>에서 확인할 수 있습니다.</p>
+<h2 id="resource-selection" tabindex="-1">질문에 맞는 공식 자료</h2>
+<p>아래 확인 상태는 <time datetime="2026-10-28">2026-10-28</time> 개정 때의 범위입니다. 원문 열람과 계정별 적용·법률 검토·문제 해결은 서로 다릅니다.</p>
+<div class="article-table-scroll" role="region" aria-label="질문별 공식 원문과 확인 범위" tabindex="0"><table><caption>원문을 읽기 전에 무엇을 확인할지 정합니다</caption><thead><tr><th scope="col">확인할 질문</th><th scope="col">공식 원문</th><th scope="col">이번 확인과 남은 범위</th></tr></thead><tbody>
+<tr><th scope="row">본문이 실제 답을 주고 탐색이 정확한가?</th><td><a href="https://support.google.com/adsense/answer/10015918?hl=ko">AdSense 콘텐츠 및 사용자 환경</a></td><td>원문 열람. 글·표·이미지 개수를 승인 점수로 환산하는 자료가 아닙니다.</td></tr>
+<tr><th scope="row">콘텐츠·행동·개인정보 관련 정책은 어디서 보나?</th><td><a href="https://support.google.com/publisherpolicies/answer/10502938?hl=ko">Google 게시자 정책</a></td><td>원문 열람. 개별 페이지의 문맥·권리·적용 조항은 별도로 대조합니다.</td></tr>
+<tr><th scope="row">광고를 도입할 때 개인정보 안내에 무엇을 대조하나?</th><td><a href="https://support.google.com/adsense/answer/1348695?hl=ko">AdSense 개인정보처리방침 필수 콘텐츠</a></td><td>원문 열람. 광고 관련 요구와 이 사이트의 현재 처리·미도입 상태를 구분합니다. 완성 법률 서식이 아닙니다.</td></tr>
+<tr><th scope="row">페이지 RPM의 분모는 무엇인가?</th><td><a href="https://support.google.com/adsense/answer/112030?hl=ko">AdSense 페이지 RPM</a></td><td>수식 대조. 실제 계정 수입·수익 전망을 확인한 것은 아닙니다.</td></tr>
+<tr><th scope="row">Search Console 소유권은 어떻게 확인하나?</th><td><a href="https://support.google.com/webmasters/answer/9008080?hl=ko">Search Console 사이트 소유권 확인</a></td><td>원문 재확인 미완료. 이번 조회가 시간 초과되어 현재 세부 내용을 확인 완료로 표시하지 않습니다. 실제 속성·계정 안내와 원문을 다시 확인하세요.</td></tr>
+<tr><th scope="row">Pages에 도메인을 연결할 때 어디를 확인하나?</th><td><a href="https://developers.cloudflare.com/pages/configuration/custom-domains/">Cloudflare Pages 커스텀 도메인</a></td><td>원문 열람. 루트·하위 도메인의 절차와 현재 설정을 구분합니다. 링크를 읽었다고 DNS·메일·계정 설정을 바꾸지 않습니다.</td></tr>
+</tbody></table></div>
+<h2 id="read-source-context" tabindex="-1">원문과 내 상황을 대조하기</h2>
+<ol><li>확인할 문장·질문과 대상 제품·지역·계정 상태를 적습니다.</li><li>원문의 제목·해당 절·조건·예외를 읽습니다. 한국어와 다른 언어의 뜻이 충돌하면 번역만으로 단정하지 않습니다.</li><li>정의나 정책 요구와 이 사이트의 실제 관찰·운영자 설명을 나눕니다. 공식 문서에 없는 수치나 기한을 덧붙이지 않습니다.</li><li>확보하지 못한 원문이나 계정 자료는 재확인 대상으로 남깁니다. 링크가 열린다는 사실만으로 주장이 입증된 것은 아닙니다.</li></ol>
+<p>이 목록은 정기 자동 링크 검사나 정책 변경 알림을 실행하지 않습니다. 중요한 설정 변경이나 검토 요청 전에는 현재 원문·계정 안내를 다시 확인해야 합니다.</p>
+<h2>적용 기록을 확인하려면</h2>
+<p><a href="/sources/#claim-evidence-records">실제 주장별 근거 대조</a>는 이 사이트의 수식·저장 코드·운영 미정 사항을 구분합니다. 출처가 틀렸거나 더는 주장을 뒷받침하지 않는다면 <a href="/contact/#correction-request">오류·출처 정정 요청</a>으로 알려 주세요. 공식 링크는 Google과의 제휴나 이 사이트의 승인 인증을 뜻하지 않습니다.</p>`, "2026-10-28"));
 
 write("approval-hub/index.html", staticPage("애드센스 승인 준비 허브", "현재 문제와 확보한 자료에 따라 본문·접근·운영 정보·검토 근거의 상세 절로 연결합니다.", "/approval-hub/", `
 <p>어디부터 확인할지 정했다면 해당 상세 절로 바로 이동하세요. 이 허브는 자료를 고르는 입구이며 모든 문서를 따라 읽는 승인 과정이나 자동 사이트 검사기가 아닙니다.</p>
@@ -682,7 +592,7 @@ const searchableStaticPages = [
   ["/start-guide/", "애드센스 사이트 시작 가이드", "운영 주체·독자 질문·확보 자료·허브 역할과 남은 작업을 정하는 시작 안내입니다.", "시작"],
   ["/approval-hub/", "애드센스 승인 준비 허브", "현재 문제에 필요한 확인 자료를 고르고 본문·접근·운영 정보·검토 근거의 상세 절로 바로 이동합니다.", "허브"],
   ["/next-steps/", "상황별 다음 단계", "도메인만 있음·본문 중복·거절 안내·승인 후 운영에서 다음 행동과 보류 조건을 고릅니다.", "허브"],
-  ["/official-resources/", "공식 자료 활용 안내", "애드센스와 검색, 배포 관련 공식 자료를 확인하는 기준입니다.", "자료"],
+  ["/official-resources/", "공식 자료 활용 안내", "확인할 질문에 맞는 공식 원문과 열람·재확인 필요 범위를 고릅니다.", "자료"],
   ["/faq/", "애드센스 초보자 FAQ", "글 수·이미지·도메인·검색 인증·AI 초안·재검토 시점을 구분하고 상세 근거로 연결합니다.", "FAQ"],
   ["/tools/", "콘텐츠·운영 도구", "콘텐츠 작업표, RPM 계산과 운영 계획 도구를 모았습니다.", "도구"],
   ["/tools/approval-score/", "콘텐츠 점검 작업표", "글 URL, 독자의 질문, 확인 근거와 수정 작업을 기록하고 브라우저 저장과 CSV 내보내기를 제공합니다.", "도구"],
@@ -691,8 +601,8 @@ const searchableStaticPages = [
   ["/checklist/", "재검토 전 점검 안내", "근거 점검 절차, URL별 작업표와 계정 확인 자료로 연결합니다. 점수로 준비 완료를 판정하지 않습니다.", "점검 안내"],
   ["/privacy/", "개인정보처리방침", "작업표의 브라우저 저장·검색 URL·문의 이메일·호스팅과 삭제 범위, 아직 정하지 않은 보관 기준을 안내합니다.", "정책"],
   ["/cookie-policy/", "쿠키 정책", "현재 저장 기술과 광고·CMP 미도입 상태, 이용자가 관리할 범위와 도입 전 확인 과제를 안내합니다.", "정책"],
-  ["/editorial-policy/", "운영 원칙", "콘텐츠 작성 기준과 정책 준수 원칙입니다.", "운영"],
-  ["/sources/", "출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "자료"],
+  ["/editorial-policy/", "운영 원칙", "근거 대조·AI 지원·관찰과 가상 예시·수정·광고 도입 전 검토의 편집 원칙입니다.", "운영"],
+  ["/sources/", "출처 및 참고자료", "실제 주장·공식 정의·공개 코드·운영자 설명과 확인 한계를 연결한 검증 기록입니다.", "자료"],
   ["/about/", "소개", "Alpha AdSense의 운영 목적, 리플리더스 운영자 정보와 편집 범위입니다.", "운영"],
   ["/contact/", "문의", "오류 정정과 운영 문의를 보내는 연락처와 필요한 정보입니다.", "운영"]
 ];
@@ -723,6 +633,7 @@ write("sitemap/index.html", staticPage("전체 글 목록", "Alpha AdSense의 �
 write("updates/index.html", staticPage("업데이트 기록", "사이트 구조, 콘텐츠, 이미지, 정책 페이지, 검색 기능 보강 이력을 정리한 운영 기록입니다.", "/updates/", `
 <h2>최근 업데이트</h2>
 <ol class="update-list">
+  <li><strong>2026-10-28</strong><span><a href="/official-resources/">공식 자료 안내</a>는 질문별 원문 선택과 확인 범위로, <a href="/sources/">출처</a>는 실제 주장·근거·한계 기록으로 구분했습니다. 8개 운영·정책 문서의 긴 공통 관리 부록을 제거하고 소개에 사업자 상세, 문의에 정정 경로를 남겼습니다. 개인정보·쿠키·약관·면책의 고유 본문과 보관 미정·처리 범위는 유지했습니다. 운영 원칙의 고정 글 형식·전수 검수 오해도 바로잡았습니다. 이번 정리가 보관 기준 확정·법률 검토·계정 확인·재검토 요청을 뜻하지 않습니다.</span></li>
   <li><strong>2026-10-28</strong><span>여섯 카테고리의 반복 경로표·구성 개수 표시를 줄이고 추천 목록과 나머지 문서를 나눴습니다. <a href="/approval-hub/">승인 준비 허브</a>는 문제별 확인 자료, <a href="/next-steps/">상황별 다음 단계</a>는 다음 행동·보류 조건으로 구분했습니다. <a href="/faq/">FAQ</a>의 글 형식·도메인·검색 상태·재검토 설명과 검색 요약을 맞췄습니다. 34개 개별 본문의 기계적 반복 탐색과 일부 역할 비교를 수행했으나 모든 주장·외부 출처·실제 이용 성과를 전수 검증한 것은 아닙니다. URL 병합·계정 변경·재검토 요청은 하지 않았습니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/guides/rejection-message-map/">거절 안내 해석</a>과 <a href="/guides/low-value-rejection-rewrite-example/">실제 허브 글 개정 사례</a>를 재작성했습니다. 원문·관찰·가설·미확인을 나누고 실제 과거 문장·편집 판단·공개 화면을 연결했습니다. 34개 가이드 모두 개별 본문으로 전환해 예전 공통 본문 자동 삽입을 제거했습니다. 개정 수·검사 통과가 전체 개선 완료나 승인 판정은 아니며 실제 운영·계정 확인과 재검토 요청은 별도입니다.</span></li>
   <li><strong>2026-10-28</strong><span><a href="/guides/domain-and-trust/">도메인·운영자 신뢰 확인</a>과 <a href="/guides/thin-category-pages/">허브 편집 판단</a>을 재작성했습니다. 승인·거절 허브에 상황별 출발점을 추가하고 작성·검토 표시를 실제 AI 지원·제작 방식 안내로 연결했습니다. 시작 안내의 고정 3일 일정을 남은 조건별 작업으로 바꿨습니다. 사업자 외부 조회·메일 수신 검증·URL 병합·계정 변경·재검토 요청은 실행하지 않았습니다.</span></li>
@@ -852,7 +763,8 @@ write("tools/content-planner/index.html", staticPage("콘텐츠 발행 계획·�
 write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적과 콘텐츠 작성 원칙을 안내합니다.", "/about/", `
 <p>Alpha AdSense는 애드센스 승인을 준비하는 초보 사이트 운영자를 위해 만들어진 독립 정보 사이트입니다. 승인 보장을 약속하지 않고, 공식 정책을 기준으로 사이트 구조와 콘텐츠 품질을 점검하는 방법을 정리합니다.</p>
 <h2 id="operator-info" tabindex="-1">운영 주체</h2>
-<p>이 사이트는 ${site.company}가 운영합니다. 대표자는 ${site.representative}이며, 사업자등록번호는 ${site.businessNumber}입니다. 운영 관련 문의는 <a href="mailto:${site.email}">${site.email}</a>로 받을 수 있습니다.</p>
+<p>이 사이트는 ${site.company}가 운영합니다. 아래는 운영자가 제공한 공개 사업자 정보입니다. 표시 자체가 외부 등록 조회·전문성·광고 승인을 인증하는 것은 아닙니다.</p>
+<dl class="article-decisions"><dt>상호</dt><dd>${site.company}</dd><dt>대표자</dt><dd>${site.representative}</dd><dt>사업자등록번호</dt><dd>${site.businessNumber}</dd><dt>사업장 주소</dt><dd>${site.address}</dd><dt>고객센터</dt><dd><a href="mailto:${site.email}">${site.email}</a></dd></dl>
 <h2 id="content-process" tabindex="-1">콘텐츠 제작·검토 방식</h2>
 <p>자료 정리·초안 작성·코드 보완에는 AI 도구의 지원을 사용합니다. 공식 원문·수식·소스·공개 화면을 대조하고 직접 관찰·가상 예시·미확인 계정 상태를 구분하는 방식으로 안내를 보완합니다. 각 글의 작성·검토에 표시한 조직명은 이 운영 주체와 연결됩니다.</p>
 <p>이 표시는 모든 내용이 사람 전문가의 전수 검수를 받았다는 뜻이나 전문 자격·등록 유효성·승인 성과 인증이 아닙니다. 존재하지 않는 개인 저자·경력·전문가 사진·실측 후기를 만들지 않습니다. 실제 수정 판단은 <a href="/guides/approval-friendly-article-format/">원문 편집 사례</a>와 <a href="/guides/privacy-cookie-page-example/">정책 개정 사례</a>, <a href="/updates/">변경 기록</a>에서 확인할 수 있습니다.</p>
@@ -862,8 +774,7 @@ write("about/index.html", staticPage("소개", "Alpha AdSense의 운영 목적�
 <p>Alpha AdSense는 애드센스 승인 준비, 거절 사유 점검, 정책 페이지 구성, 글쓰기 구조, Search Console 확인, 승인 후 초기 광고 운영을 다룹니다. 개별 사이트의 승인 결과를 대신 판단하지 않으며, 법률·세무·투자 자문도 제공하지 않습니다.</p>
 <h2>독자에게 제공하는 가치</h2>
 <p>이 사이트의 목표는 초보 운영자가 신청 전 스스로 점검할 수 있는 기준을 갖도록 돕는 것입니다. 그래서 단순한 요약보다 체크리스트, 사례, 도구, 공식 자료 링크를 함께 제공합니다. 독자는 각 글을 읽고 자신의 사이트에 적용할 항목과 보류할 항목을 구분할 수 있어야 합니다.</p>
-<h2>운영 정보</h2>
-<table><tbody><tr><th>상호</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`, "2026-10-28"));
+<p>오류나 오래된 설명은 <a href="/contact/#correction-request">문의·정정 안내</a>로 알려 주세요. 실제 저장·검색·문의 처리의 범위는 <a href="/privacy/">개인정보처리방침</a>에서 확인할 수 있습니다.</p>`, "2026-10-28"));
 
 write("contact/index.html", staticPage("문의", "사이트 내용 오류, 수정 요청, 운영 관련 문의를 보낼 수 있습니다.", "/contact/", `
 <p>문의는 이메일로 보내 주세요. 사이트 내용 오류, 오래된 정보, 링크 오류, 정책상 문제가 있을 수 있는 표현, 서비스 제휴 문의를 접수할 수 있습니다.</p>
@@ -875,8 +786,7 @@ write("contact/index.html", staticPage("문의", "사이트 내용 오류, 수�
 <h2 id="correction-request" tabindex="-1">수정 요청 방법</h2>
 <p>수정 요청을 보낼 때는 문제가 있는 페이지 주소, 수정이 필요한 문장, 참고할 수 있는 공식 자료나 근거를 함께 보내 주세요. 단순 의견보다 확인 가능한 근거가 있을 때 더 빠르게 검토할 수 있습니다.</p>
 <p>비밀번호·인증 코드·계정 접근 정보·민감한 원본 로그는 보내지 마세요. 문의 이메일 보관·삭제 기준은 현재 미정이며 <a href="/privacy/">개인정보처리방침</a>의 처리 범위를 확인할 수 있습니다. 메일 링크를 여는 것과 실제 발송·수신·답변 확인은 서로 다릅니다.</p>
-<h2>운영자 정보</h2>
-<table><tbody><tr><th>상호</th><td>${site.company}</td></tr><tr><th>대표자</th><td>${site.representative}</td></tr><tr><th>사업자등록번호</th><td>${site.businessNumber}</td></tr><tr><th>사업장 주소</th><td>${site.address}</td></tr><tr><th>고객센터</th><td><a href="mailto:${site.email}">${site.email}</a></td></tr></tbody></table>`, "2026-10-28"));
+<p>운영 주체·대표자·사업자등록번호·주소는 <a href="/about/#operator-info">공개 운영자 정보</a>에서 확인할 수 있습니다.</p>`, "2026-10-28"));
 
 write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSense의 개인정보 처리와 쿠키, 광고 관련 고지 사항입니다.", "/privacy/", `
 <p>${site.company}가 운영하는 Alpha AdSense의 현재 도구·검색·이메일 문의·호스팅 처리와 향후 광고 계획을 나누어 안내합니다. 현재 사이트 자체 코드에 광고·분석 SDK를 추가하지 않았습니다. 페이지를 제공하는 호스팅·보안 서비스의 처리는 도구 입력값 처리와 별개입니다.</p>
@@ -900,7 +810,7 @@ write("privacy/index.html", staticPage("개인정보처리방침", "Alpha AdSens
 <h2>문의</h2>
 <p>개인정보 관련 요청은 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 개인정보 처리 책임자는 ${site.company} 대표 ${site.representative}입니다.</p>
 <h2>사업자 정보</h2>
-<p>${site.company} · 사업자등록번호 ${site.businessNumber} · ${site.address}</p>`, "2026-10-27"));
+<p>${site.company} · 사업자등록번호 ${site.businessNumber} · ${site.address}</p>`, "2026-10-28"));
 
 write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우저 저장·호스팅 처리와 향후 광고의 고지·동의·선택·삭제 범위를 구분합니다.", "/cookie-policy/", `
 <p>현재의 브라우저 저장과 호스팅·보안 처리, 향후 광고·분석 도입 시 필요한 검토를 구분합니다. 현재 사이트 자체 코드에는 광고·분석 SDK나 별도 동의 관리 플랫폼(CMP)을 추가하지 않았습니다. 안내 페이지가 있다는 사실은 동의를 수집했거나 필요한 요청 제어를 구현했다는 뜻이 아닙니다.</p>
@@ -921,7 +831,7 @@ write("cookie-policy/index.html", staticPage("쿠키 정책", "현재 브라우�
 <h2>정책 업데이트</h2>
 <p>광고 플랫폼, 브라우저 정책, 개인정보 관련 법령은 변경될 수 있습니다. 쿠키 정책에 영향을 주는 변경이 있으면 이 페이지와 업데이트 기록을 통해 반영합니다.</p>
 <h2>문의</h2>
-<p>쿠키와 광고 기술 관련 문의는 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 운영자는 ${site.company}입니다.</p>`, "2026-10-27"));
+<p>쿠키와 광고 기술 관련 문의는 <a href="mailto:${site.email}">${site.email}</a>로 보낼 수 있습니다. 운영자는 ${site.company}입니다.</p>`, "2026-10-28"));
 
 write("terms/index.html", staticPage("이용약관", "Alpha AdSense 이용 시 적용되는 기본 약관입니다.", "/terms/", `
 <p>이 약관은 ${site.company}가 운영하는 Alpha AdSense 이용에 관한 기본 조건을 안내합니다. <a href="/privacy/">개인정보처리방침</a>, <a href="/cookie-policy/">쿠키 정책</a>, <a href="/disclaimer/">면책 고지</a>는 각각의 처리·설명 범위를 안내합니다. 사이트 방문이나 문서 열람을 별도로 필요한 개인정보·쿠키 동의를 받은 것으로 취급하지 않습니다.</p>
@@ -934,7 +844,7 @@ write("terms/index.html", staticPage("이용약관", "Alpha AdSense 이용 시 �
 <h2>변경과 중단</h2>
 <p>사이트 구조, 콘텐츠, 도구, 정책 문구는 운영 상황과 외부 플랫폼 정책 변화에 따라 사전 고지 없이 수정될 수 있습니다. 필요한 경우 일부 페이지나 기능의 제공을 일시 중단할 수 있습니다.</p>
 <h2>운영자 정보</h2>
-<p>${site.company} · 대표자 ${site.representative} · 사업자등록번호 ${site.businessNumber} · 고객센터 <a href="mailto:${site.email}">${site.email}</a></p>`, "2026-10-27"));
+<p>${site.company} · 대표자 ${site.representative} · 사업자등록번호 ${site.businessNumber} · 고객센터 <a href="mailto:${site.email}">${site.email}</a></p>`, "2026-10-28"));
 
 write("disclaimer/index.html", staticPage("면책 고지", "독립 정보 사이트의 설명 범위·판단 한계·도구 결과와 정정 요청 경로를 안내합니다.", "/disclaimer/", `
 <p>Alpha AdSense는 애드센스 승인 준비를 돕는 정보 사이트이며, Google AdSense와 공식적으로 제휴된 심사 대행 서비스가 아닙니다. 제공되는 정보는 운영자가 사이트를 점검하는 데 참고할 수 있는 기준이며, 최종 판단은 Google AdSense의 정책과 심사 결과를 따릅니다.</p>
@@ -950,37 +860,40 @@ write("disclaimer/index.html", staticPage("면책 고지", "독립 정보 사이
 <p>작업표의 ‘확인 완료’는 사용자가 근거·확인일을 기록한 상태입니다. 계산 결과는 입력과 수식에 따른 값이며 미래 수익 예측이 아닙니다. 거절 진단·계획 안내와 공개 화면도 실제 계정 심사·동의 수집·법률 준수를 대신하지 않습니다. <a href="/guides/disclaimer-page-guide/#scope-next-to-evidence">도구·사례별 설명 범위</a>에서 자세히 확인할 수 있습니다.</p>
 <h2 id="correction-route" tabindex="-1">정정 요청과 남은 운영 과제</h2>
 <p>${site.company}는 정확한 정보를 제공하기 위해 노력하지만 개별 승인·수익 결과를 보장하지 않습니다. 오류나 오래된 설명은 <a href="/contact/">문의 안내</a> 또는 <a href="mailto:${site.email}">${site.email}</a>로 알려 주세요. 공개 URL·문제 문장·참고 근거를 보내되 비밀번호·인증 코드·민감한 원본 로그는 보내지 마세요.</p>
-<p>문의 이메일의 보관·삭제 기준은 현재 미정이며 실제 기준 확정이 남아 있습니다. <a href="/privacy/">현재 개인정보처리방침</a>과 <a href="/guides/privacy-cookie-page-example/#open-operational-work">정책 개정 사례의 남은 과제</a>를 확인할 수 있습니다. 이 고지로 법적 책임의 구체적인 범위를 일괄 배제하거나 개인정보·권리·정책 문제를 해결했다고 주장하지 않습니다. 필요한 법률·계약 검토는 별도입니다.</p>`, "2026-10-27"));
+<p>문의 이메일의 보관·삭제 기준은 현재 미정이며 실제 기준 확정이 남아 있습니다. <a href="/privacy/">현재 개인정보처리방침</a>과 <a href="/guides/privacy-cookie-page-example/#open-operational-work">정책 개정 사례의 남은 과제</a>를 확인할 수 있습니다. 이 고지로 법적 책임의 구체적인 범위를 일괄 배제하거나 개인정보·권리·정책 문제를 해결했다고 주장하지 않습니다. 필요한 법률·계약 검토는 별도입니다.</p>`, "2026-10-28"));
 
-write("editorial-policy/index.html", staticPage("운영 원칙", "Alpha AdSense의 콘텐츠 작성 기준, 정책 준수 원칙, 광고 운영 기준을 안내합니다.", "/editorial-policy/", `
-<p>Alpha AdSense는 애드센스 승인을 준비하는 운영자에게 실무적으로 도움이 되는 정보를 제공하기 위해 운영됩니다. 이 사이트는 승인 보장, 정책 우회, 클릭 유도, 무효 트래픽 유발 방법을 다루지 않습니다.</p>
-<h2>콘텐츠 작성 기준</h2>
-<ul><li>공식 도움말과 실제 사이트 운영에 필요한 점검 기준을 우선합니다.</li><li>단순 반복 문장보다 절차, 예시, 체크리스트, 주의점을 포함합니다.</li><li>정책이나 기능이 바뀔 수 있는 내용은 정기적으로 검토합니다.</li><li>타인의 글을 복제하지 않고 독자가 실행할 수 있는 설명을 제공합니다.</li><li>본문은 문제, 판단 기준, 실행 방법, 확인 항목이 드러나도록 구성합니다.</li></ul>
-<h2>검수 절차</h2>
-<p>새 글을 발행하거나 기존 글을 수정할 때는 주제 적합성, 공식 자료와의 충돌 여부, 내부 링크, 모바일 가독성, 과장 표현을 확인합니다. 승인 관련 글은 독자가 그대로 따라 했을 때 정책 위반으로 이어질 수 있는 표현이 없는지 별도로 검토합니다.</p>
-<h2>수정과 업데이트</h2>
-<p>Google AdSense 정책, Google Search Console 화면, Cloudflare Pages 설정, 도메인 연결 방식은 바뀔 수 있습니다. 변경 가능성이 있는 글은 업데이트 기록을 남기고, 오래된 정보가 발견되면 관련 문단을 고치거나 최신 자료로 연결합니다.</p>
-<h2>정책 준수 기준</h2>
-<ul><li>애드센스 프로그램 정책과 Google 게시자 정책을 기준으로 콘텐츠를 점검합니다.</li><li>금지 콘텐츠, 오해를 부르는 수익 보장 표현, 광고 클릭 유도 표현을 사용하지 않습니다.</li><li>의료, 금융, 법률처럼 신중한 판단이 필요한 주제는 단정적인 조언을 피합니다.</li></ul>
-<h2>광고 운영 기준</h2>
-<p>광고가 적용될 경우 광고와 콘텐츠가 명확히 구분되도록 운영합니다. 사용자가 실수로 광고를 클릭하게 만드는 배치, 과도한 광고 밀도, 콘텐츠를 가리는 광고 방식은 사용하지 않습니다.</p>
-<h2>출처와 인용</h2>
-<p>공식 도움말, 정책 문서, 플랫폼 안내를 우선 참고합니다. 외부 자료를 참고할 때는 원문 의도를 왜곡하지 않고, 필요한 경우 출처 페이지로 연결합니다. 단순 복사보다 운영자가 이해하기 쉬운 해석과 적용 기준을 제공하는 것을 원칙으로 합니다.</p>
-<h2>운영자 독립성</h2>
-<p>Alpha AdSense는 Google AdSense 공식 사이트가 아니며, 심사 결과를 대신 결정하지 않습니다. 콘텐츠는 ${site.company}의 편집 기준에 따라 작성되며, 제휴나 광고가 포함되는 경우 독자가 구분할 수 있도록 표시합니다.</p>
-<h2>수정 요청</h2>
-<p>오류, 오래된 정보, 정책상 문제가 있는 표현을 발견하면 <a href="mailto:${site.email}">${site.email}</a>로 알려 주세요. 요청에는 페이지 주소, 수정이 필요한 문장, 참고 자료를 함께 보내 주시면 검토에 도움이 됩니다.</p>`));
+write("editorial-policy/index.html", staticPage("운영 원칙", "자료 확인·AI 지원·실제 관찰과 가상 예시·정정·광고 도입 전 검토의 편집 원칙을 안내합니다.", "/editorial-policy/", `
+<p>Alpha AdSense는 독자가 실제 질문을 해결할 수 있도록 자료를 정리하는 독립 정보 사이트입니다. 승인 보장·정책 우회·광고 클릭 유도·수익 보장을 제공하지 않습니다. 아래는 편집 원칙이며 모든 문서가 전문가의 전수 검수를 받았다는 인증은 아닙니다.</p>
+<h2 id="editorial-evidence" tabindex="-1">질문과 근거를 먼저 확인합니다</h2>
+<ul><li>독자 질문과 현재 본문이 제공하는 답을 대조합니다. 특정 글자 수나 표·이미지·체크리스트 조합을 모든 문서에 강제하지 않습니다.</li><li>정의·정책·수식은 해당 원문과 대조하고, 코드 동작·공개 화면·운영자 설명은 각 근거의 확인 범위를 밝힙니다.</li><li>외부 내용을 다시 요약하는 데 그치지 않고 실제 비교·검산·관찰 또는 독자의 다음 판단에 필요한 설명을 제공합니다.</li><li>같은 질문과 같은 답을 반복하는 문서는 역할을 비교합니다. URL 이관은 대체 답·기존 연결을 확인한 뒤 검토하며 심사 때만 숨기지 않습니다.</li></ul>
+<h2 id="ai-and-review" tabindex="-1">AI 지원과 확인 범위를 공개합니다</h2>
+<p>자료 정리·초안·코드 보완에 AI 지원을 사용합니다. 문체만 바꾸어 사실 검증을 대신하거나 존재하지 않는 경험·개인 저자·자격·검수 이력을 붙이지 않습니다. 조직 표기의 의미와 실제 제작 방식은 <a href="/about/#content-process">콘텐츠 제작·검토 방식</a>에서 확인할 수 있습니다.</p>
+<p>공식 정의, 직접 확인한 화면·코드, 가상 예시, 미확인 계정 상태를 구분합니다. 기술 검사 통과가 실제 사용자 만족·정책 준수·광고 심사를 확인한 것은 아닙니다. 확인하지 못한 문장이나 자료를 전수 검증 완료로 표시하지 않습니다.</p>
+<h2 id="editorial-corrections" tabindex="-1">수정과 근거를 함께 남깁니다</h2>
+<p>근거가 바뀌거나 오류가 발견되면 문제 문장·원문·수정 이유·공개 결과와 남은 미확인을 대조합니다. 실질적으로 고친 문서의 수정일을 바꾸며 과거 관찰일·화면 날짜를 현재 사실처럼 덮어쓰지 않습니다. <a href="/sources/#claim-evidence-records">주장별 검증 기록</a>과 <a href="/updates/">공개 변경 기록</a>은 서로 다른 확인 지점입니다.</p>
+<p>자동 정기 검수나 모든 외부 링크의 상시 감시가 구현되어 있다고 주장하지 않습니다. 현재 원문을 확인하지 못하면 그 범위를 남기고 중요한 결정을 앞두고 다시 확인합니다.</p>
+<h2>광고·제휴와 독립성</h2>
+<p>현재 사이트 자체 코드에는 광고·분석 SDK·CMP를 추가하지 않았습니다. 도입한다면 광고·제휴와 편집 콘텐츠를 구분하고 우발 클릭·가림·동의 등 실제 요구를 검토해야 합니다. 계획을 현재 구현 완료로 쓰거나 Google의 공식 서비스·승인 대행으로 표시하지 않습니다.</p>
+<h2>정정 요청</h2>
+<p><a href="/contact/#correction-request">수정 요청 안내</a>를 따라 공개 URL·문제 문장·참고 근거를 보내 주세요. 비밀번호·인증 코드·민감한 원본 로그는 보내지 마세요. 응답 시간·정정 기한·개별 심사 결과는 보장하지 않습니다. 이메일 보관·삭제 기준은 현재 미정이며 실제 운영 결정과 <a href="/privacy/">개인정보 안내</a>의 갱신은 별도 과제입니다.</p>`, "2026-10-28"));
 
-write("sources/index.html", staticPage("출처 및 참고자료", "사이트 작성 시 우선 확인하는 공식 자료 목록입니다.", "/sources/", `
-<p>Alpha AdSense의 글은 승인 보장식 경험담보다 공식 도움말과 실제 운영 점검 기준을 우선합니다. 아래 자료는 콘텐츠 작성, 정책 확인, 도메인 연결, 색인 점검, 광고 운영 기준을 확인할 때 반복적으로 참고하는 기본 출처입니다.</p>
-<h2>우선 확인하는 공식 자료</h2>
-<ul>${officialLinks.map(([label, href]) => `<li><a href="${href}" rel="nofollow noopener">${esc(label)}</a></li>`).join("")}</ul>
-<h2>자료 활용 기준</h2>
-<ul><li>정책 판단이 필요한 내용은 Google AdSense 고객센터와 Google 게시자 정책을 우선 확인합니다.</li><li>색인, 사이트맵, 검색 노출 관련 내용은 Google Search Console 도움말을 참고합니다.</li><li>도메인, DNS, 배포 관련 내용은 Cloudflare와 Gabia의 최신 관리자 화면을 기준으로 재확인합니다.</li><li>공식 자료와 개인 경험담이 충돌할 때는 공식 자료를 우선합니다.</li></ul>
-<h2>최신성 확인</h2>
-<p>외부 플랫폼의 도움말과 관리자 화면은 변경될 수 있습니다. 중요한 신청, DNS 변경, 광고 설정을 진행하기 전에는 링크된 공식 페이지의 날짜, 화면 안내, 계정 알림을 다시 확인해야 합니다.</p>
-<h2>인용과 오류 제보</h2>
-<p>이 사이트의 글에서 출처가 불명확하거나 오래된 링크를 발견하면 <a href="mailto:${site.email}">${site.email}</a>로 알려 주세요. 검토 후 수정이 필요한 경우 페이지 본문과 업데이트 기록에 반영합니다.</p>`));
+write("sources/index.html", staticPage("출처 및 참고자료", "실제 주장·근거 종류·대조 결과와 확인하지 못한 범위를 연결한 편집 기록입니다.", "/sources/", `
+<p>이 페이지는 공식 링크 목록이 아니라 이 사이트의 주장과 근거를 어떻게 대조했는지 보여 주는 기록입니다. 필요한 공식 원문을 찾으려면 <a href="/official-resources/#resource-selection">질문별 공식 자료</a>를, 제작 방식은 <a href="/about/#content-process">AI 지원·검토 범위</a>를 확인하세요.</p>
+<h2 id="evidence-kinds" tabindex="-1">근거의 종류를 구분합니다</h2>
+<dl class="article-decisions"><dt>공식 정의·정책</dt><dd>원문의 대상 제품·조건·해당 절을 대조합니다. 일반 요건을 개별 계정의 승인 판정으로 바꾸지 않습니다.</dd><dt>코드·공개 화면의 관찰</dt><dd>실제로 확인한 버전·페이지·시간 범위를 남깁니다. 코드에서 가능한 동작과 모든 기기·계정에서 관찰한 결과는 다릅니다.</dd><dt>운영자 설명·미확인</dt><dd>운영자에게 확인한 범위와 외부 검증 여부를 나눕니다. 정하지 않은 기준이나 접근하지 못한 계정 자료를 추정으로 채우지 않습니다.</dd></dl>
+<h2 id="claim-evidence-records" tabindex="-1">실제 주장과 근거 대조</h2>
+<p>아래는 <time datetime="2026-10-28">2026-10-28</time>에 재대조한 대표 기록입니다. 34개 글의 모든 출처나 모든 정책 요건을 전수 검증했다는 목록은 아닙니다.</p>
+<div class="article-table-scroll" role="region" aria-label="실제 주장별 근거와 확인 한계" tabindex="0"><table><caption>주장·근거·해석의 범위를 함께 읽습니다</caption><thead><tr><th scope="col">이 사이트의 주장</th><th scope="col">대조한 근거</th><th scope="col">확인 결과와 남은 한계</th></tr></thead><tbody>
+<tr><th scope="row">페이지 RPM의 분모는 페이지 조회수</th><td><a href="https://support.google.com/adsense/answer/112030?hl=ko">Google 페이지 RPM 정의</a> · <a href="/guides/rpm-cpc-basics/#metric-definitions">이 사이트의 정의·분모 설명</a></td><td>공식 수식과 대조했습니다. 방문자 수로 바꾸지 않았고 가상 계산을 실제 수익이나 전망으로 쓰지 않습니다.</td></tr>
+<tr><th scope="row">작업표는 자체 키로 브라우저 기록을 관리</th><td><a href="/assets/tool-engine.mjs">공개 저장 모듈</a> · <a href="/assets/content-audit.mjs">공개 작업표 코드</a> · <a href="/privacy/#local-tools">브라우저 처리 안내</a></td><td><code>alphaadsense.content-audit.v1</code>과 읽기·저장·삭제 경로를 대조했습니다. 다른 기기·CSV·메일함·호스팅 기록까지 삭제한다는 뜻이 아닙니다.</td></tr>
+<tr><th scope="row">문의 이메일 보관·삭제 기준은 미정</th><td>운영자 답변 · <a href="/privacy/">공개 개인정보처리방침</a> · <a href="/contact/#correction-request">문의 안내</a></td><td>확정되지 않았다는 상태를 고지했습니다. 보관 기준 확정·메일함 삭제·계약 또는 법률 검토를 완료한 것은 아닙니다.</td></tr>
+</tbody></table></div>
+<h2 id="source-limitations" tabindex="-1">열람 실패와 현재 확인을 나눕니다</h2>
+<p>각 가이드의 공식 자료 확인일은 그 문서가 남긴 확인 시점입니다. 이 페이지를 고쳤다고 모든 글의 원문을 오늘 다시 읽은 것으로 바꾸지 않습니다. 공개 화면·과거 스크린샷의 날짜도 해당 관찰 범위를 뜻합니다.</p>
+<p>이번 개정에서는 Search Console 소유권 확인 도움말과 URL 검사 도움말의 원문 조회가 시간 초과되어 현재 세부 내용을 재확인하지 못했습니다. 이를 링크가 영구 삭제됐다는 결론으로 쓰거나 계정 상태·본문 정확성 확인 완료로 표시하지 않습니다. <a href="/official-resources/#resource-selection">공식 자료 안내의 재확인 항목</a>과 현재 계정의 실제 안내를 함께 확인해야 합니다.</p>
+<h2 id="correction-record" tabindex="-1">출처 오류를 제보할 때</h2>
+<p>문제 문서의 URL·해당 문장·현재 공식 원문과 확인 시점을 <a href="/contact/#correction-request">정정 요청 경로</a>로 알려 주세요. 단순히 링크가 열리는지뿐 아니라 실제 주장을 뒷받침하는지 검토할 자료가 필요합니다. 계정 ID·인증 코드·민감한 캡처는 보내지 마세요.</p>
+<p>인용·이미지 사용 권리는 출처 표기와 별도로 확인해야 합니다. 이 페이지는 제3자 자료의 사용 허락이나 법률 준수·Google 제휴를 인증하지 않습니다. 편집의 원칙은 <a href="/editorial-policy/#editorial-evidence">근거 기반 운영 원칙</a>, 실제 변경은 <a href="/updates/">업데이트 기록</a>에 구분합니다.</p>`, "2026-10-28"));
 
 const urls = [
   "/",
